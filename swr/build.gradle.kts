@@ -36,7 +36,7 @@ android {
 
 dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("androidx.compose.ui:ui:1.3.0")
+    implementation("androidx.compose.ui:ui:1.3.1")
     implementation("androidx.lifecycle:lifecycle-common:2.5.1")
 
     testImplementation("junit:junit:4.13.2")
