@@ -13,4 +13,5 @@ dependencyResolutionManagement {
     }
 }
 rootProject.name = "swr_compose"
+include(":example")
 include(":swr")
