@@ -12,7 +12,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.cache.LocalSWRSystemCache
-import com.kazakago.swr.compose.config.LocalSWRConfig
 import com.kazakago.swr.compose.config.SWRConfig
 import com.kazakago.swr.compose.mutate.LocalSWRMutateConfig
 import com.kazakago.swr.compose.mutate.SWRMutate
