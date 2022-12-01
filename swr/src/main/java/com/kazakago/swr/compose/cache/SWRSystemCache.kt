@@ -7,7 +7,7 @@ import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.Job
 import kotlinx.datetime.Instant
 
-public val LocalSWRSystemCache: ProvidableCompositionLocal<SWRSystemCache> = compositionLocalOf<SWRSystemCache> {
+public val LocalSWRSystemCache: ProvidableCompositionLocal<SWRSystemCache> = compositionLocalOf {
     SWRSystemCacheImpl()
 }
 
