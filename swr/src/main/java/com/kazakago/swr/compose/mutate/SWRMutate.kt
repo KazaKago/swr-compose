@@ -2,6 +2,7 @@ package com.kazakago.swr.compose.mutate
 
 import androidx.compose.runtime.Immutable
 import com.kazakago.swr.compose.cache.SWRCache
+import com.kazakago.swr.compose.cache.SWRSystemCache
 import com.kazakago.swr.compose.validate.SWRValidate
 
 public interface SWRMutate<KEY, DATA> {
@@ -23,6 +24,7 @@ internal data class SWRMutateImpl<KEY, DATA>(
     private val key: KEY?,
     private val globalConfig: SWRMutateGlobalConfig,
     private val cache: SWRCache,
+    private val systemCache: SWRSystemCache,
     private val validate: SWRValidate<KEY>,
 ) : SWRMutate<KEY, DATA> {
 
@@ -36,12 +38,14 @@ internal data class SWRMutateImpl<KEY, DATA>(
         val oldData: DATA? = cache.state<KEY, DATA>(currentKey).value
         if (config.optimisticData != null) {
             cache.state<KEY, DATA>(currentKey).value = config.optimisticData
+            systemCache.errorState(currentKey).value = null
         }
         runCatching {
             if (data != null) data() else null
         }.onSuccess { newData ->
             if (config.populateCache && newData != null) {
                 cache.state<KEY, DATA>(currentKey).value = newData
+                systemCache.errorState(currentKey).value = null
             }
             if (config.revalidate) {
                 validate(currentKey)

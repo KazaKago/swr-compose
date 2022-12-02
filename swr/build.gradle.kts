@@ -34,6 +34,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.3.2"
     }
+    testOptions {
+        unitTests {
+            isIncludeAndroidResources = true
+        }
+    }
     publishing {
         singleVariant("release") {
             withSourcesJar()
@@ -43,11 +48,17 @@ android {
 }
 
 dependencies {
+    implementation(platform("androidx.compose:compose-bom:2022.11.00"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
-    implementation("androidx.compose.ui:ui:1.3.1")
+    implementation("androidx.compose.ui:ui")
     implementation("androidx.lifecycle:lifecycle-common:2.5.1")
 
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
+
     testImplementation("junit:junit:4.13.2")
+    testImplementation("org.robolectric:robolectric:4.9")
+    testImplementation("io.kotest:kotest-assertions-core:5.5.4")
+    testImplementation("androidx.compose.ui:ui-test-junit4")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")

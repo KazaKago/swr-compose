@@ -24,8 +24,8 @@ public fun <KEY, DATA> useSWRConfig(): SWRConfigState<KEY, DATA> {
     val validate: SWRValidate<KEY> = remember(config, cache, systemCache) {
         SWRValidateImpl(config, cache, systemCache, null)
     }
-    val mutate: SWRMutate<KEY, DATA> = remember(mutateGlobalConfig, cache, validate) {
-        SWRMutateImpl(null, mutateGlobalConfig, cache, validate)
+    val mutate: SWRMutate<KEY, DATA> = remember(mutateGlobalConfig, cache, systemCache, validate) {
+        SWRMutateImpl(null, mutateGlobalConfig, cache, systemCache, validate)
     }
     return SWRConfigStateImpl(
         mutate = mutate,

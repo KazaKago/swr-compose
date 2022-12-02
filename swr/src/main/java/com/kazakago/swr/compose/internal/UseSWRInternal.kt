@@ -41,8 +41,8 @@ internal fun <KEY, DATA> useSWRInternal(
     val validate: SWRValidate<KEY> = remember(config, cache, systemCache) {
         SWRValidateImpl(config, cache, systemCache, fetcher)
     }
-    val mutate: SWRMutate<KEY, DATA> = remember(key, mutateGlobalConfig, cache, validate) {
-        SWRMutateImpl(key, mutateGlobalConfig, cache, validate)
+    val mutate: SWRMutate<KEY, DATA> = remember(key, mutateGlobalConfig, cache, systemCache, validate) {
+        SWRMutateImpl(key, mutateGlobalConfig, cache, systemCache, validate)
     }
 
     val data: DATA? by remember(key) { cache.state(key, config.fallbackData ?: config.fallback[key]) }
