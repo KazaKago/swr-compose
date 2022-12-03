@@ -19,4 +19,4 @@ jobs:
           java-version: 11
           cache: gradle
 
-      - run: ./gradlew test
+      - run: ./gradlew testDebug
