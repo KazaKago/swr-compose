@@ -21,10 +21,11 @@ public class DetaFetchingTest {
 
     @Test
     public fun validate() {
+        val key = object {}.javaClass.enclosingMethod?.name
         lateinit var state: SWRState<String, String>
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
-            state = useSWR(key = "validate", fetcher = {
+            state = useSWR(key = key, fetcher = {
                 delay(1000)
                 "hoge"
             })
@@ -47,10 +48,11 @@ public class DetaFetchingTest {
 
     @Test
     public fun validateFailed() {
+        val key = object {}.javaClass.enclosingMethod?.name
         lateinit var state: SWRState<String, String>
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
-            state = useSWR(key = "validateFailed", fetcher = {
+            state = useSWR(key = key, fetcher = {
                 delay(1000)
                 throw NullPointerException()
             })

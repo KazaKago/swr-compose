@@ -26,7 +26,7 @@ public class MutationOptionsTest {
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
 
     @Test
-    public fun validate_mutationWithNoRevalidate() {
+    public fun mutationWithNoRevalidate() {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { "fetched_1" }
         lateinit var scope: CoroutineScope
@@ -80,7 +80,7 @@ public class MutationOptionsTest {
     }
 
     @Test
-    public fun validate_mutationWithOptimisticData() {
+    public fun mutationWithOptimisticData() {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { "fetched_1" }
         lateinit var scope: CoroutineScope
@@ -134,7 +134,7 @@ public class MutationOptionsTest {
     }
 
     @Test
-    public fun validate_mutationWithNoPopulateCache() {
+    public fun mutationWithNoPopulateCache() {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { "fetched_1" }
         lateinit var scope: CoroutineScope
@@ -188,7 +188,7 @@ public class MutationOptionsTest {
     }
 
     @Test
-    public fun validate_mutationWithNoRollbackOnError() {
+    public fun mutationWithNoRollbackOnError() {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { "fetched_1" }
         lateinit var scope: CoroutineScope
