@@ -48,7 +48,7 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2022.11.00"))
+    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
     implementation("org.jetbrains.kotlinx:kotlinx-datetime:0.4.0")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.lifecycle:lifecycle-common:2.5.1")
