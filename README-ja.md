@@ -10,7 +10,7 @@
 [React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose) 向けに移植したクローンライブラリです。  
 現在はAndroid上でのみ動作します。  
 
-オリジナルの`React SWR (v1.3.0)`のAPI仕様をできる限り踏襲しており、オプションの大部分をサポートしています。  
+オリジナルの`React SWR`のAPI仕様をできる限り踏襲しており、オプションの大部分をサポートしています。  
 
 ## "SWR"とは？
 
@@ -52,20 +52,20 @@ fun Profile() {
 
 ## サポートされている機能
 
-| Feature名                                                                      | サポート                    | 補足                            |
-|-------------------------------------------------------------------------------|-------------------------|-------------------------------|
-| [Options](https://swr.vercel.app/docs/options)                                | [下記参照](#サポートされているオプション) |                               |
-| [Global Configuration](https://swr.vercel.app/docs/global-configuration)      | ✅                       |                               |
-| [Data Fetching](https://swr.vercel.app/docs/data-fetching)                    | ✅                       |                               |
-| [Error Handling](https://swr.vercel.app/docs/error-handling)                  | ✅                       |                               |
-| [Auto Revalidation](https://swr.vercel.app/docs/revalidation)                 | ✅                       |                               |
-| [Conditional Data Fetching](https://swr.vercel.app/docs/conditional-fetching) | ✅                       |                               |
-| [Arguments](https://swr.vercel.app/docs/arguments)                            | ✅                       |                               |
-| [Mutation](https://swr.vercel.app/docs/mutation)                              | ✅                       |                               |
-| [Pagination](https://swr.vercel.app/docs/pagination)                          | ✅                       | `useSWRInfinite()` もサポートしています |
-| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ✅                       | プログラムによるプリフェッチのみ              |
-| [Suspense](https://swr.vercel.app/docs/suspense)                              | ❌                       |                               |
-| [Middleware](https://swr.vercel.app/docs/middleware)                          | ❌                       |                               |
+| Feature名                                                                      | サポート                    | 補足                                     |
+|-------------------------------------------------------------------------------|-------------------------|----------------------------------------|
+| [Options](https://swr.vercel.app/docs/options)                                | [下記参照](#サポートされているオプション) |                                        |
+| [Global Configuration](https://swr.vercel.app/docs/global-configuration)      | ✅                       |                                        |
+| [Data Fetching](https://swr.vercel.app/docs/data-fetching)                    | ✅                       |                                        |
+| [Error Handling](https://swr.vercel.app/docs/error-handling)                  | ✅                       |                                        |
+| [Auto Revalidation](https://swr.vercel.app/docs/revalidation)                 | ✅                       |                                        |
+| [Conditional Data Fetching](https://swr.vercel.app/docs/conditional-fetching) | ✅                       |                                        |
+| [Arguments](https://swr.vercel.app/docs/arguments)                            | ✅                       |                                        |
+| [Mutation](https://swr.vercel.app/docs/mutation)                              | ⚠️                      | `useSWRMutation()`はまだ未サポートです           |
+| [Pagination](https://swr.vercel.app/docs/pagination)                          | ✅                       | `useSWRInfinite()`もサポートしています           |
+| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ⚠️                      | `preload()`は未サポートです。`useSWR()`を使ってください |
+| [Suspense](https://swr.vercel.app/docs/suspense)                              | ❌                       |                                        |
+| [Middleware](https://swr.vercel.app/docs/middleware)                          | ❌                       |                                        |
 
 ## サポートされているオプション
 
@@ -91,6 +91,7 @@ https://swr.vercel.app/docs/options
 | errorRetryCount                                           | ✅    |                                                                     |
 | fallback                                                  | ✅    |                                                                     |
 | fallbackData                                              | ✅    |                                                                     |
+| keepPreviousData                                          | ❌    |                                                                     |
 | onLoadingSlow(key, config)                                | ✅    |                                                                     |
 | onSuccess(data, key, config)                              | ✅    |                                                                     |
 | onError(err, key, config)                                 | ✅    |                                                                     |
