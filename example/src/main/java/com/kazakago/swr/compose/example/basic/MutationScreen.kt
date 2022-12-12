@@ -28,7 +28,7 @@ private val mutater: suspend () -> String = {
 @OptIn(ExperimentalMaterial3Api::class)
 fun MutationScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
-    val (data, _, _, mutate) = useSWR(key = "/mutation", fetcher = fetcher)
+    val (data, _, _, _, mutate) = useSWR(key = "/mutation", fetcher = fetcher)
     Scaffold(
         topBar = {
             TopAppBar(

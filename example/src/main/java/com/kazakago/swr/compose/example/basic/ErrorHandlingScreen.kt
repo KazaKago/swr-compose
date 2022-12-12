@@ -29,7 +29,7 @@ private val fetcher: suspend (key: String) -> String = {
 @OptIn(ExperimentalMaterial3Api::class)
 fun ErrorHandlingScreen(navController: NavController) {
     val context = LocalContext.current
-    val (data, error, isValidating, mutate) = useSWR(key = "/error_handling", fetcher = fetcher) {
+    val (data, error, _, _, mutate) = useSWR(key = "/error_handling", fetcher = fetcher) {
         shouldRetryOnError = true           // default is true
         errorRetryCount = 3                 // default is null
         errorRetryInterval = 5.seconds      // default is 5.seconds
@@ -58,14 +58,8 @@ fun ErrorHandlingScreen(navController: NavController) {
                 .padding(it),
             contentAlignment = Alignment.Center,
         ) {
-            if (data == null && isValidating) {
-                LoadingContent()
-                return@Box
-            }
             if (error != null) {
-                ErrorContent {
-                    scope.launch { mutate() }
-                }
+                ErrorContent { scope.launch { mutate() } }
                 return@Box
             }
             if (data == null) {

@@ -55,7 +55,7 @@ internal fun <KEY, DATA> useSWRInternal(
     RefreshInterval(key, config) { scope.launch { validate(key) } }
 
     return remember(key, data, error.value, isValidating.value, mutate) {
-        SWRStateImpl(data, error.value, isValidating.value, mutate)
+        SWRStateImpl(data = data, error = error.value, isValidating = isValidating.value, mutate = mutate)
     }
 }
 
