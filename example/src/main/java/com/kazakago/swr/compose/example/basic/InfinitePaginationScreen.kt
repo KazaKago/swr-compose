@@ -33,7 +33,7 @@ private val getKey: (pageIndex: Int, previousPageData: List<String>?) -> Infinit
 @OptIn(ExperimentalMaterial3Api::class)
 fun InfinitePaginationScreen(navController: NavController) {
     val scope = rememberCoroutineScope()
-    val (data, error, isValidating, mutate, size, setSize) = useSWRInfinite(getKey, fetcher) {
+    val (data, error, isLoading, isValidating, mutate, size, setSize) = useSWRInfinite(getKey, fetcher) {
         initialSize = 2              // default is 1
 //        revalidateAll = false      // default is false
 //        revalidateFirstPage = true // default is true

@@ -6,6 +6,7 @@ import com.kazakago.swr.compose.mutate.SWRMutate
 public interface SWRInfiniteState<KEY, DATA> {
     public val data: List<DATA?>?
     public val error: Throwable?
+    public val isLoading: Boolean
     public val isValidating: Boolean
     public val mutate: SWRMutate<KEY, List<DATA>>
     public val size: Int
@@ -13,10 +14,11 @@ public interface SWRInfiniteState<KEY, DATA> {
 
     public operator fun component1(): List<DATA?>? = data
     public operator fun component2(): Throwable? = error
-    public operator fun component3(): Boolean = isValidating
-    public operator fun component4(): SWRMutate<KEY, List<DATA>> = mutate
-    public operator fun component5(): Int = size
-    public operator fun component6(): ((size: Int) -> Unit) = setSize
+    public operator fun component3(): Boolean = isLoading
+    public operator fun component4(): Boolean = isValidating
+    public operator fun component5(): SWRMutate<KEY, List<DATA>> = mutate
+    public operator fun component6(): Int = size
+    public operator fun component7(): ((size: Int) -> Unit) = setSize
 
     public companion object {
         public fun <KEY, DATA> empty(
@@ -26,7 +28,7 @@ public interface SWRInfiniteState<KEY, DATA> {
             mutate: SWRMutate<KEY, List<DATA>> = SWRMutate.empty(),
             size: Int = 1,
             setSize: (size: Int) -> Unit = {}
-        ): SWRInfiniteState<KEY, DATA> = SWRInfiniteStateImpl(data, error, isValidating, mutate, size, setSize)
+        ): SWRInfiniteState<KEY, DATA> = SWRInfiniteStateImpl(data = data, error = error, isValidating = isValidating, mutate = mutate, size = size, setSize = setSize)
     }
 }
 
@@ -34,6 +36,7 @@ public interface SWRInfiniteState<KEY, DATA> {
 internal data class SWRInfiniteStateImpl<KEY, DATA>(
     override val data: List<DATA?>?,
     override val error: Throwable?,
+    override val isLoading: Boolean = (data == null) && (error == null),
     override val isValidating: Boolean,
     override val mutate: SWRMutate<KEY, List<DATA>>,
     override val size: Int,
