@@ -4,7 +4,6 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
-import kotlinx.coroutines.flow.MutableStateFlow
 
 public val LocalSWRCache: ProvidableCompositionLocal<SWRCache> = compositionLocalOf {
     SWRCacheImpl()
@@ -18,7 +17,7 @@ public interface SWRCache {
 @Suppress("UNCHECKED_CAST")
 internal class SWRCacheImpl : SWRCache {
 
-    private val cacheMap: MutableMap<Any?, MutableStateFlow<Any?>> = mutableMapOf()
+    private val cacheMap: MutableMap<Any?, MutableState<Any?>> = mutableMapOf()
 
     override fun <KEY, DATA> state(key: KEY, defaultValue: DATA?): MutableState<DATA?> {
         return (cacheMap as MutableMap<KEY, MutableState<DATA?>>).getOrPut(key) {

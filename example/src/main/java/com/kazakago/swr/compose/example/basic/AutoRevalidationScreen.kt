@@ -27,12 +27,12 @@ private val fetcher: suspend (key: String) -> String = {
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun AutoRevalidationScreen(navController: NavController) {
-    val (data, _, isValidation) = useSWR(key = "/auto_revalidation", fetcher = fetcher) {
+    val (data, _, _, isValidating) = useSWR(key = "/auto_revalidation", fetcher = fetcher) {
         revalidateOnMount = true     // default is null
         revalidateIfStale = true     // default is true
         revalidateOnFocus = true     // default is true
         revalidateOnReconnect = true // default is true
-        refreshInterval = 10.seconds // default is null
+        refreshInterval = 10.seconds // default is 0.seconds (=disable)
         refreshWhenHidden = false    // default is false
         refreshWhenOffline = false   // default is false
     }
@@ -58,7 +58,7 @@ fun AutoRevalidationScreen(navController: NavController) {
                 LoadingContent()
                 return@Box
             }
-            if (isValidation) {
+            if (isValidating) {
                 LinearProgressIndicator(Modifier.fillMaxWidth())
             }
             Box(

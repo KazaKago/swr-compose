@@ -42,7 +42,7 @@ fun ToDoListScreen(
     delete: (index: Int) -> Unit = useDeletion(state.data, state.mutate, isMuting, snackbarHostState),
     showSnackbar: (message: String) -> Unit = useShowSnackbar(snackbarHostState),
 ) {
-    val (todoList, error, isValidating, _) = state
+    val (todoList, error, _, isValidating) = state
     Scaffold(
         topBar = {
             TopAppBar(
