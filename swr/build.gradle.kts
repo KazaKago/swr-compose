@@ -105,9 +105,7 @@ publishing {
             }
             repositories {
                 maven {
-                    val releasesRepoUrl = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
-                    val snapshotsRepoUrl = uri("https://s01.oss.sonatype.org/content/repositories/snapshots")
-                    url = if (version.endsWith("-SNAPSHOT")) snapshotsRepoUrl else releasesRepoUrl
+                    url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
                     credentials {
                         username = System.getenv("SONATYPE_USERNAME") ?: findProperty("sonatype.username").toString()
                         password = System.getenv("SONATYPE_PASSWORD") ?: findProperty("sonatype.password").toString()
