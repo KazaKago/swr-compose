@@ -1,11 +1,12 @@
-package com.kazakago.swr.compose
+package com.kazakago.swr.compose.config
 
 import androidx.activity.ComponentActivity
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kazakago.swr.compose.config.SWRConfig
+import com.kazakago.swr.compose.useSWR
+import com.kazakago.swr.compose.useSWRConfig
 import io.kotest.matchers.shouldBe
 import org.junit.Rule
 import org.junit.Test
