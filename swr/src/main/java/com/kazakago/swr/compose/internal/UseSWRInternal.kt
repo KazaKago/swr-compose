@@ -23,7 +23,6 @@ import com.kazakago.swr.compose.validate.SWRValidateImpl
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 import kotlin.time.Duration
 
 @Composable
@@ -107,10 +106,11 @@ internal fun <KEY, DATA> RevalidateOnFocus(
             val lifecycleObserver = LifecycleEventObserver { _, event ->
                 when (event) {
                     Lifecycle.Event.ON_RESUME -> {
-                        val focusedTime = systemCache.getFocusedTime(key)
+                        val focusedTimerJob = systemCache.getFocusedTimerJob(key)
                         if (!isFirstTime) {
-                            if (focusedTime == null || (focusedTime + focusThrottleInterval) < Clock.System.now()) {
-                                systemCache.setFocusedTime(key, Clock.System.now())
+                            if (focusedTimerJob == null || !focusedTimerJob.isActive) {
+                                val newFocusedTimerJob = CoroutineScope(SWREmptyCoroutineContext).launch { delay(focusThrottleInterval) }
+                                systemCache.setFocusedTimerJob(key, newFocusedTimerJob)
                                 validate()
                             }
                         }

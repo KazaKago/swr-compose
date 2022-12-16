@@ -4,11 +4,11 @@ import androidx.compose.runtime.Immutable
 import com.kazakago.swr.compose.cache.SWRCache
 import com.kazakago.swr.compose.cache.SWRSystemCache
 import com.kazakago.swr.compose.config.SWRConfig
+import com.kazakago.swr.compose.internal.SWREmptyCoroutineContext
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.datetime.Clock
 
 public interface SWRValidate<KEY> {
     public suspend operator fun invoke(
@@ -33,9 +33,9 @@ internal data class SWRValidateImpl<KEY, DATA>(
         val fetcher = _fetcher ?: systemCache.getFetcher(key) ?: config.fetcher ?: throw NotImplementedError("Fetcher cannot be null")
         val error = systemCache.errorState(currentKey)
         val isValidating = systemCache.isValidatingState(currentKey)
-        val validatedTime = systemCache.getValidatedTime(currentKey)
+        val validatedTimerJob = systemCache.getValidatedTimerJob(currentKey)
         if (isValidating.value || config.isPaused()) return
-        if (validatedTime != null && (validatedTime + config.dedupingInterval) >= Clock.System.now()) return
+        if (validatedTimerJob != null && validatedTimerJob.isActive) return
 
         isValidating.value = true
         val timeoutJob = CoroutineScope(currentCoroutineContext()).launch {
@@ -47,7 +47,8 @@ internal data class SWRValidateImpl<KEY, DATA>(
         }.onSuccess { newData ->
             timeoutJob.cancel()
             cache.state<KEY, DATA>(currentKey).value = newData
-            systemCache.setValidatedTime(currentKey, Clock.System.now())
+            val newValidatedTimerJob = CoroutineScope(SWREmptyCoroutineContext).launch { delay(config.dedupingInterval) }
+            systemCache.setValidatedTimerJob(currentKey, newValidatedTimerJob)
             error.value = null
             config.onSuccess?.invoke(newData, currentKey, config)
         }.onFailure { throwable ->

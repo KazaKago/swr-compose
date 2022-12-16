@@ -5,7 +5,6 @@ import androidx.compose.runtime.ProvidableCompositionLocal
 import androidx.compose.runtime.compositionLocalOf
 import androidx.compose.runtime.mutableStateOf
 import kotlinx.coroutines.Job
-import kotlinx.datetime.Instant
 
 public val LocalSWRSystemCache: ProvidableCompositionLocal<SWRSystemCache> = compositionLocalOf {
     SWRSystemCacheImpl()
@@ -16,10 +15,10 @@ public interface SWRSystemCache {
     public fun <KEY> errorState(key: KEY): MutableState<Throwable?>
     public fun <KEY, DATA> getFetcher(key: KEY): (suspend (key: KEY) -> DATA)?
     public fun <KEY, DATA> setFetcher(key: KEY, fetcher: (suspend (key: KEY) -> DATA))
-    public fun <KEY> getValidatedTime(key: KEY): Instant?
-    public fun <KEY> setValidatedTime(key: KEY, instant: Instant)
-    public fun <KEY> getFocusedTime(key: KEY): Instant?
-    public fun <KEY> setFocusedTime(key: KEY, instant: Instant)
+    public fun <KEY> getValidatedTimerJob(key: KEY): Job?
+    public fun <KEY> setValidatedTimerJob(key: KEY, job: Job)
+    public fun <KEY> getFocusedTimerJob(key: KEY): Job?
+    public fun <KEY> setFocusedTimerJob(key: KEY, job: Job)
     public fun <KEY> getRetryingJobSet(key: KEY): Set<Job>
     public fun <KEY> setRetryingJobSet(key: KEY, jobs: Set<Job>)
     public fun clear()
@@ -31,8 +30,8 @@ internal class SWRSystemCacheImpl : SWRSystemCache {
     private val isValidatingStateMap: MutableMap<Any, MutableState<Boolean>> = mutableMapOf()
     private val errorStateMap: MutableMap<Any, MutableState<Throwable?>> = mutableMapOf()
     private val fetcherMap: MutableMap<Any, (suspend (key: Any) -> Any)> = mutableMapOf()
-    private val validatedTimeMap: MutableMap<Any, Instant> = mutableMapOf()
-    private val focusedTimeMap: MutableMap<Any, Instant> = mutableMapOf()
+    private val validatedTimeMap: MutableMap<Any, Job> = mutableMapOf()
+    private val focusedTimeMap: MutableMap<Any, Job> = mutableMapOf()
     private val isRetryingJobSetMap: MutableMap<Any, Set<Job>> = mutableMapOf()
 
     override fun <KEY> isValidatingState(key: KEY): MutableState<Boolean> {
@@ -55,20 +54,20 @@ internal class SWRSystemCacheImpl : SWRSystemCache {
         (fetcherMap as MutableMap<KEY, (suspend (key: KEY) -> DATA)>)[key] = fetcher
     }
 
-    override fun <KEY> getValidatedTime(key: KEY): Instant? {
-        return (validatedTimeMap as MutableMap<KEY, Instant>)[key]
+    override fun <KEY> getValidatedTimerJob(key: KEY): Job? {
+        return (validatedTimeMap as MutableMap<KEY, Job>)[key]
     }
 
-    override fun <KEY> setValidatedTime(key: KEY, instant: Instant) {
-        (validatedTimeMap as MutableMap<KEY, Instant>)[key] = instant
+    override fun <KEY> setValidatedTimerJob(key: KEY, job: Job) {
+        (validatedTimeMap as MutableMap<KEY, Job>)[key] = job
     }
 
-    override fun <KEY> getFocusedTime(key: KEY): Instant? {
-        return (focusedTimeMap as MutableMap<KEY, Instant>)[key]
+    override fun <KEY> getFocusedTimerJob(key: KEY): Job? {
+        return (focusedTimeMap as MutableMap<KEY, Job>)[key]
     }
 
-    override fun <KEY> setFocusedTime(key: KEY, instant: Instant) {
-        (focusedTimeMap as MutableMap<KEY, Instant>)[key] = instant
+    override fun <KEY> setFocusedTimerJob(key: KEY, job: Job) {
+        (focusedTimeMap as MutableMap<KEY, Job>)[key] = job
     }
 
     override fun <KEY> getRetryingJobSet(key: KEY): Set<Job> {

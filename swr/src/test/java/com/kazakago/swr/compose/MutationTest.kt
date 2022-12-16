@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.kazakago.swr.compose.internal.SWREmptyCoroutineContext
 import com.kazakago.swr.compose.state.SWRState
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -17,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 public class MutationTest {
@@ -37,10 +37,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -56,6 +55,7 @@ public class MutationTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         scope.launch { state.mutate() }
 
@@ -82,10 +82,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -101,6 +100,7 @@ public class MutationTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { throw IllegalArgumentException() }
         scope.launch { state.mutate() }
 
@@ -127,10 +127,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -146,6 +145,7 @@ public class MutationTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         scope.launch {
             state.mutate(data = {
@@ -187,10 +187,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -206,6 +205,7 @@ public class MutationTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { throw IllegalArgumentException() }
         var mutationError: Throwable? = null
         scope.launch {
@@ -246,10 +246,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -265,6 +264,7 @@ public class MutationTest {
         state.error.shouldBeInstanceOf<NullPointerException>()
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched" }
         scope.launch { state.mutate() }
 
@@ -291,10 +291,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -310,6 +309,7 @@ public class MutationTest {
         state.error.shouldBeInstanceOf<NullPointerException>()
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { throw IllegalArgumentException() }
         scope.launch { state.mutate() }
 
@@ -336,10 +336,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -355,6 +354,7 @@ public class MutationTest {
         state.error.shouldBeInstanceOf<NullPointerException>()
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched" }
         scope.launch {
             runCatching {
@@ -398,10 +398,9 @@ public class MutationTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         state.data shouldBe null
         state.error shouldBe null
@@ -417,6 +416,7 @@ public class MutationTest {
         state.error.shouldBeInstanceOf<NullPointerException>()
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { throw IllegalArgumentException() }
         var mutationError: Throwable? = null
         scope.launch {

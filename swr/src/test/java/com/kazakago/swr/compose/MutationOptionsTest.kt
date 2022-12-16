@@ -6,6 +6,7 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.kazakago.swr.compose.internal.SWREmptyCoroutineContext
 import com.kazakago.swr.compose.state.SWRState
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.types.shouldBeInstanceOf
@@ -17,7 +18,6 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import java.util.*
-import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
 public class MutationOptionsTest {
@@ -37,10 +37,9 @@ public class MutationOptionsTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         composeTestRule.mainClock.advanceTimeBy(1500)
 
@@ -48,6 +47,7 @@ public class MutationOptionsTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         scope.launch {
             state.mutate(data = {
@@ -91,10 +91,9 @@ public class MutationOptionsTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         composeTestRule.mainClock.advanceTimeBy(1500)
 
@@ -102,6 +101,7 @@ public class MutationOptionsTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         scope.launch {
             state.mutate(data = {
@@ -145,10 +145,9 @@ public class MutationOptionsTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         composeTestRule.mainClock.advanceTimeBy(1500)
 
@@ -156,6 +155,7 @@ public class MutationOptionsTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         scope.launch {
             state.mutate(data = {
@@ -199,10 +199,9 @@ public class MutationOptionsTest {
             state = useSWR(key = key, scope = scope, fetcher = {
                 delay(1000)
                 result()
-            }) {
-                dedupingInterval = 0.seconds
-            }
+            })
         }
+        SWREmptyCoroutineContext = scope.coroutineContext
 
         composeTestRule.mainClock.advanceTimeBy(1500)
 
@@ -210,6 +209,7 @@ public class MutationOptionsTest {
         state.error shouldBe null
         state.isValidating shouldBe false
 
+        composeTestRule.mainClock.advanceTimeBy(2000)
         result = { "fetched_2" }
         var mutationError: Throwable? = null
         scope.launch {
