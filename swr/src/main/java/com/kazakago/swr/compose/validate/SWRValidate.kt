@@ -4,7 +4,7 @@ import androidx.compose.runtime.Immutable
 import com.kazakago.swr.compose.cache.SWRCache
 import com.kazakago.swr.compose.cache.SWRSystemCache
 import com.kazakago.swr.compose.config.SWRConfig
-import com.kazakago.swr.compose.internal.SWREmptyCoroutineContext
+import com.kazakago.swr.compose.internal.SWRGlobalScope
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.currentCoroutineContext
 import kotlinx.coroutines.delay
@@ -47,7 +47,7 @@ internal data class SWRValidateImpl<KEY, DATA>(
         }.onSuccess { newData ->
             timeoutJob.cancel()
             cache.state<KEY, DATA>(currentKey).value = newData
-            val newValidatedTimerJob = CoroutineScope(SWREmptyCoroutineContext).launch { delay(config.dedupingInterval) }
+            val newValidatedTimerJob = SWRGlobalScope.launch { delay(config.dedupingInterval) }
             systemCache.setValidatedTimerJob(currentKey, newValidatedTimerJob)
             error.value = null
             config.onSuccess?.invoke(newData, currentKey, config)

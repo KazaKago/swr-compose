@@ -109,7 +109,7 @@ internal fun <KEY, DATA> RevalidateOnFocus(
                         val focusedTimerJob = systemCache.getFocusedTimerJob(key)
                         if (!isFirstTime) {
                             if (focusedTimerJob == null || !focusedTimerJob.isActive) {
-                                val newFocusedTimerJob = CoroutineScope(SWREmptyCoroutineContext).launch { delay(focusThrottleInterval) }
+                                val newFocusedTimerJob = SWRGlobalScope.launch { delay(focusThrottleInterval) }
                                 systemCache.setFocusedTimerJob(key, newFocusedTimerJob)
                                 validate()
                             }
