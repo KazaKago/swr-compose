@@ -39,12 +39,6 @@ android {
             isIncludeAndroidResources = true
         }
     }
-    publishing {
-        singleVariant("release") {
-            withSourcesJar()
-            withJavadocJar()
-        }
-    }
 }
 
 dependencies {
@@ -61,6 +55,18 @@ dependencies {
 
     androidTestImplementation("androidx.test.ext:junit:1.1.4")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.0")
+}
+
+if (project.plugins.hasPlugin("com.android.library")) {
+    android.publishing.singleVariant("release") {
+        withSourcesJar()
+        withJavadocJar()
+    }
+} else {
+    java {
+        withSourcesJar()
+        withJavadocJar()
+    }
 }
 
 publishing {
@@ -93,7 +99,11 @@ publishing {
                 }
             }
             afterEvaluate {
-                from(components["release"])
+                if (project.plugins.hasPlugin("com.android.library")) {
+                    from(components["release"])
+                } else {
+                    from(components["java"])
+                }
             }
         }
     }
