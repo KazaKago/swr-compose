@@ -95,22 +95,14 @@ publishing {
             afterEvaluate {
                 from(components["release"])
             }
-            signing {
-                val keyId = System.getenv("SIGNING_KEY_ID") ?: findProperty("signing.keyId").toString()
-                val secretKey = System.getenv("SIGNING_SECRET_KEY") ?: findProperty("signing.secretKey").toString()
-                val password = System.getenv("SIGNING_PASSWORD") ?: findProperty("signing.password").toString()
-                useInMemoryPgpKeys(keyId, secretKey, password)
-                sign(this@register)
-            }
-            repositories {
-                maven {
-                    url = uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2")
-                    credentials {
-                        username = System.getenv("SONATYPE_USERNAME") ?: findProperty("sonatype.username").toString()
-                        password = System.getenv("SONATYPE_PASSWORD") ?: findProperty("sonatype.password").toString()
-                    }
-                }
-            }
         }
     }
+}
+
+signing {
+    val keyId = System.getenv("SIGNING_KEY_ID") ?: findProperty("signing.keyId").toString()
+    val secretKey = System.getenv("SIGNING_SECRET_KEY") ?: findProperty("signing.secretKey").toString()
+    val password = System.getenv("SIGNING_PASSWORD") ?: findProperty("signing.password").toString()
+    useInMemoryPgpKeys(keyId, secretKey, password)
+    sign(publishing.publications)
 }
