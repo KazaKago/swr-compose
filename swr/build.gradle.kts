@@ -1,6 +1,7 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.dokka")
     id("maven-publish")
     id("signing")
 }
@@ -60,13 +61,17 @@ dependencies {
 if (project.plugins.hasPlugin("com.android.library")) {
     android.publishing.singleVariant("release") {
         withSourcesJar()
-        withJavadocJar()
     }
 } else {
     java {
         withSourcesJar()
-        withJavadocJar()
     }
+}
+
+tasks.create("javadocJar", Jar::class) {
+    group = "publishing"
+    archiveClassifier.set("javadoc")
+    from(tasks["dokkaHtml"])
 }
 
 publishing {
@@ -105,6 +110,7 @@ publishing {
                     from(components["java"])
                 }
             }
+            artifact(tasks["javadocJar"])
         }
     }
 }
