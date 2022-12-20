@@ -22,7 +22,6 @@ public class RevalidateIfStaleOptionTest {
     @get:Rule
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
 
-
     @Test
     public fun noRevalidateIfStale() {
         val key = object {}.javaClass.enclosingMethod?.name
