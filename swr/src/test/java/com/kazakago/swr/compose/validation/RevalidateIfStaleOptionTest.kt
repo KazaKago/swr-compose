@@ -23,13 +23,40 @@ public class RevalidateIfStaleOptionTest {
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
 
     @Test
+    public fun withRevalidateIfStale() {
+        val key = object {}.javaClass.enclosingMethod?.name
+        val stateList = mutableListOf<SWRState<String, String>>()
+        composeTestRule.mainClock.autoAdvance = false
+        composeTestRule.setContent {
+            SWRGlobalScope = rememberCoroutineScope()
+            LocalSWRCache.current.state<String, String>(key = key!!).let {
+                if (it.value == null) it.value = "cached"
+            }
+            stateList += useSWR(key = key, fetcher = {
+                delay(100)
+                "fetched"
+            }) {
+                revalidateIfStale = true
+            }
+        }
+
+        composeTestRule.mainClock.advanceTimeBy(2500)
+        stateList.map { it.data } shouldBe listOf("cached", "cached", "fetched")
+        stateList.map { it.error } shouldBe listOf(null, null, null)
+        stateList.map { it.isLoading } shouldBe listOf(false, false, false)
+        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+    }
+
+    @Test
     public fun noRevalidateIfStale() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
-            LocalSWRCache.current.state<String, String>(key = key!!).value = "cached_data"
+            LocalSWRCache.current.state<String, String>(key = key!!).let {
+                if (it.value == null) it.value = "cached"
+            }
             stateList += useSWR(key = key, fetcher = {
                 delay(100)
                 "fetched"
@@ -39,7 +66,7 @@ public class RevalidateIfStaleOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf("cached_data")
+        stateList.map { it.data } shouldBe listOf("cached")
         stateList.map { it.error } shouldBe listOf(null)
         stateList.map { it.isLoading } shouldBe listOf(false)
         stateList.map { it.isValidating } shouldBe listOf(false)

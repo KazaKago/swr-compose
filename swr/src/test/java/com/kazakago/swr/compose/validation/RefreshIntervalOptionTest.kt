@@ -14,6 +14,7 @@ import kotlinx.coroutines.delay
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -21,6 +22,28 @@ public class RefreshIntervalOptionTest {
 
     @get:Rule
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+
+    @Test
+    public fun noRefreshInterval() {
+        val key = object {}.javaClass.enclosingMethod?.name
+        val stateList = mutableListOf<SWRState<String, String>>()
+        composeTestRule.mainClock.autoAdvance = false
+        composeTestRule.setContent {
+            SWRGlobalScope = rememberCoroutineScope()
+            stateList += useSWR(key = key, fetcher = {
+                delay(100)
+                "fetched"
+            }) {
+                refreshInterval = Duration.ZERO
+            }
+        }
+
+        composeTestRule.mainClock.advanceTimeBy(35000)
+        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
+        stateList.map { it.error } shouldBe listOf(null, null, null)
+        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+    }
 
     @Test
     public fun withRefreshInterval() {
