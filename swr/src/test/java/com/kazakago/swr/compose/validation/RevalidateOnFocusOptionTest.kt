@@ -39,7 +39,6 @@ public class RevalidateOnFocusOptionTest {
 
         composeTestRule.mainClock.advanceTimeBy(2500)
         composeTestRule.activityRule.scenario.moveToState(Lifecycle.State.STARTED)
-        composeTestRule.mainClock.advanceTimeBy(5000)
         composeTestRule.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
 
         composeTestRule.mainClock.advanceTimeBy(2500)
