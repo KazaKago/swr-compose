@@ -3,9 +3,7 @@ package com.kazakago.swr.compose.validation
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.activity.ComponentActivity
-import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
@@ -18,7 +16,6 @@ import kotlinx.coroutines.delay
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.robolectric.RuntimeEnvironment.getApplication
 import org.robolectric.Shadows.shadowOf
 import org.robolectric.shadows.ShadowNetwork
 
@@ -35,13 +32,11 @@ public class RevalidateOnReconnectOptionTest {
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
-            CompositionLocalProvider(LocalContext provides getApplication()) {
-                stateList += useSWR(key = key, fetcher = {
-                    delay(100)
-                    "fetched"
-                }) {
-                    revalidateOnReconnect = true
-                }
+            stateList += useSWR(key = key, fetcher = {
+                delay(100)
+                "fetched"
+            }) {
+                revalidateOnReconnect = true
             }
         }
 
