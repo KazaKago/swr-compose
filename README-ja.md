@@ -63,7 +63,7 @@ fun Profile() {
 | [Arguments](https://swr.vercel.app/docs/arguments)                            | ✅                       |                              |
 | [Mutation](https://swr.vercel.app/docs/mutation)                              | ⚠️                      | `useSWRMutation()`はまだ未サポートです |
 | [Pagination](https://swr.vercel.app/docs/pagination)                          | ✅                       |                              |
-| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ✅️                      |                              |
+| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ✅️                      | `useSWRPreload()`から利用できます    |
 | [Suspense](https://swr.vercel.app/docs/suspense)                              | ❌                       |                              |
 | [Middleware](https://swr.vercel.app/docs/middleware)                          | ❌                       |                              |
 

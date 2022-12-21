@@ -64,7 +64,7 @@ Refer to the [**example module**](example) for details. This module works as an 
 | [Arguments](https://swr.vercel.app/docs/arguments)                            | ✅                               |                                    |
 | [Mutation](https://swr.vercel.app/docs/mutation)                              | ⚠️                              | Not support `useSWRMutation()` yet |
 | [Pagination](https://swr.vercel.app/docs/pagination)                          | ✅                               |                                    |
-| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ✅️                              |                                    |
+| [Prefetching Data](https://swr.vercel.app/docs/prefetching)                   | ✅️                              | Available by `useSWRPreload()`     |
 | [Suspense](https://swr.vercel.app/docs/suspense)                              | ❌                               |                                    |
 | [Middleware](https://swr.vercel.app/docs/middleware)                          | ❌                               |                                    |
 
