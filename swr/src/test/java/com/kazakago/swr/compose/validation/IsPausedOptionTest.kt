@@ -8,41 +8,46 @@ import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
+import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.assertions.fail
 import io.kotest.matchers.shouldBe
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-public class OnErrorOptionTest {
+public class IsPausedOptionTest {
 
     @get:Rule
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
 
     @Test
-    public fun withOnError() {
+    public fun withIsPaused() {
         val key = object {}.javaClass.enclosingMethod?.name
-        val onErrorList = mutableListOf<Pair<Throwable, String>>()
+        val stateList = mutableListOf<SWRState<String, String>>()
+        lateinit var scope: CoroutineScope
         composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
+            scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
-            useSWR(key = key, fetcher = {
+            stateList += useSWR(key = key, fetcher = {
                 delay(100)
                 throw DummyException1
             }) {
-                onSuccess = { _, _, _ ->
-                    fail("Must not reach here")
-                }
-                onError = { error, key, _ ->
-                    onErrorList += error to key
-                }
+                isPaused = { true }
             }
         }
 
-        composeTestRule.mainClock.advanceTimeBy(3000)
-        onErrorList shouldBe listOf(DummyException1 to key)
+        composeTestRule.mainClock.advanceTimeBy(2500)
+        scope.launch { stateList.last().mutate() }
+
+        composeTestRule.mainClock.advanceTimeBy(2500)
+        stateList.map { it.data } shouldBe listOf(null)
+        stateList.map { it.error } shouldBe listOf(null)
+        stateList.map { it.isLoading } shouldBe listOf(true)
+        stateList.map { it.isValidating } shouldBe listOf(false)
     }
 }
