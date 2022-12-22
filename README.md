@@ -5,8 +5,6 @@
 [![Test](https://github.com/kazakago/swr-compose/workflows/Test/badge.svg)](https://github.com/kazakago/swr-compose/actions?query=workflow%3ATest)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
-**This library is under development yet.**
-
 This is a clone library of [React SWR](https://swr.vercel.app) ported for [Jetpack Compose](https://developer.android.com/jetpack/compose).  
 Currently works only on Android.  
 

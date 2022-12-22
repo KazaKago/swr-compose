@@ -5,8 +5,6 @@
 [![Test](https://github.com/kazakago/swr-compose/workflows/Test/badge.svg)](https://github.com/kazakago/swr-compose/actions?query=workflow%3ATest)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
-**このライブラリはまだ開発中です。**
-
 [React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose) 向けに移植したクローンライブラリです。  
 現在はAndroid上でのみ動作します。  
 
