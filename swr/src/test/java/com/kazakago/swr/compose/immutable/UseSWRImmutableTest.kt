@@ -22,7 +22,7 @@ import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowNetwork
 
 @RunWith(AndroidJUnit4::class)
-public class ImmutableTest {
+public class UseSWRImmutableTest {
 
     @get:Rule
     public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
