@@ -44,9 +44,11 @@ internal fun <KEY, DATA> useSWRInternal(
         SWRMutateImpl(key, mutateGlobalConfig, cache, systemCache, validate)
     }
 
-    val data: DATA? by remember(key) { cache.state(key, config.fallbackData ?: config.fallback[key]) }
+    val oldDataHolder = remember { DataHolder<DATA>() }
+    val data: DATA? by remember(key) { cache.state(key, config.fallbackData ?: config.fallback[key] ?: (if (config.keepPreviousData) oldDataHolder.data else null)) }
     val error: MutableState<Throwable?> = remember(key) { systemCache.errorState(key) }
     val isValidating: MutableState<Boolean> = remember(key) { systemCache.isValidatingState(key) }
+    oldDataHolder.data = data
 
     RevalidateOnMount(key, config, isValidating) { scope.launch { validate(key) } }
     RevalidateOnFocus(key, config) { scope.launch { validate(key) } }

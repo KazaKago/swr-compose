@@ -43,6 +43,7 @@ public data class SWRGlobalConfig(
     var errorRetryInterval: Duration = 5.seconds,
     var errorRetryCount: Int? = null,
     var fallback: Map<Any, Any> = emptyMap(),
+    var keepPreviousData: Boolean = false,
     var onLoadingSlow: ((key: Any, config: SWRConfig<*, *>) -> Unit)? = null,
     var onSuccess: ((data: Any, key: Any, config: SWRConfig<*, *>) -> Unit)? = null,
     var onError: ((error: Throwable, key: Any, config: SWRConfig<*, *>) -> Unit)? = null,
@@ -68,6 +69,7 @@ public interface SWRConfig<KEY, DATA> {
     public var errorRetryCount: Int?
     public var fallback: Map<KEY, DATA>
     public var fallbackData: DATA?
+    public var keepPreviousData: Boolean
     public var onLoadingSlow: ((key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?
     public var onSuccess: ((data: DATA, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?
     public var onError: ((error: Throwable, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?
@@ -94,6 +96,7 @@ internal data class SWRConfigImpl<KEY, DATA>(
     override var errorRetryCount: Int?,
     override var fallback: Map<KEY, DATA>,
     override var fallbackData: DATA? = null,
+    override var keepPreviousData: Boolean,
     override var onLoadingSlow: ((key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,
     override var onSuccess: ((data: DATA, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,
     override var onError: ((error: Throwable, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,
@@ -121,6 +124,7 @@ internal data class SWRConfigImpl<KEY, DATA>(
                 errorRetryInterval = config.errorRetryInterval,
                 errorRetryCount = config.errorRetryCount,
                 fallback = config.fallback as Map<KEY, DATA>,
+                keepPreviousData = config.keepPreviousData,
                 onLoadingSlow = config.onLoadingSlow as ((key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,
                 onSuccess = config.onSuccess as ((data: DATA, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,
                 onError = config.onError as ((error: Throwable, key: KEY, config: SWRConfig<KEY, DATA>) -> Unit)?,

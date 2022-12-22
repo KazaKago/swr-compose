@@ -91,7 +91,7 @@ https://swr.vercel.app/docs/options
 | errorRetryCount                                           | ✅    |                                                                     |
 | fallback                                                  | ✅    |                                                                     |
 | fallbackData                                              | ✅    |                                                                     |
-| keepPreviousData                                          | ❌    |                                                                     |
+| keepPreviousData                                          | ✅    | false                                                               |
 | onLoadingSlow(key, config)                                | ✅    |                                                                     |
 | onSuccess(data, key, config)                              | ✅    |                                                                     |
 | onError(err, key, config)                                 | ✅    |                                                                     |
