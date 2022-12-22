@@ -45,7 +45,7 @@ public fun <KEY, DATA> useSWRInfinite(
     }
     LaunchedEffect(pageIndex) {
         pageStateList.forEachIndexed { index, swrState ->
-            if ((index == 0 && config.revalidateFirstPage) || config.revalidateAll || index == pageIndex - 1) {
+            if ((index == 0 && config.revalidateFirstPage) || config.revalidateAll) {
                 currentScope.launch { swrState.mutate() }
             }
         }
