@@ -6,6 +6,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
@@ -24,7 +25,7 @@ private data class PaginationKey(
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun PaginationScreen(navController: NavController) {
-    var pageCount by remember { mutableStateOf(1) }
+    var pageCount by rememberSaveable { mutableStateOf(1) }
     Scaffold(
         topBar = {
             TopAppBar(
