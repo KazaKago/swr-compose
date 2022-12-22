@@ -44,7 +44,7 @@ public class UseSWRInfiniteTest {
     }
 
     @Test
-    public fun next() {
+    public fun incrementSetSize() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
