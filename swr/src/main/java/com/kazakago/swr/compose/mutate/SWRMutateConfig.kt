@@ -25,6 +25,7 @@ public data class SWRMutateGlobalConfig(
     var revalidate: Boolean = true,
     var populateCache: Boolean = true,
     var rollbackOnError: Boolean = true,
+    var throwOnError: Boolean = true,
 )
 
 public data class SWRMutateConfig<DATA>(
@@ -32,6 +33,7 @@ public data class SWRMutateConfig<DATA>(
     var revalidate: Boolean,
     var populateCache: Boolean,
     var rollbackOnError: Boolean,
+    var throwOnError: Boolean,
 ) {
 
     internal companion object {
@@ -41,6 +43,7 @@ public data class SWRMutateConfig<DATA>(
                 revalidate = config.revalidate,
                 populateCache = config.populateCache,
                 rollbackOnError = config.rollbackOnError,
+                throwOnError = config.throwOnError,
             )
         }
     }

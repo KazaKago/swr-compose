@@ -54,7 +54,9 @@ internal data class SWRMutateImpl<KEY, DATA>(
             if (config.rollbackOnError) {
                 cache.state<KEY, DATA>(currentKey).value = oldData
             }
-            throw throwable
+            if (config.throwOnError) {
+                throw throwable
+            }
         }
     }
 }
