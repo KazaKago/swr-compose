@@ -10,7 +10,7 @@ public val LocalSWRCache: ProvidableCompositionLocal<SWRCache> = compositionLoca
 }
 
 public interface SWRCache {
-    public fun <KEY, DATA> state(key: KEY, defaultValue: DATA? = null): MutableState<DATA?>
+    public fun <KEY, DATA> state(key: KEY): MutableState<DATA?>
     public fun clear()
 }
 
@@ -19,10 +19,8 @@ internal class SWRCacheImpl : SWRCache {
 
     private val cacheMap: MutableMap<Any?, MutableState<Any?>> = mutableMapOf()
 
-    override fun <KEY, DATA> state(key: KEY, defaultValue: DATA?): MutableState<DATA?> {
-        return (cacheMap as MutableMap<KEY, MutableState<DATA?>>).getOrPut(key) {
-            mutableStateOf(defaultValue)
-        }
+    override fun <KEY, DATA> state(key: KEY): MutableState<DATA?> {
+        return (cacheMap as MutableMap<KEY, MutableState<DATA?>>).getOrPut(key) { mutableStateOf(null) }
     }
 
     override fun clear() {

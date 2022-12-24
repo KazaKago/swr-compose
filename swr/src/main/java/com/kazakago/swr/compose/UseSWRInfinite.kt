@@ -54,6 +54,7 @@ public fun <KEY, DATA> useSWRInfinite(
     return SWRInfiniteStateImpl(
         data = if (isDataAvailable) pageStateList.map { it.data } else null,
         error = pageStateList.firstNotNullOfOrNull { it.error },
+        isLoading = pageStateList.all { it.isLoading },
         isValidating = pageStateList.any { it.isValidating },
         mutate = object : SWRMutate<KEY, List<DATA>> {
             override suspend fun invoke(key: KEY?, data: (suspend () -> List<DATA>)?, options: SWRMutateConfig<List<DATA>>.() -> Unit) {

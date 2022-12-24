@@ -44,8 +44,9 @@ internal fun <KEY, DATA> useSWRInternal(
         SWRMutateImpl(key, mutateGlobalConfig, cache, systemCache, validate)
     }
 
-    val oldDataHolder = remember { DataHolder<DATA>() }
-    val data: DATA? by remember(key) { cache.state(key, config.fallbackData ?: config.fallback[key] ?: (if (config.keepPreviousData) oldDataHolder.data else null)) }
+    val oldDataHolder: DataHolder<DATA> = remember { DataHolder() }
+    val data: DATA? by remember(key) { cache.state(key) }
+    val fallbackData: DATA? = remember(key) { config.fallbackData ?: config.fallback[key] ?: (if (config.keepPreviousData) oldDataHolder.data else null) }
     val error: MutableState<Throwable?> = remember(key) { systemCache.errorState(key) }
     val isValidating: MutableState<Boolean> = remember(key) { systemCache.isValidatingState(key) }
     oldDataHolder.data = data
@@ -55,8 +56,10 @@ internal fun <KEY, DATA> useSWRInternal(
     RevalidateOnReconnect(key, config) { scope.launch { validate(key) } }
     RefreshInterval(key, config) { scope.launch { validate(key) } }
 
-    return remember(key, data, error.value, isValidating.value, mutate) {
-        SWRStateImpl(data = data, error = error.value, isValidating = isValidating.value, mutate = mutate)
+    return remember(key, data, fallbackData, error.value, isValidating.value, mutate) {
+        val mergedData = data ?: fallbackData
+        val isLoading: Boolean = (data == null) && (error.value == null)
+        SWRStateImpl(data = mergedData, error = error.value, isLoading = isLoading, isValidating = isValidating.value, mutate = mutate)
     }
 }
 

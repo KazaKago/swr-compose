@@ -22,7 +22,7 @@ public interface SWRConfigState<KEY, DATA> {
             mutate: SWRMutate<KEY, DATA> = SWRMutate.empty(),
             config: SWRConfig<KEY, DATA> = SWRConfigImpl.from(SWRGlobalConfig()),
             cache: SWRCache = object : SWRCache {
-                override fun <KEY, DATA> state(key: KEY, defaultValue: DATA?) = mutableStateOf<DATA?>(null)
+                override fun <KEY, DATA> state(key: KEY) = mutableStateOf<DATA?>(null)
                 override fun clear() {}
             }
         ): SWRConfigState<KEY, DATA> = SWRConfigStateImpl(mutate, config, cache)

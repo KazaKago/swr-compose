@@ -24,11 +24,12 @@ public interface SWRInfiniteState<KEY, DATA> {
         public fun <KEY, DATA> empty(
             data: List<DATA?> = emptyList(),
             error: Throwable? = null,
+            isLoading: Boolean = false,
             isValidating: Boolean = false,
             mutate: SWRMutate<KEY, List<DATA>> = SWRMutate.empty(),
             size: Int = 1,
-            setSize: (size: Int) -> Unit = {}
-        ): SWRInfiniteState<KEY, DATA> = SWRInfiniteStateImpl(data = data, error = error, isValidating = isValidating, mutate = mutate, size = size, setSize = setSize)
+            setSize: (size: Int) -> Unit = {},
+        ): SWRInfiniteState<KEY, DATA> = SWRInfiniteStateImpl(data = data, error = error, isLoading = isLoading, isValidating = isValidating, mutate = mutate, size = size, setSize = setSize)
     }
 }
 
@@ -36,7 +37,7 @@ public interface SWRInfiniteState<KEY, DATA> {
 internal data class SWRInfiniteStateImpl<KEY, DATA>(
     override val data: List<DATA?>?,
     override val error: Throwable?,
-    override val isLoading: Boolean = (data == null) && (error == null),
+    override val isLoading: Boolean,
     override val isValidating: Boolean,
     override val mutate: SWRMutate<KEY, List<DATA>>,
     override val size: Int,

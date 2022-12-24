@@ -20,9 +20,10 @@ public interface SWRState<KEY, DATA> {
         public fun <KEY, DATA> empty(
             data: DATA? = null,
             error: Throwable? = null,
+            isLoading: Boolean = false,
             isValidating: Boolean = false,
             mutate: SWRMutate<KEY, DATA> = SWRMutate.empty(),
-        ): SWRState<KEY, DATA> = SWRStateImpl(data = data, error = error, isValidating = isValidating, mutate = mutate)
+        ): SWRState<KEY, DATA> = SWRStateImpl(data = data, error = error, isLoading = isLoading, isValidating = isValidating, mutate = mutate)
     }
 }
 
@@ -30,7 +31,7 @@ public interface SWRState<KEY, DATA> {
 internal data class SWRStateImpl<KEY, DATA>(
     override val data: DATA?,
     override val error: Throwable?,
-    override val isLoading: Boolean = (data == null) && (error == null),
+    override val isLoading: Boolean,
     override val isValidating: Boolean,
     override val mutate: SWRMutate<KEY, DATA>,
 ) : SWRState<KEY, DATA>
