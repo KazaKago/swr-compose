@@ -55,7 +55,7 @@ public class PopulateCacheOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_1", "fetched_1", "fetched_2")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
     }
 }

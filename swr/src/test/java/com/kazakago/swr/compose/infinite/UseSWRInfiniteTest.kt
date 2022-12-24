@@ -39,7 +39,7 @@ public class UseSWRInfiniteTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"))
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
     }
 
@@ -65,7 +65,7 @@ public class UseSWRInfiniteTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched_${key}_1"), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", "fetched_${key}_2"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2)
     }

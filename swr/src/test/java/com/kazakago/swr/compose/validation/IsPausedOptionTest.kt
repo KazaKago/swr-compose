@@ -47,7 +47,7 @@ public class IsPausedOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null)
         stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isLoading } shouldBe listOf(true)
+        stateList.map { it.isLoading } shouldBe listOf(false)
         stateList.map { it.isValidating } shouldBe listOf(false)
     }
 }

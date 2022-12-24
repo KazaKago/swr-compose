@@ -46,7 +46,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -54,7 +54,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -62,7 +62,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched", "fetched", "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
     }
 
@@ -86,7 +86,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -94,7 +94,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -102,7 +102,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
     }
 
@@ -126,7 +126,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -134,7 +134,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched", "fetched", "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
 
         scope.launch { stateList.last().mutate() }
@@ -142,7 +142,7 @@ public class DedupingIntervalOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1100)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched", "fetched", "fetched", "fetched", "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false, true, false)
     }
 }

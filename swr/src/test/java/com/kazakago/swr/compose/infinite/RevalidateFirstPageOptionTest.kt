@@ -51,7 +51,7 @@ public class RevalidateFirstPageOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("${key}_1_1"), listOf("${key}_1_1", null), listOf("${key}_1_1", null), listOf("${key}_1_2", "${key}_2_1"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2)
 
@@ -63,7 +63,7 @@ public class RevalidateFirstPageOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("${key}_1_1"), listOf("${key}_1_1", null), listOf("${key}_1_1", null), listOf("${key}_1_2", "${key}_2_1"), listOf("${key}_1_2", "${key}_2_1", null, null), listOf("${key}_1_2", "${key}_2_1", null, null), listOf("${key}_1_3", "${key}_2_1", "${key}_3_1", "${key}_4_1"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2, 4, 4, 4)
     }
@@ -96,7 +96,7 @@ public class RevalidateFirstPageOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("${key}_1_1"), listOf("${key}_1_1", null), listOf("${key}_1_1", null), listOf("${key}_1_1", "${key}_2_1"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2)
 
@@ -108,7 +108,7 @@ public class RevalidateFirstPageOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("${key}_1_1"), listOf("${key}_1_1", null), listOf("${key}_1_1", null), listOf("${key}_1_1", "${key}_2_1"), listOf("${key}_1_1", "${key}_2_1", null, null), listOf("${key}_1_1", "${key}_2_1", null, null), listOf("${key}_1_1", "${key}_2_1", "${key}_3_1", "${key}_4_1"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2, 4, 4, 4)
     }

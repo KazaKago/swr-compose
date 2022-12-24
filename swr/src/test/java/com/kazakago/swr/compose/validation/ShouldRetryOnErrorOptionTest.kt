@@ -42,7 +42,7 @@ public class ShouldRetryOnErrorOptionTest {
         composeTestRule.mainClock.advanceTimeBy(15000)
         stateList.map { it.data } shouldBe listOf(null, null, null, null, null)
         stateList.map { it.error } shouldBe listOf(null, null, DummyException1, DummyException1, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
     }
 
@@ -64,7 +64,7 @@ public class ShouldRetryOnErrorOptionTest {
         composeTestRule.mainClock.advanceTimeBy(15000)
         stateList.map { it.data } shouldBe listOf(null, null, null)
         stateList.map { it.error } shouldBe listOf(null, null, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
     }
 }

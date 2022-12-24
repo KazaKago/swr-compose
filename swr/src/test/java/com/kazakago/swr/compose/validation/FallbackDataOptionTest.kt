@@ -39,7 +39,7 @@ public class FallbackDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1000)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
     }
 
@@ -61,7 +61,7 @@ public class FallbackDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1000)
         stateList.map { it.data } shouldBe listOf("fallback")
         stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isLoading } shouldBe listOf(true)
+        stateList.map { it.isLoading } shouldBe listOf(false)
         stateList.map { it.isValidating } shouldBe listOf(false)
     }
 
@@ -84,7 +84,7 @@ public class FallbackDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(1000)
         stateList.map { it.data } shouldBe listOf("fallback", "fallback", "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
     }
 }

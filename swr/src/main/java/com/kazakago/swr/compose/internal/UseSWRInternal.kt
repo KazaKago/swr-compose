@@ -58,7 +58,7 @@ internal fun <KEY, DATA> useSWRInternal(
 
     return remember(key, data, fallbackData, error.value, isValidating.value, mutate) {
         val mergedData = data ?: fallbackData
-        val isLoading: Boolean = (data == null) && (error.value == null)
+        val isLoading: Boolean = (data == null) && (error.value == null) && isValidating.value
         SWRStateImpl(data = mergedData, error = error.value, isLoading = isLoading, isValidating = isValidating.value, mutate = mutate)
     }
 }

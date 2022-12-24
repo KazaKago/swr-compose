@@ -55,7 +55,7 @@ public class RevalidateOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_1", "mutated")
         stateList.map { it.error } shouldBe listOf(null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false)
     }
 }

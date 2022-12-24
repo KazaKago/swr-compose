@@ -49,7 +49,7 @@ public class PersistSizeOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4)
 
@@ -61,7 +61,7 @@ public class PersistSizeOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false, true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4, 1, 1, 1)
     }
@@ -92,7 +92,7 @@ public class PersistSizeOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4)
 
@@ -104,7 +104,7 @@ public class PersistSizeOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched", "fetched", "fetched", "fetched"))
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, false, false, false, true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
         stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4, 4, 4, 4)
     }

@@ -44,7 +44,7 @@ public class KeepPreviousDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         getKey = { "${key}_2" }
@@ -53,7 +53,7 @@ public class KeepPreviousDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1", null, null, "fetched_${key}_2")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
     }
 
@@ -78,7 +78,7 @@ public class KeepPreviousDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1")
         stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
         getKey = { "${key}_2" }
@@ -87,7 +87,7 @@ public class KeepPreviousDataOptionTest {
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_2")
         stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(true, true, false, true, true, false)
+        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
     }
 }
