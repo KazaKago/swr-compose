@@ -25,13 +25,14 @@ import org.robolectric.shadows.ShadowNetwork
 public class UseSWRImmutableTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun immutable() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             LocalSWRCache.current.state<String, String>(key = key!!).let {

@@ -20,16 +20,14 @@ import org.junit.runner.RunWith
 public class FetcherOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
-
-    @get:Rule
-    public val composeTestRule2: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun localFetcher() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key) {
@@ -52,7 +50,6 @@ public class FetcherOptionTest {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
         val stateList2 = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {
@@ -78,7 +75,6 @@ public class FetcherOptionTest {
     public fun globalFetcher() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             SWRConfig(

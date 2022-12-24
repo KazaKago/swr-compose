@@ -19,13 +19,14 @@ import kotlin.time.Duration.Companion.seconds
 public class OnLoadingSlowOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun onLoadingSlow() {
         val key = object {}.javaClass.enclosingMethod?.name
         val keyList = mutableListOf<String>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             useSWR(key = key, fetcher = {
@@ -46,7 +47,6 @@ public class OnLoadingSlowOptionTest {
     public fun onLoadingSlow2() {
         val key = object {}.javaClass.enclosingMethod?.name
         val keyList = mutableListOf<String>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             useSWR(key = key, fetcher = {

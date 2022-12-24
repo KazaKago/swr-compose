@@ -24,14 +24,15 @@ import kotlin.time.Duration.Companion.seconds
 public class DedupingIntervalOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun dedupingInterval2Seconds() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -71,7 +72,6 @@ public class DedupingIntervalOptionTest {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -111,7 +111,6 @@ public class DedupingIntervalOptionTest {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()

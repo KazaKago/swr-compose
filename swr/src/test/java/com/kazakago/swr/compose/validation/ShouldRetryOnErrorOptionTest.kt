@@ -22,13 +22,14 @@ import kotlin.time.Duration.Companion.seconds
 public class ShouldRetryOnErrorOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun withShouldRetryOnError() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {
@@ -50,7 +51,6 @@ public class ShouldRetryOnErrorOptionTest {
     public fun noShouldRetryOnError() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {

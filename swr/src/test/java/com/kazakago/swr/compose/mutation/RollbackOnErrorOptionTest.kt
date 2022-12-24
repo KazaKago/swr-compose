@@ -24,7 +24,9 @@ import java.util.*
 public class RollbackOnErrorOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun noRollbackOnError() {
@@ -32,7 +34,6 @@ public class RollbackOnErrorOptionTest {
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()

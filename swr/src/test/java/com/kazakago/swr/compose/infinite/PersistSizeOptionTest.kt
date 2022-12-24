@@ -21,7 +21,9 @@ import org.junit.runner.RunWith
 public class PersistSizeOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun noPersistSize() {
@@ -29,7 +31,6 @@ public class PersistSizeOptionTest {
         var getKey: (Int, String?) -> String = { pageIndex, _ -> "${key}_${pageIndex}" }
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -72,7 +73,6 @@ public class PersistSizeOptionTest {
         var getKey: (Int, String?) -> String = { pageIndex, _ -> "${key}_${pageIndex}" }
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()

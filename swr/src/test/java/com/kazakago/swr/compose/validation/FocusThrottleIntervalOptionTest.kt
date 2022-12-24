@@ -21,13 +21,14 @@ import kotlin.time.Duration.Companion.seconds
 public class FocusThrottleIntervalOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun focusThrottleInterval5Seconds() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {
@@ -86,7 +87,6 @@ public class FocusThrottleIntervalOptionTest {
     public fun focusThrottleInterval10Seconds() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {
@@ -145,7 +145,6 @@ public class FocusThrottleIntervalOptionTest {
     public fun focusThrottleInterval0Seconds() {
         val key = object {}.javaClass.enclosingMethod?.name
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {

@@ -23,13 +23,14 @@ import kotlin.time.Duration.Companion.seconds
 public class ErrorRetryCountOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun errorRetryCountNull() {
         val key = object {}.javaClass.enclosingMethod?.name
         val errorRetryCountList = mutableListOf<Int?>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             useSWR(key = key, fetcher = {
@@ -51,7 +52,6 @@ public class ErrorRetryCountOptionTest {
     public fun errorRetryCount3() {
         val key = object {}.javaClass.enclosingMethod?.name
         val errorRetryCountList = mutableListOf<Int?>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             useSWR(key = key, fetcher = {

@@ -21,7 +21,9 @@ import org.junit.runner.RunWith
 public class KeepPreviousDataOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun noKeepPreviousData() {
@@ -29,7 +31,6 @@ public class KeepPreviousDataOptionTest {
         var getKey = { "${key}_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -63,7 +64,6 @@ public class KeepPreviousDataOptionTest {
         var getKey = { "${key}_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()

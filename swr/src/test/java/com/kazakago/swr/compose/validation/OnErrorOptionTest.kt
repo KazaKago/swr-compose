@@ -20,13 +20,14 @@ import org.junit.runner.RunWith
 public class OnErrorOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun withOnError() {
         val key = object {}.javaClass.enclosingMethod?.name
         val onErrorList = mutableListOf<Pair<Throwable, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             useSWR(key = key, fetcher = {

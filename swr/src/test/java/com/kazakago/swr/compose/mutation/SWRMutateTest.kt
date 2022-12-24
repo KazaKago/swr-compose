@@ -26,7 +26,9 @@ import java.util.*
 public class SWRMutateTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun validate_mutation() {
@@ -34,7 +36,6 @@ public class SWRMutateTest {
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -61,7 +62,6 @@ public class SWRMutateTest {
         var result: () -> String = { "fetched" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -88,7 +88,6 @@ public class SWRMutateTest {
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -120,7 +119,6 @@ public class SWRMutateTest {
         var result: () -> String = { "fetched" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -158,7 +156,6 @@ public class SWRMutateTest {
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -185,7 +182,6 @@ public class SWRMutateTest {
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -212,7 +208,6 @@ public class SWRMutateTest {
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -244,7 +239,6 @@ public class SWRMutateTest {
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()

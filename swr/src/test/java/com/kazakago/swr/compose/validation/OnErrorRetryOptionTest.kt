@@ -21,14 +21,15 @@ import org.junit.runner.RunWith
 public class OnErrorRetryOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun defaultOnErrorRetry() {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {
@@ -52,7 +53,6 @@ public class OnErrorRetryOptionTest {
         val key = object {}.javaClass.enclosingMethod?.name
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
             stateList += useSWR(key = key, fetcher = {

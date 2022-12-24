@@ -21,7 +21,9 @@ import org.junit.runner.RunWith
 public class RevalidateAllOptionTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule()
+    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+        mainClock.autoAdvance = false
+    }
 
     @Test
     public fun noRevalidateAll() {
@@ -29,7 +31,6 @@ public class RevalidateAllOptionTest {
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         val fetchCountMap = mutableMapOf<String, Int>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
@@ -74,7 +75,6 @@ public class RevalidateAllOptionTest {
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         val fetchCountMap = mutableMapOf<String, Int>()
         lateinit var scope: CoroutineScope
-        composeTestRule.mainClock.autoAdvance = false
         composeTestRule.setContent {
             scope = rememberCoroutineScope()
             SWRGlobalScope = rememberCoroutineScope()
