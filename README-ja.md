@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://search.maven.org/artifact/com.kazakago.swr.compose/swr-android)
 [![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
-[![Test](https://github.com/kazakago/swr-compose/workflows/Test/badge.svg)](https://github.com/kazakago/swr-compose/actions?query=workflow%3ATest)
+[![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
 [React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose) 向けに移植したクローンライブラリです。  
@@ -15,6 +15,10 @@
 React SWRによると、"SWR"とは下記を指します。  
 
 > “SWR” という名前は、 [HTTP RFC 5861](https://www.rfc-editor.org/rfc/rfc5861) で提唱された HTTP キャッシュ無効化戦略である stale-while-revalidate に由来しています。 SWR は、まずキャッシュからデータを返し（stale）、次にフェッチリクエストを送り（revalidate）、最後に最新のデータを持ってくるという戦略です。
+
+## 要件
+
+Min SDK 23 以上
 
 ## インストール
 

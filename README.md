@@ -2,7 +2,7 @@
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://search.maven.org/artifact/com.kazakago.swr.compose/swr-android)
 [![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
-[![Test](https://github.com/kazakago/swr-compose/workflows/Test/badge.svg)](https://github.com/kazakago/swr-compose/actions?query=workflow%3ATest)
+[![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
 This is a clone library of [React SWR](https://swr.vercel.app) ported for [Jetpack Compose](https://developer.android.com/jetpack/compose).  
@@ -16,6 +16,10 @@ Options are also supported for the most part.
 According to `React SWR`, "SWR" refers to  
 
 > The name “SWR” is derived from stale-while-revalidate, a HTTP cache invalidation strategy popularized by [HTTP RFC 5861](https://www.rfc-editor.org/rfc/rfc5861). SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data.
+
+## Requirements
+
+Min SDK 23+
 
 ## Install
 
