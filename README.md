@@ -43,9 +43,15 @@ private val fetcher: suspend (key: String) -> String = {
 fun Profile() {
     val (data, error) = useSWR("/api/user", fetcher)
 
-    if (error != null) Text("failed to load")
-    else if (data == null) Text("loading...")
-    else Text("hello $data!")
+    if (error != null) {
+        Text("failed to load")
+        return
+    }
+    if (data == null) {
+        Text("loading...")
+        return
+    }
+    Text("hello $data!")
 }
 ```
 
