@@ -43,7 +43,7 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2022.12.00"))
+    implementation(platform("androidx.compose:compose-bom:2023.01.00"))
     implementation("androidx.compose.ui:ui")
     implementation("androidx.lifecycle:lifecycle-common:2.5.1")
 
