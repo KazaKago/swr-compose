@@ -1,6 +1,6 @@
 # SWR for Compose Android
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://search.maven.org/artifact/com.kazakago.swr.compose/swr-android)
+[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.dev/namespace/com.kazakago.swr.compose)
 [![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
 [![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
