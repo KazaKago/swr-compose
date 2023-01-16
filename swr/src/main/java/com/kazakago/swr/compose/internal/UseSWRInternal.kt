@@ -4,7 +4,6 @@ import androidx.compose.runtime.*
 import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.cache.LocalSWRSystemCache
 import com.kazakago.swr.compose.config.SWRConfig
-import com.kazakago.swr.compose.mutate.LocalSWRMutateConfig
 import com.kazakago.swr.compose.mutate.SWRMutate
 import com.kazakago.swr.compose.mutate.SWRMutateImpl
 import com.kazakago.swr.compose.state.SWRState
@@ -23,14 +22,13 @@ internal fun <KEY, DATA> useSWRInternal(
 ): SWRState<KEY, DATA> {
     val cache = LocalSWRCache.current
     val systemCache = LocalSWRSystemCache.current
-    val mutateGlobalConfig = LocalSWRMutateConfig.current
     val scope = _scope ?: config.scope ?: rememberCoroutineScope()
     if (key != null && fetcher != null) systemCache.setFetcher(key, fetcher)
     val validate: SWRValidate<KEY> = remember(config, cache, systemCache) {
         SWRValidateImpl(config, cache, systemCache, fetcher)
     }
-    val mutate: SWRMutate<KEY, DATA> = remember(key, mutateGlobalConfig, cache, systemCache, validate) {
-        SWRMutateImpl(key, mutateGlobalConfig, cache, systemCache, validate)
+    val mutate: SWRMutate<KEY, DATA> = remember(key, cache, systemCache, validate) {
+        SWRMutateImpl(key, cache, systemCache, validate)
     }
 
     val loadedDataHolder: DataHolder<DATA> = remember { DataHolder() }

@@ -3,6 +3,7 @@ package com.kazakago.swr.compose.mutate
 import androidx.compose.runtime.Immutable
 import com.kazakago.swr.compose.cache.SWRCache
 import com.kazakago.swr.compose.cache.SWRSystemCache
+import com.kazakago.swr.compose.config.SWRMutateConfig
 import com.kazakago.swr.compose.validate.SWRValidate
 
 public interface SWRMutate<KEY, DATA> {
@@ -22,7 +23,6 @@ public interface SWRMutate<KEY, DATA> {
 @Immutable
 internal data class SWRMutateImpl<KEY, DATA>(
     private val key: KEY?,
-    private val globalConfig: SWRMutateGlobalConfig,
     private val cache: SWRCache,
     private val systemCache: SWRSystemCache,
     private val validate: SWRValidate<KEY>,
@@ -34,7 +34,7 @@ internal data class SWRMutateImpl<KEY, DATA>(
         options: SWRMutateConfig<DATA>.() -> Unit,
     ) {
         val currentKey = key ?: this.key ?: return
-        val config = SWRMutateConfig.from<DATA>(globalConfig).apply { options() }
+        val config = SWRMutateConfig<DATA>().apply { options() }
         val oldData: DATA? = cache.state<KEY, DATA>(currentKey).value
         if (config.optimisticData != null) {
             cache.state<KEY, DATA>(currentKey).value = config.optimisticData

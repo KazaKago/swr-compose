@@ -5,9 +5,8 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import com.kazakago.swr.compose.config.LocalSWRConfig
 import com.kazakago.swr.compose.config.SWRInfiniteConfig
 import com.kazakago.swr.compose.internal.useSWRInternal
-import com.kazakago.swr.compose.mutate.LocalSWRMutateConfig
 import com.kazakago.swr.compose.mutate.SWRMutate
-import com.kazakago.swr.compose.mutate.SWRMutateConfig
+import com.kazakago.swr.compose.config.SWRMutateConfig
 import com.kazakago.swr.compose.state.SWRInfiniteState
 import com.kazakago.swr.compose.state.SWRInfiniteStateImpl
 import com.kazakago.swr.compose.state.SWRState
@@ -21,7 +20,6 @@ public fun <KEY, DATA> useSWRInfinite(
     options: SWRInfiniteConfig<KEY, DATA>.() -> Unit = {},
 ): SWRInfiniteState<KEY, DATA> {
     val globalConfig = LocalSWRConfig.current
-    val mutateGlobalConfig = LocalSWRMutateConfig.current
     val config = SWRInfiniteConfig.from<KEY, DATA>(globalConfig).apply { options() }
     val currentScope = scope ?: config.scope ?: rememberCoroutineScope()
     val pageIndexRememberKey: Any? = if (config.persistSize) Unit else getKey(1, null)
@@ -59,7 +57,7 @@ public fun <KEY, DATA> useSWRInfinite(
         mutate = object : SWRMutate<KEY, List<DATA>> {
             override suspend fun invoke(key: KEY?, data: (suspend () -> List<DATA>)?, options: SWRMutateConfig<List<DATA>>.() -> Unit) {
                 coroutineScope {
-                    val listMutateConfig = SWRMutateConfig.from<List<DATA>>(mutateGlobalConfig).apply { options() }
+                    val listMutateConfig = SWRMutateConfig<List<DATA>>().apply { options() }
                     pageStateList.mapIndexed { index, swrState ->
                         async {
                             val dataBlock = data?.invoke()?.getOrNull(index)?.let { suspend { it } }

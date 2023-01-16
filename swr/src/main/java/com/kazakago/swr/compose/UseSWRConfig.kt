@@ -6,7 +6,6 @@ import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.cache.LocalSWRSystemCache
 import com.kazakago.swr.compose.config.LocalSWRConfig
 import com.kazakago.swr.compose.config.SWRConfigImpl
-import com.kazakago.swr.compose.mutate.LocalSWRMutateConfig
 import com.kazakago.swr.compose.mutate.SWRMutate
 import com.kazakago.swr.compose.mutate.SWRMutateImpl
 import com.kazakago.swr.compose.state.SWRConfigState
@@ -19,13 +18,12 @@ public fun <KEY, DATA> useSWRConfig(): SWRConfigState<KEY, DATA> {
     val cache = LocalSWRCache.current
     val systemCache = LocalSWRSystemCache.current
     val globalConfig = LocalSWRConfig.current
-    val mutateGlobalConfig = LocalSWRMutateConfig.current
     val config = SWRConfigImpl.from<KEY, DATA>(globalConfig)
     val validate: SWRValidate<KEY> = remember(config, cache, systemCache) {
         SWRValidateImpl(config, cache, systemCache, null)
     }
-    val mutate: SWRMutate<KEY, DATA> = remember(mutateGlobalConfig, cache, systemCache, validate) {
-        SWRMutateImpl(null, mutateGlobalConfig, cache, systemCache, validate)
+    val mutate: SWRMutate<KEY, DATA> = remember(cache, systemCache, validate) {
+        SWRMutateImpl(null, cache, systemCache, validate)
     }
     return SWRConfigStateImpl(
         mutate = mutate,
