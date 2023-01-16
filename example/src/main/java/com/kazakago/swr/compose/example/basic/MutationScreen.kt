@@ -19,7 +19,7 @@ private val fetcher: suspend (key: String) -> String = {
     "Fetched Data"
 }
 
-private val mutater: suspend () -> String = {
+private val mutator: suspend () -> String = {
     delay(1000)
     "Mutated Data"
 }
@@ -60,7 +60,7 @@ fun MutationScreen(navController: NavController) {
                 Row {
                     Button(onClick = {
                         scope.launch {
-                            mutate(data = mutater) {
+                            mutate(data = mutator) {
                                 optimisticData = "Optimistic Data" // default is null
                                 revalidate = false                 // default is true
                                 populateCache = true               // default is true

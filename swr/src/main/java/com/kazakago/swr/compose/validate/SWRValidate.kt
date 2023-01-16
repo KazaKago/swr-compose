@@ -30,7 +30,7 @@ internal data class SWRValidateImpl<KEY, DATA>(
         options: SWRValidateOptions?,
     ) {
         val currentKey = key ?: return
-        val fetcher = _fetcher ?: systemCache.getFetcher(key) ?: config.fetcher ?: return
+        val fetcher = _fetcher ?: systemCache.getFetcher(currentKey) ?: config.fetcher ?: return
         val error = systemCache.errorState(currentKey)
         val isValidating = systemCache.isValidatingState(currentKey)
         val validatedTimerJob = systemCache.getValidatedTimerJob(currentKey)
