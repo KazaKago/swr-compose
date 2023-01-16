@@ -4,17 +4,19 @@ import androidx.compose.runtime.Immutable
 import androidx.compose.runtime.MutableState
 import com.kazakago.swr.compose.cache.SWRCache
 import com.kazakago.swr.compose.config.SWRTriggerConfig
+import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.validate.SWRValidate
+import kotlinx.coroutines.launch
 
 public interface SWRTrigger<KEY, DATA, ARG> {
     public suspend operator fun invoke(
         arg: ARG,
         options: SWRTriggerConfig<KEY, DATA>.() -> Unit = {},
-    )
+    ): DATA?
 
     public companion object {
         public fun <KEY, DATA, ARG> empty(): SWRTrigger<KEY, DATA, ARG> = object : SWRTrigger<KEY, DATA, ARG> {
-            override suspend fun invoke(arg: ARG, options: SWRTriggerConfig<KEY, DATA>.() -> Unit) {}
+            override suspend fun invoke(arg: ARG, options: SWRTriggerConfig<KEY, DATA>.() -> Unit): DATA? = null
         }
     }
 }
@@ -34,8 +36,8 @@ internal data class SWRTriggerImpl<KEY, DATA, ARG>(
     override suspend fun invoke(
         arg: ARG,
         options: SWRTriggerConfig<KEY, DATA>.() -> Unit,
-    ) {
-        val currentKey = key ?: return
+    ): DATA? {
+        val currentKey = key ?: return null
         val config = config.apply { options() }
         val oldData: DATA? = data.value
         if (config.optimisticData != null) {
@@ -48,22 +50,25 @@ internal data class SWRTriggerImpl<KEY, DATA, ARG>(
         }.onSuccess { newData ->
             data.value = newData
             error.value = null
+            isMutating.value = false
+            config.onSuccess?.invoke(newData, currentKey, config)
             if (config.populateCache && newData != null) {
                 cache.state<KEY, DATA>(currentKey).value = newData
             }
-            config.onSuccess?.invoke(newData, currentKey, config)
             if (config.revalidate) {
-                validate(currentKey)
+                SWRGlobalScope.launch { validate(currentKey) }
             }
         }.onFailure { throwable ->
+            isMutating.value = false
+            config.onError?.invoke(throwable, currentKey, config)
             if (config.rollbackOnError) {
                 data.value = oldData
             }
-            config.onError?.invoke(throwable, currentKey, config)
             if (config.throwOnError) {
+                error.value = throwable
                 throw throwable
             }
         }
-        isMutating.value = false
+        return data.value
     }
 }
