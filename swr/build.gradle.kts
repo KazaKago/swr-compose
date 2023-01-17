@@ -79,7 +79,7 @@ publishing {
         register<MavenPublication>("release") {
             groupId = "com.kazakago.swr.compose"
             artifactId = "swr-android"
-            version = "0.5.0"
+            version = "0.6.0"
             pom {
                 name.set("swr-compose")
                 description.set("\"React SWR\" ported for Jetpack Compose")
