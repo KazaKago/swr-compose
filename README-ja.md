@@ -1,8 +1,8 @@
 # SWR for Compose Android
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.dev/namespace/com.kazakago.swr.compose)
+[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)
 [![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
-[![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml)
+[![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml?query=branch%3Amain)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
 [React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose) 向けに移植したクローンライブラリです。  
@@ -22,7 +22,7 @@ Min SDK 23 以上
 
 ## インストール
 
-下記の `*.*.*` を最新のバージョンに置き換えてbuild.gradleのdependenciesに追加してください。 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://search.maven.org/artifact/com.kazakago.swr.compose/swr-android)  
+下記の `*.*.*` を最新のバージョンに置き換えてbuild.gradleのdependenciesに追加してください。 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
 
 ```kotlin
 implementation("com.kazakago.swr.compose:swr-android:*.*.*")
