@@ -50,7 +50,7 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     testImplementation("io.kotest:kotest-assertions-core:5.5.5")
-    testImplementation("org.robolectric:robolectric:4.9.2")
+    testImplementation("org.robolectric:robolectric:4.10")
     testImplementation("androidx.compose.ui:ui-test-junit4")
 
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
