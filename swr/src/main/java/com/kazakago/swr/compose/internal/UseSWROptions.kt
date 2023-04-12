@@ -2,9 +2,6 @@ package com.kazakago.swr.compose.internal
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
@@ -13,6 +10,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
+import androidx.lifecycle.repeatOnLifecycle
 import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.cache.LocalSWRSystemCache
 import com.kazakago.swr.compose.config.SWRConfig
@@ -100,42 +98,14 @@ internal fun <KEY, DATA> RevalidateOnReconnect(
     val context = LocalContext.current
     val lifecycleOwner = LocalLifecycleOwner.current
     val revalidateOnReconnect = config.revalidateOnReconnect
-    DisposableEffect(key, lifecycleOwner, revalidateOnReconnect) {
+    LaunchedEffect(key, lifecycleOwner, revalidateOnReconnect) {
         if (revalidateOnReconnect) {
-            var shouldNotValidateAtNextOnAvailable = false
-            val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
-            val request = NetworkRequest.Builder()
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
-                .addCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
-                .build()
-            val networkCallback = object : ConnectivityManager.NetworkCallback() {
-                override fun onAvailable(network: Network) {
-                    if (!shouldNotValidateAtNextOnAvailable) {
-                        validate()
-                    }
-                    shouldNotValidateAtNextOnAvailable = false
+            val networkCallbackManager = NetworkCallbackManager.getInstance(context)
+            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                networkCallbackManager.onAvailable.collect {
+                    validate()
                 }
             }
-            val lifecycleObserver = LifecycleEventObserver { _, event ->
-                when (event) {
-                    Lifecycle.Event.ON_START -> {
-                        shouldNotValidateAtNextOnAvailable = connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.let {
-                            it.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET) && it.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED)
-                        } ?: false
-                        connectivityManager.registerNetworkCallback(request, networkCallback)
-                    }
-                    Lifecycle.Event.ON_STOP -> {
-                        connectivityManager.unregisterNetworkCallback(networkCallback)
-                    }
-                    else -> {}
-                }
-            }
-            lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-            onDispose {
-                lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-            }
-        } else {
-            onDispose {}
         }
     }
 }

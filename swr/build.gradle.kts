@@ -44,7 +44,7 @@ android {
 dependencies {
     implementation(platform("androidx.compose:compose-bom:2023.01.00"))
     implementation("androidx.compose.ui:ui")
-    implementation("androidx.lifecycle:lifecycle-common:2.6.0")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
     debugImplementation("androidx.compose.ui:ui-test-manifest")
 
