@@ -3,13 +3,11 @@ package com.kazakago.swr.compose.internal
 import android.content.Context
 import android.net.ConnectivityManager
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.State
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.repeatOnLifecycle
 import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.cache.LocalSWRSystemCache
@@ -60,31 +58,20 @@ internal fun <KEY, DATA> RevalidateOnFocus(
     val systemCache = LocalSWRSystemCache.current
     val revalidateOnFocus = config.revalidateOnFocus
     val focusThrottleInterval = config.focusThrottleInterval
-    DisposableEffect(key, lifecycleOwner, systemCache, revalidateOnFocus, focusThrottleInterval) {
+    LaunchedEffect(key, lifecycleOwner, systemCache, revalidateOnFocus, focusThrottleInterval) {
         if (revalidateOnFocus) {
             var isFirstTime = true
-            val lifecycleObserver = LifecycleEventObserver { _, event ->
-                when (event) {
-                    Lifecycle.Event.ON_RESUME -> {
-                        val focusedTimerJob = systemCache.getFocusedTimerJob(key)
-                        if (!isFirstTime) {
-                            if (focusedTimerJob == null || !focusedTimerJob.isActive) {
-                                val newFocusedTimerJob = SWRGlobalScope.launch { delay(focusThrottleInterval) }
-                                systemCache.setFocusedTimerJob(key, newFocusedTimerJob)
-                                validate()
-                            }
-                        }
-                        isFirstTime = false
+            lifecycleOwner.repeatOnLifecycle(Lifecycle.State.RESUMED) {
+                val focusedTimerJob = systemCache.getFocusedTimerJob(key)
+                if (!isFirstTime) {
+                    if (focusedTimerJob == null || !focusedTimerJob.isActive) {
+                        val newFocusedTimerJob = SWRGlobalScope.launch { delay(focusThrottleInterval) }
+                        systemCache.setFocusedTimerJob(key, newFocusedTimerJob)
+                        validate()
                     }
-                    else -> {}
                 }
+                isFirstTime = false
             }
-            lifecycleOwner.lifecycle.addObserver(lifecycleObserver)
-            onDispose {
-                lifecycleOwner.lifecycle.removeObserver(lifecycleObserver)
-            }
-        } else {
-            onDispose {}
         }
     }
 }
