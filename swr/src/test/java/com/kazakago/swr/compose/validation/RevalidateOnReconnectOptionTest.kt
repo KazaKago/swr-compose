@@ -41,13 +41,17 @@ public class RevalidateOnReconnectOptionTest {
             }
         }
 
+        val connectivityManager = shadowOf(composeTestRule.activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
+        connectivityManager.networkCallbacks.forEach { callback ->
+            callback.onAvailable(ShadowNetwork.newInstance(1)) // First registered time callback.
+        }
+
         composeTestRule.mainClock.advanceTimeBy(2500)
         stateList.map { it.data } shouldBe listOf(null, null, "fetched")
         stateList.map { it.error } shouldBe listOf(null, null, null)
         stateList.map { it.isLoading } shouldBe listOf(false, true, false)
         stateList.map { it.isValidating } shouldBe listOf(false, true, false)
 
-        val connectivityManager = shadowOf(composeTestRule.activity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
         connectivityManager.networkCallbacks.forEach { callback ->
             callback.onAvailable(ShadowNetwork.newInstance(1))
         }
