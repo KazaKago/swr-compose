@@ -72,10 +72,10 @@ private fun PaginationRow(page: Int) {
     ) {
         if (list == null) {
             CircularProgressIndicator()
-            return@Column
-        }
-        list.forEach { content ->
-            Text(content, style = MaterialTheme.typography.titleLarge)
+        } else {
+            list.forEach { content ->
+                Text(content, style = MaterialTheme.typography.titleLarge)
+            }
         }
     }
 }

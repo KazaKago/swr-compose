@@ -60,13 +60,11 @@ fun ErrorHandlingScreen(navController: NavController) {
         ) {
             if (error != null) {
                 ErrorContent { scope.launch { mutate() } }
-                return@Box
-            }
-            if (data == null) {
+            } else if (data == null) {
                 LoadingContent()
-                return@Box
+            } else {
+                Text(data)
             }
-            Text(data)
         }
     }
 }

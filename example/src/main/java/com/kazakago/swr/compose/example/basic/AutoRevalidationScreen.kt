@@ -56,16 +56,16 @@ fun AutoRevalidationScreen(navController: NavController) {
         ) {
             if (data == null) {
                 LoadingContent()
-                return@Box
-            }
-            if (isValidating) {
-                LinearProgressIndicator(Modifier.fillMaxWidth())
-            }
-            Box(
-                modifier = Modifier.fillMaxSize(),
-                contentAlignment = Alignment.Center
-            ) {
-                Text(data)
+            } else {
+                if (isValidating) {
+                    LinearProgressIndicator(Modifier.fillMaxWidth())
+                }
+                Box(
+                    modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(data)
+                }
             }
         }
     }

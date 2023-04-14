@@ -79,9 +79,9 @@ fun PrefetchingNextScreen(navController: NavController, scope: CoroutineScope) {
         ) {
             if (data == null) {
                 LoadingContent()
-                return@Box
+            } else {
+                Text(data)
             }
-            Text(data)
         }
     }
 }

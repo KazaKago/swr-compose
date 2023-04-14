@@ -46,15 +46,15 @@ fun ArgumentsScreen(navController: NavController) {
         ) {
             if (data1 == null || data2 == null) {
                 LoadingContent()
-                return@Box
-            }
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(data1)
-                Text(data2)
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(data1)
+                    Text(data2)
+                }
             }
         }
     }
