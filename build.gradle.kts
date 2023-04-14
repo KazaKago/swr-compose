@@ -7,7 +7,7 @@ plugins {
 }
 
 nexusPublishing {
-    repositories {
+    repositories(Action {
         sonatype {
             nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/"))
             snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
@@ -15,5 +15,5 @@ nexusPublishing {
             password.set(System.getenv("SONATYPE_PASSWORD") ?: findProperty("sonatype.password").toString())
             stagingProfileId.set(System.getenv("SONATYPE_STAGING_PROFILE_ID") ?: findProperty("sonatype.stagingProfileId").toString())
         }
-    }
+    })
 }
