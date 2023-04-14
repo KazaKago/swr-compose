@@ -29,6 +29,7 @@ internal class NetworkCallbackManager private constructor(
         }
     }
 
+    private var isFirstTime = true
     private val _onAvailable = MutableSharedFlow<Network>(extraBufferCapacity = 1)
     val onAvailable = _onAvailable.asSharedFlow()
 
@@ -40,6 +41,10 @@ internal class NetworkCallbackManager private constructor(
             .build()
         val networkCallback = object : ConnectivityManager.NetworkCallback() {
             override fun onAvailable(network: Network) {
+                if (isFirstTime) {
+                    isFirstTime = false
+                    return
+                }
                 _onAvailable.tryEmit(network)
             }
         }
