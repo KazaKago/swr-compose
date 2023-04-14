@@ -44,13 +44,11 @@ fun DataFetchingScreen(navController: NavController) {
         ) {
             if (error != null) {
                 ErrorContent()
-                return@Box
-            }
-            if (data == null) {
+            } else if (data == null) {
                 LoadingContent()
-                return@Box
+            } else {
+                Text(data)
             }
-            Text(data)
         }
     }
 }

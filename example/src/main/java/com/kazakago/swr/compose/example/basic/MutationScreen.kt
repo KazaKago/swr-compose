@@ -49,26 +49,26 @@ fun MutationScreen(navController: NavController) {
         ) {
             if (data == null) {
                 LoadingContent()
-                return@Box
-            }
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(data)
-                Row {
-                    Button(onClick = {
-                        scope.launch {
-                            mutate(data = mutator) {
-                                optimisticData = "Optimistic Data" // default is null
-                                revalidate = false                 // default is true
-                                populateCache = true               // default is true
-                                rollbackOnError = true             // default is true
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(data)
+                    Row {
+                        Button(onClick = {
+                            scope.launch {
+                                mutate(data = mutator) {
+                                    optimisticData = "Optimistic Data" // default is null
+                                    revalidate = false                 // default is true
+                                    populateCache = true               // default is true
+                                    rollbackOnError = true             // default is true
+                                }
                             }
+                        }) {
+                            Text("mutate")
                         }
-                    }) {
-                        Text("mutate")
                     }
                 }
             }

@@ -71,59 +71,54 @@ fun ToDoListScreen(
             if (todoList == null) {
                 if (isValidating) {
                     LoadingContent()
-                    return@Box
-                }
-                if (error != null) {
+                } else if (error != null) {
                     ErrorContent { refresh() }
-                    return@Box
                 }
-                return@Box
-            }
-            if (error != null) {
-                LaunchedEffect(Unit) {
-                    showSnackbar("Validation failed.")
+            } else {
+                if (isValidating || isMuting.value) {
+                    LinearProgressIndicator(Modifier.fillMaxWidth())
                 }
-            }
-            if (isValidating || isMuting.value) {
-                LinearProgressIndicator(Modifier.fillMaxWidth())
-            }
-            SwipeRefresh(
-                state = rememberSwipeRefreshState(isRefreshing.value),
-                onRefresh = { refresh() },
-            ) {
-                LazyColumn(
-                    modifier = Modifier.fillMaxSize(),
-                    contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
+                SwipeRefresh(
+                    state = rememberSwipeRefreshState(isRefreshing.value),
+                    onRefresh = { refresh() },
                 ) {
-                    items(todoList.size) { index ->
-                        ToDoRow(index, todoList[index]) {
-                            openToDoEditingDialog.value = index to it
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize(),
+                        contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
+                    ) {
+                        items(todoList.size) { index ->
+                            ToDoRow(index, todoList[index]) {
+                                openToDoEditingDialog.value = index to it
+                            }
                         }
                     }
                 }
+                if (openToDoCreationDialog.value) {
+                    ToDoCreationDialog(
+                        onSubmit = { text ->
+                            openToDoCreationDialog.value = false
+                            create(text)
+                        },
+                        onCancel = {
+                            openToDoCreationDialog.value = false
+                        },
+                    )
+                }
+                openToDoEditingDialog.value?.let { (index, value) ->
+                    ToDoEditingDialog(initialText = value, onSubmit = { text ->
+                        openToDoEditingDialog.value = null
+                        edit(index, text)
+                    }, onCancel = {
+                        openToDoEditingDialog.value = null
+                    }, onDelete = {
+                        openToDoEditingDialog.value = null
+                        delete(index)
+                    })
+                }
             }
-            if (openToDoCreationDialog.value) {
-                ToDoCreationDialog(
-                    onSubmit = { text ->
-                        openToDoCreationDialog.value = false
-                        create(text)
-                    },
-                    onCancel = {
-                        openToDoCreationDialog.value = false
-                    },
-                )
-            }
-            openToDoEditingDialog.value?.let { (index, value) ->
-                ToDoEditingDialog(initialText = value, onSubmit = { text ->
-                    openToDoEditingDialog.value = null
-                    edit(index, text)
-                }, onCancel = {
-                    openToDoEditingDialog.value = null
-                }, onDelete = {
-                    openToDoEditingDialog.value = null
-                    delete(index)
-                })
-            }
+        }
+        LaunchedEffect(error) {
+            if (error != null) showSnackbar("Validation failed.")
         }
     }
 }

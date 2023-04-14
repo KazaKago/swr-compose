@@ -56,11 +56,11 @@ fun GlobalConfigurationScreen(navController: NavController) {
             ) {
                 if (events == null || projects == null) {
                     LoadingContent()
-                    return@Box
-                }
-                Column {
-                    Text(events)
-                    Text(projects)
+                } else {
+                    Column {
+                        Text(events)
+                        Text(projects)
+                    }
                 }
             }
         }

@@ -64,23 +64,23 @@ fun InfinitePaginationScreen(navController: NavController) {
         ) {
             if (data == null) {
                 CircularProgressIndicator()
-                return@Box
-            }
-            LazyColumn(Modifier.fillMaxSize()) {
-                items(data.size) { index ->
-                    InfinitePaginationRow(data[index])
-                }
-                item {
-                    Column(
-                        modifier = Modifier.fillMaxWidth(),
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                    ) {
-                        OutlinedButton(onClick = { setSize(size + 1) }) {
-                            Text("Load More")
+            } else {
+                LazyColumn(Modifier.fillMaxSize()) {
+                    items(data.size) { index ->
+                        InfinitePaginationRow(data[index])
+                    }
+                    item {
+                        Column(
+                            modifier = Modifier.fillMaxWidth(),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                        ) {
+                            OutlinedButton(onClick = { setSize(size + 1) }) {
+                                Text("Load More")
+                            }
+                            Spacer(Modifier.size(8.dp))
+                            Text("${data.flatMap { it ?: emptyList() }.size} items listed")
+                            Spacer(Modifier.size(8.dp))
                         }
-                        Spacer(Modifier.size(8.dp))
-                        Text("${data.flatMap { it ?: emptyList() }.size} items listed")
-                        Spacer(Modifier.size(8.dp))
                     }
                 }
             }
@@ -96,10 +96,10 @@ private fun InfinitePaginationRow(page: List<String>?) {
     ) {
         if (page == null) {
             CircularProgressIndicator()
-            return@Column
-        }
-        page.forEach { content ->
-            Text(content, style = MaterialTheme.typography.titleLarge)
+        } else {
+            page.forEach { content ->
+                Text(content, style = MaterialTheme.typography.titleLarge)
+            }
         }
     }
 }

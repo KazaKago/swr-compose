@@ -48,18 +48,18 @@ fun ConditionalFetchingScreen(navController: NavController) {
         ) {
             if (user == null) {
                 LoadingContent()
-                return@Box
-            }
-            Column(
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.Center,
-                horizontalAlignment = Alignment.CenterHorizontally,
-            ) {
-                Text(user)
-                if (projects == null) {
-                    CircularProgressIndicator()
-                } else {
-                    Text(projects.joinToString(", "))
+            } else {
+                Column(
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.CenterHorizontally,
+                ) {
+                    Text(user)
+                    if (projects == null) {
+                        CircularProgressIndicator()
+                    } else {
+                        Text(projects.joinToString(", "))
+                    }
                 }
             }
         }
