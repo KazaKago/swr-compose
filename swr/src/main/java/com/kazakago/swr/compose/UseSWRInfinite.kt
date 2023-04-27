@@ -58,9 +58,10 @@ public fun <KEY, DATA> useSWRInfinite(
             override suspend fun invoke(key: KEY?, data: (suspend () -> List<DATA>)?, options: SWRMutateConfig<List<DATA>>.() -> Unit) {
                 coroutineScope {
                     val listMutateConfig = SWRMutateConfig<List<DATA>>().apply { options() }
+                    val dataList = data?.invoke()
                     pageStateList.mapIndexed { index, swrState ->
                         async {
-                            val dataBlock = data?.invoke()?.getOrNull(index)?.let { suspend { it } }
+                            val dataBlock = dataList?.getOrNull(index)?.let { suspend { it } }
                             swrState.mutate(key, dataBlock) {
                                 optimisticData = listMutateConfig.optimisticData?.getOrNull(index)
                                 revalidate = listMutateConfig.revalidate
