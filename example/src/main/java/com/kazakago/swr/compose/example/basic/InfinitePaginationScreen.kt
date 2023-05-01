@@ -15,18 +15,14 @@ import com.kazakago.swr.compose.useSWRInfinite
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
-private val fetcher: suspend (key: InfinitePaginationKey) -> List<String> = { key ->
+private val fetcher: suspend (key: String) -> List<String> = { key ->
     delay(1000)
-    List(10) { "${key.page} - $it" }
+    List(10) { "$key - $it" }
 }
 
-private data class InfinitePaginationKey(
-    val page: Int,
-)
-
-private val getKey: (pageIndex: Int, previousPageData: List<String>?) -> InfinitePaginationKey? = { pageIndex, previousPageData ->
+private val getKey: (pageIndex: Int, previousPageData: List<String>?) -> String? = { pageIndex, previousPageData ->
     if (previousPageData != null && previousPageData.isEmpty()) null
-    else InfinitePaginationKey(pageIndex)
+    else "/infinite_paginationKey/$pageIndex"
 }
 
 @Composable
