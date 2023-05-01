@@ -12,20 +12,16 @@ import com.kazakago.swr.compose.example.ui.LoadingContent
 import com.kazakago.swr.compose.useSWR
 import kotlinx.coroutines.delay
 
-private val fetcher: suspend (key: ArgumentKey) -> String = { key ->
+private val fetcher: suspend (key: String) -> String = { key ->
     delay(1000)
-    "Argument is '${key.userName}'"
+    "Argument is '$key'"
 }
-
-private data class ArgumentKey(
-    val userName: String,
-)
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
 fun ArgumentsScreen(navController: NavController) {
-    val (data1) = useSWR(key = ArgumentKey("Google"), fetcher = fetcher)
-    val (data2) = useSWR(key = ArgumentKey("Apple"), fetcher = fetcher)
+    val (data1) = useSWR(key = "/arguments/google", fetcher = fetcher)
+    val (data2) = useSWR(key = "/arguments/apple", fetcher = fetcher)
     Scaffold(
         topBar = {
             TopAppBar(

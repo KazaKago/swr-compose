@@ -44,13 +44,11 @@ fun Profile() {
 
     if (error != null) {
         Text("failed to load")
-        return
-    }
-    if (data == null) {
+    } else if (data == null) {
         Text("loading...")
-        return
+    } else {
+        Text("hello $data!")
     }
-    Text("hello $data!")
 }
 ```
 

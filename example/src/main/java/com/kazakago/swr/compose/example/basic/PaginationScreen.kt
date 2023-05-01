@@ -13,14 +13,10 @@ import androidx.navigation.NavController
 import com.kazakago.swr.compose.useSWR
 import kotlinx.coroutines.delay
 
-private val fetcher: suspend (key: PaginationKey) -> List<String> = { key ->
+private val fetcher: suspend (key: String) -> List<String> = { key ->
     delay(1000)
-    List(10) { "${key.page} - $it" }
+    List(10) { "$key - $it" }
 }
-
-private data class PaginationKey(
-    val page: Int,
-)
 
 @Composable
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +61,7 @@ fun PaginationScreen(navController: NavController) {
 
 @Composable
 private fun PaginationRow(page: Int) {
-    val (list) = useSWR(key = PaginationKey(page), fetcher = fetcher)
+    val (list) = useSWR(key = "/pagination/$page", fetcher = fetcher)
     Column(
         modifier = Modifier.fillMaxWidth(),
         horizontalAlignment = Alignment.CenterHorizontally,
