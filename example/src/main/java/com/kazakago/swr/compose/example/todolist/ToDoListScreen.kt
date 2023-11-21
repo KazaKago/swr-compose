@@ -5,15 +5,11 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.*
-import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
-import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -49,7 +45,7 @@ fun ToDoListScreen(
                 title = { Text(text = "ToDo List") },
                 navigationIcon = {
                     IconButton(onClick = navController::popBackStack) {
-                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
+                        Icon(Icons.Filled.ArrowBack, contentDescription = null)
                     }
                 },
             )
@@ -64,17 +60,17 @@ fun ToDoListScreen(
         },
     ) { paddingValue ->
         val scope = rememberCoroutineScope()
-        val pullToRefreshState = rememberPullToRefreshState()
-        if (pullToRefreshState.isRefreshing) {
-            LaunchedEffect(Unit) {
-                state.mutate()
-                pullToRefreshState.endRefresh()
-            }
-        }
+//        val pullToRefreshState = rememberPullToRefreshState()
+//        if (pullToRefreshState.isRefreshing) {
+//            LaunchedEffect(Unit) {
+//                state.mutate()
+//                pullToRefreshState.endRefresh()
+//            }
+//        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .nestedScroll(pullToRefreshState.nestedScrollConnection)
+//                .nestedScroll(pullToRefreshState.nestedScrollConnection)
                 .padding(paddingValue),
         ) {
             if (todoList == null) {
@@ -97,10 +93,10 @@ fun ToDoListScreen(
                         }
                     }
                 }
-                PullToRefreshContainer(
-                    modifier = Modifier.align(Alignment.TopCenter),
-                    state = pullToRefreshState,
-                )
+//                PullToRefreshContainer(
+//                    modifier = Modifier.align(Alignment.TopCenter),
+//                    state = pullToRefreshState,
+//                )
                 if (openToDoCreationDialog.value) {
                     ToDoCreationDialog(
                         onSubmit = { text ->
