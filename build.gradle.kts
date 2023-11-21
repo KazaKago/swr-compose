@@ -1,8 +1,8 @@
 plugins {
-    id("com.android.application") version "8.0.1" apply false
-    id("com.android.library") version "8.0.1" apply false
-    id("org.jetbrains.kotlin.android") version "1.8.21" apply false
-    id("org.jetbrains.dokka") version "1.8.10" apply false
+    id("com.android.application") version "8.1.4" apply false
+    id("com.android.library") version "8.1.4" apply false
+    id("org.jetbrains.kotlin.android") version "1.9.20" apply false
+    id("org.jetbrains.dokka") version "1.9.10" apply false
     id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 

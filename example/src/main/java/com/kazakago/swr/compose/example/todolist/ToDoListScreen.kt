@@ -5,18 +5,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
+import androidx.compose.material3.pulltorefresh.PullToRefreshContainer
+import androidx.compose.material3.pulltorefresh.rememberPullToRefreshState
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.google.accompanist.swiperefresh.SwipeRefresh
-import com.google.accompanist.swiperefresh.rememberSwipeRefreshState
 import com.kazakago.swr.compose.example.todolist.server.LocalMockServer
 import com.kazakago.swr.compose.example.ui.ErrorContent
 import com.kazakago.swr.compose.example.ui.LoadingContent
@@ -34,9 +36,7 @@ fun ToDoListScreen(
     openToDoCreationDialog: MutableState<Boolean> = remember { mutableStateOf(false) },
     openToDoEditingDialog: MutableState<Pair<Int, String>?> = remember { mutableStateOf(null) },
     isMuting: MutableState<Boolean> = remember { mutableStateOf(false) },
-    isRefreshing: MutableState<Boolean> = remember { mutableStateOf(false) },
     state: SWRState<String, List<String>> = useState(),
-    refresh: () -> Unit = useRefresh(isRefreshing, state.mutate),
     create: (text: String) -> Unit = useCreate(state.data, state.mutate, isMuting, snackbarHostState),
     edit: (index: Int, text: String) -> Unit = useEdit(state.data, state.mutate, isMuting, snackbarHostState),
     delete: (index: Int) -> Unit = useDeletion(state.data, state.mutate, isMuting, snackbarHostState),
@@ -49,7 +49,7 @@ fun ToDoListScreen(
                 title = { Text(text = "ToDo List") },
                 navigationIcon = {
                     IconButton(onClick = navController::popBackStack) {
-                        Icon(Icons.Default.ArrowBack, contentDescription = null)
+                        Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = null)
                     }
                 },
             )
@@ -63,36 +63,44 @@ fun ToDoListScreen(
             SnackbarHost(snackbarHostState)
         },
     ) { paddingValue ->
+        val scope = rememberCoroutineScope()
+        val pullToRefreshState = rememberPullToRefreshState()
+        if (pullToRefreshState.isRefreshing) {
+            LaunchedEffect(Unit) {
+                state.mutate()
+                pullToRefreshState.endRefresh()
+            }
+        }
         Box(
             modifier = Modifier
                 .fillMaxSize()
+                .nestedScroll(pullToRefreshState.nestedScrollConnection)
                 .padding(paddingValue),
         ) {
             if (todoList == null) {
                 if (isValidating) {
                     LoadingContent()
                 } else if (error != null) {
-                    ErrorContent { refresh() }
+                    ErrorContent { scope.launch { state.mutate() } }
                 }
             } else {
                 if (isValidating || isMuting.value) {
                     LinearProgressIndicator(Modifier.fillMaxWidth())
                 }
-                SwipeRefresh(
-                    state = rememberSwipeRefreshState(isRefreshing.value),
-                    onRefresh = { refresh() },
+                LazyColumn(
+                    modifier = Modifier.fillMaxSize(),
+                    contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
                 ) {
-                    LazyColumn(
-                        modifier = Modifier.fillMaxSize(),
-                        contentPadding = PaddingValues(vertical = 8.dp, horizontal = 16.dp),
-                    ) {
-                        items(todoList.size) { index ->
-                            ToDoRow(index, todoList[index]) {
-                                openToDoEditingDialog.value = index to it
-                            }
+                    items(todoList.size) { index ->
+                        ToDoRow(index, todoList[index]) {
+                            openToDoEditingDialog.value = index to it
                         }
                     }
                 }
+                PullToRefreshContainer(
+                    modifier = Modifier.align(Alignment.TopCenter),
+                    state = pullToRefreshState,
+                )
                 if (openToDoCreationDialog.value) {
                     ToDoCreationDialog(
                         onSubmit = { text ->
@@ -155,7 +163,6 @@ fun PreviewToDoListScreen() {
                     "Call bob at 5pm.",
                 ),
             ),
-            refresh = {},
             create = {},
             edit = { _, _ -> },
             delete = {},
@@ -170,21 +177,6 @@ private fun useState(): SWRState<String, List<String>> {
     return useSWR("/get_todos/$mockServer", { mockServer.getToDoList() }) {
         onLoadingSlow = { _, _ ->
             Toast.makeText(context, "Loading is slow, Please wait..", Toast.LENGTH_SHORT).show()
-        }
-    }
-}
-
-@Composable
-private fun useRefresh(
-    isRefreshing: MutableState<Boolean>,
-    mutate: SWRMutate<String, List<String>>,
-): () -> Unit {
-    val scope = rememberCoroutineScope()
-    return {
-        scope.launch {
-            isRefreshing.value = true
-            mutate()
-            isRefreshing.value = false
         }
     }
 }

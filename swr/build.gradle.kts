@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.kazakago.swr.compose"
-    compileSdk = 33
+    compileSdk = 34
     defaultConfig {
         minSdk = 23
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -32,7 +32,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.4.7"
+        kotlinCompilerExtensionVersion = "1.5.4"
     }
     testOptions {
         unitTests {
@@ -42,19 +42,25 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2023.05.00"))
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
     implementation("androidx.compose.ui:ui")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.1")
 
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
+    // Android Studio Preview support
+    implementation("androidx.compose.ui:ui-tooling-preview")
+    debugImplementation("androidx.compose.ui:ui-tooling")
 
+    // Unit Tests
     testImplementation("junit:junit:4.13.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.6.1")
-    testImplementation("org.robolectric:robolectric:4.10.2")
-    testImplementation("androidx.compose.ui:ui-test-junit4")
+    testImplementation("io.kotest:kotest-assertions-core:5.8.0")
+    testImplementation("org.robolectric:robolectric:4.11.1")
 
+    // UI Tests
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
+    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
+    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
 if (project.plugins.hasPlugin("com.android.library")) {

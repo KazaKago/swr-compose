@@ -10,7 +10,6 @@ import androidx.compose.ui.window.Dialog
 import com.kazakago.swr.compose.example.ui.theme.AppTheme
 
 @Composable
-@OptIn(ExperimentalMaterial3Api::class)
 fun ToDoCreationDialog(
     onSubmit: (text: String) -> Unit,
     onCancel: () -> Unit,
