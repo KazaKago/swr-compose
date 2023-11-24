@@ -23,7 +23,7 @@ public fun <KEY, DATA> useSWRInfinite(
     val config = SWRInfiniteConfig.from<KEY, DATA>(globalConfig).apply { options() }
     val currentScope = scope ?: config.scope ?: rememberCoroutineScope()
     val pageIndexRememberKey: Any? = if (config.persistSize) Unit else getKey(1, null)
-    var pageIndex by rememberSaveable(pageIndexRememberKey) { mutableStateOf(config.initialSize) }
+    var pageIndex by rememberSaveable(pageIndexRememberKey) { mutableIntStateOf(config.initialSize) }
     val pageKeyList: MutableList<KEY?> = mutableListOf()
     val pageStateList: MutableList<SWRState<KEY, DATA>> = mutableListOf()
 

@@ -17,12 +17,12 @@ import kotlinx.coroutines.launch
 internal fun <KEY, DATA> useSWRInternal(
     key: KEY?,
     fetcher: (suspend (key: KEY) -> DATA)?,
-    _scope: CoroutineScope?,
+    scope: CoroutineScope?,
     config: SWRConfig<KEY, DATA>,
 ): SWRState<KEY, DATA> {
     val cache = LocalSWRCache.current
     val systemCache = LocalSWRSystemCache.current
-    val scope = _scope ?: config.scope ?: rememberCoroutineScope()
+    val currentScope = scope ?: config.scope ?: rememberCoroutineScope()
     if (key != null && fetcher != null) systemCache.setFetcher(key, fetcher)
     val validate: SWRValidate<KEY> = remember(config, cache, systemCache) {
         SWRValidateImpl(config, cache, systemCache, fetcher)
@@ -38,10 +38,10 @@ internal fun <KEY, DATA> useSWRInternal(
     val isValidating: MutableState<Boolean> = remember(key) { systemCache.isValidatingState(key) }
     loadedDataHolder.data = loadedData
 
-    RevalidateOnMount(key, config, isValidating) { scope.launch { validate(key) } }
-    RevalidateOnFocus(key, config) { scope.launch { validate(key) } }
-    RevalidateOnReconnect(key, config) { scope.launch { validate(key) } }
-    RefreshInterval(key, config) { scope.launch { validate(key) } }
+    RevalidateOnMount(key, config, isValidating) { currentScope.launch { validate(key) } }
+    RevalidateOnFocus(key, config) { currentScope.launch { validate(key) } }
+    RevalidateOnReconnect(key, config) { currentScope.launch { validate(key) } }
+    RefreshInterval(key, config) { currentScope.launch { validate(key) } }
 
     return remember(key, loadedData, fallbackData, error.value, isValidating.value, mutate) {
         val data = loadedData ?: fallbackData

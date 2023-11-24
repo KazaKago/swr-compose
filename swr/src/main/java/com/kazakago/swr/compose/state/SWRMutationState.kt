@@ -1,7 +1,6 @@
 package com.kazakago.swr.compose.state
 
 import androidx.compose.runtime.Immutable
-import com.kazakago.swr.compose.mutate.SWRMutate
 import com.kazakago.swr.compose.trigger.SWRReset
 import com.kazakago.swr.compose.trigger.SWRTrigger
 
