@@ -11,7 +11,10 @@ import com.kazakago.swr.compose.config.SWRConfigImpl
 import com.kazakago.swr.compose.config.SWRTriggerConfig
 import com.kazakago.swr.compose.state.SWRMutationState
 import com.kazakago.swr.compose.state.SWRMutationStateImpl
-import com.kazakago.swr.compose.trigger.*
+import com.kazakago.swr.compose.trigger.SWRReset
+import com.kazakago.swr.compose.trigger.SWRResetImpl
+import com.kazakago.swr.compose.trigger.SWRTrigger
+import com.kazakago.swr.compose.trigger.SWRTriggerImpl
 import com.kazakago.swr.compose.validate.SWRValidate
 import com.kazakago.swr.compose.validate.SWRValidateImpl
 

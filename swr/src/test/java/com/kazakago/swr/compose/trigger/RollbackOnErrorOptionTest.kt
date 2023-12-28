@@ -9,18 +9,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRMutationState
-import com.kazakago.swr.compose.state.SWRState
-import com.kazakago.swr.compose.useSWR
 import com.kazakago.swr.compose.useSWRMutation
 import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import org.junit.Assert.*
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
 
 @RunWith(AndroidJUnit4::class)
 public class RollbackOnErrorOptionTest {

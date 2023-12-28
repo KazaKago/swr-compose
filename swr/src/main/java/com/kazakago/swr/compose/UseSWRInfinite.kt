@@ -1,16 +1,25 @@
 package com.kazakago.swr.compose
 
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import com.kazakago.swr.compose.config.LocalSWRConfig
 import com.kazakago.swr.compose.config.SWRInfiniteConfig
+import com.kazakago.swr.compose.config.SWRMutateConfig
 import com.kazakago.swr.compose.internal.useSWRInternal
 import com.kazakago.swr.compose.mutate.SWRMutate
-import com.kazakago.swr.compose.config.SWRMutateConfig
 import com.kazakago.swr.compose.state.SWRInfiniteState
 import com.kazakago.swr.compose.state.SWRInfiniteStateImpl
 import com.kazakago.swr.compose.state.SWRState
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 public fun <KEY, DATA> useSWRInfinite(

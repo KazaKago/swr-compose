@@ -6,7 +6,6 @@ import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR

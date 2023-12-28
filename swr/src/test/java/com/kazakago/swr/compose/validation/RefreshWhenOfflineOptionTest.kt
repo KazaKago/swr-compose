@@ -6,7 +6,6 @@ import androidx.activity.ComponentActivity
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.test.junit4.AndroidComposeTestRule
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.lifecycle.Lifecycle
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
