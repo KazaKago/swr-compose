@@ -1,14 +1,45 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.multiplatform")
     id("org.jetbrains.dokka")
+    id("org.jetbrains.compose")
+    id("com.android.library")
     id("maven-publish")
     id("signing")
+}
+
+kotlin {
+    jvmToolchain(17)
+    explicitApi()
+    androidTarget()
+    sourceSets {
+        commonMain.dependencies {
+            implementation(compose.runtimeSaveable)
+            implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3")
+        }
+        commonTest.dependencies {
+            implementation("io.kotest:kotest-assertions-core:5.5.4")
+        }
+        androidMain.dependencies {
+            implementation(compose.ui)
+            implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
+        }
+        val androidUnitTest by getting {
+            dependencies {
+                implementation(project.dependencies.platform("androidx.compose:compose-bom:2023.10.01"))
+                implementation("androidx.compose.ui:ui-test-junit4")
+                implementation("androidx.compose.ui:ui-test-manifest")
+                implementation("org.robolectric:robolectric:4.11.1")
+            }
+        }
+    }
 }
 
 android {
     namespace = "com.kazakago.swr.compose"
     compileSdk = 34
+    sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
+    sourceSets["main"].res.srcDirs("src/androidMain/res")
+    sourceSets["main"].resources.srcDirs("src/commonMain/resources")
     defaultConfig {
         minSdk = 23
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -20,49 +51,11 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-    kotlinOptions {
-        jvmTarget = "17"
-        freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
-    }
-    buildFeatures {
-        compose = true
-    }
-    composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.7"
-    }
     testOptions {
         unitTests {
             isIncludeAndroidResources = true
         }
     }
-}
-
-dependencies {
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.6.2")
-    implementation(platform("androidx.compose:compose-bom:2023.10.01"))
-    implementation("androidx.compose.ui:ui")
-
-    // Android Studio Preview support
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-
-    // Unit Tests
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("io.kotest:kotest-assertions-core:5.8.0")
-    testImplementation("org.robolectric:robolectric:4.11.1")
-    testImplementation("androidx.compose.ui:ui-test-junit4")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // https://github.com/Kotlin/kotlinx.coroutines/issues/3673
-
-    // UI Tests
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2023.10.01"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
 }
 
 if (project.plugins.hasPlugin("com.android.library")) {
