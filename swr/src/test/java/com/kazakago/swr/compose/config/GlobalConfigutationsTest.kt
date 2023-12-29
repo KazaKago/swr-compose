@@ -1,9 +1,7 @@
 package com.kazakago.swr.compose.config
 
-import androidx.activity.ComponentActivity
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.useSWR
 import com.kazakago.swr.compose.useSWRConfig
@@ -17,7 +15,7 @@ import kotlin.time.Duration.Companion.seconds
 public class GlobalConfigutationsTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+    public val composeTestRule: ComposeContentTestRule = createComposeRule().apply {
         mainClock.autoAdvance = false
     }
 

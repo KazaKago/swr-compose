@@ -1,10 +1,8 @@
 package com.kazakago.swr.compose.validation
 
-import androidx.activity.ComponentActivity
 import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.test.junit4.AndroidComposeTestRule
-import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.compose.ui.test.junit4.ComposeContentTestRule
+import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
@@ -20,7 +18,7 @@ import org.junit.runner.RunWith
 public class UseSWRTest {
 
     @get:Rule
-    public val composeTestRule: AndroidComposeTestRule<ActivityScenarioRule<ComponentActivity>, ComponentActivity> = createAndroidComposeRule<ComponentActivity>().apply {
+    public val composeTestRule: ComposeContentTestRule = createComposeRule().apply {
         mainClock.autoAdvance = false
     }
 
