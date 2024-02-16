@@ -53,7 +53,6 @@ dependencies {
     testImplementation("androidx.compose.ui:ui-test-junit4")
     testImplementation("org.robolectric:robolectric:4.11.1")
     testImplementation("io.kotest:kotest-assertions-core:5.8.0")
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.7.3") // https://github.com/Kotlin/kotlinx.coroutines/issues/3673
 
     // UI Tests
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
