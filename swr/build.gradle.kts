@@ -51,7 +51,7 @@ dependencies {
 
     // Unit Tests
     testImplementation("androidx.compose.ui:ui-test-junit4")
-    testImplementation("org.robolectric:robolectric:4.12")
+    testImplementation("org.robolectric:robolectric:4.12.1")
     testImplementation("io.kotest:kotest-assertions-core:5.8.1")
 
     // UI Tests
