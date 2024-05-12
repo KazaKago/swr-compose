@@ -1,9 +1,10 @@
 plugins {
-    id("org.jetbrains.kotlin.android") version "1.9.23" apply false
-    id("org.jetbrains.dokka") version "1.9.20" apply false
-    id("com.android.application") version "8.4.0" apply false
-    id("com.android.library") version "8.4.0" apply false
-    id("io.github.gradle-nexus.publish-plugin") version "2.0.0"
+    alias(libs.plugins.kotlin.android) apply false
+    alias(libs.plugins.kotlin.compose.compiler) apply false
+    alias(libs.plugins.dokka) apply false
+    alias(libs.plugins.android.application) apply false
+    alias(libs.plugins.android.library) apply false
+    alias(libs.plugins.nexus.publish)
 }
 
 nexusPublishing {

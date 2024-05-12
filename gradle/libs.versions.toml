@@ -1,0 +1,51 @@
+[versions]
+compileSdk = "34"
+minSdk = "23"
+targetSdk = "34"
+jdk = "17"
+
+kotlin = "2.0.0-RC3"
+android-plugin = "8.4.0"
+
+[libraries]
+# AndroidX Compose BOM
+androidx-compose-bom = "androidx.compose:compose-bom:2024.05.00" # https://developer.android.com/jetpack/compose/bom/bom-mapping
+# AndroidX Compose UI
+androidx-compose-ui = { module = "androidx.compose.ui:ui" }
+# AndroidX Compose UI Preview support
+androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
+androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
+# AndroidX Compose UI Test
+androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
+androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
+# AndroidX Compose Material3
+androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
+# AndroidX Activity Compose
+androidx-activity-compose = "androidx.activity:activity-compose:1.9.0"
+# AndroidX Navigation Compose
+androidx-navigation-compose = "androidx.navigation:navigation-compose:2.7.7"
+# AndroidX Lifecycle Runtime
+androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime-ktx:2.7.0"
+# AndroidX Test JUnit
+androidx-test-junit = "androidx.test.ext:junit:1.1.5"
+# AndroidX Test Espresso
+androidx-test-espresso = "androidx.test.espresso:espresso-core:3.5.1"
+# Junit
+junit = "junit:junit:4.13.2"
+# Kotest Assertions
+kotest-assertions = "io.kotest:kotest-assertions-core:5.9.0"
+# Robolectric
+robolectric = "org.robolectric:robolectric:4.12.1"
+
+[plugins]
+# Kotlin
+kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+# Kotlin Compose Compiler
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+# Dokka
+dokka = { id = "org.jetbrains.dokka", version = "1.9.20" }
+# Android
+android-application = { id = "com.android.application", version.ref = "android-plugin" }
+android-library = { id = "com.android.library", version.ref = "android-plugin" }
+# Nexus Publish
+nexus-publish = { id = "io.github.gradle-nexus.publish-plugin", version = "2.0.0" }
