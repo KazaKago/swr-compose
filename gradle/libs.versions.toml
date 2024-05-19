@@ -35,7 +35,7 @@ junit = "junit:junit:4.13.2"
 # Kotest Assertions
 kotest-assertions = "io.kotest:kotest-assertions-core:5.9.0"
 # Robolectric
-robolectric = "org.robolectric:robolectric:4.12.1"
+robolectric = "org.robolectric:robolectric:4.12.2"
 
 [plugins]
 # Kotlin
