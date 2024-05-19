@@ -11,3 +11,4 @@ local.properties
 !.idea/codeStyles/
 !.idea/inspectionProfiles/
 !.idea/runConfigurations/
+.kotlin/

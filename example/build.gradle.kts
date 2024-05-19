@@ -4,10 +4,6 @@ plugins {
     id("org.jetbrains.kotlin.plugin.compose")
 }
 
-kotlin {
-    jvmToolchain(libs.versions.jdk.get().toInt())
-}
-
 android {
     namespace = "com.kazakago.swr.compose.example"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -25,6 +21,13 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    buildFeatures {
+        compose = true
+    }
+}
+
+kotlin {
+    jvmToolchain(libs.versions.jdk.get().toInt())
 }
 
 dependencies {

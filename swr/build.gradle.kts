@@ -7,10 +7,6 @@ plugins {
     id("signing")
 }
 
-kotlin {
-    jvmToolchain(libs.versions.jdk.get().toInt())
-}
-
 android {
     namespace = "com.kazakago.swr.compose"
     compileSdk = libs.versions.compileSdk.get().toInt()
@@ -33,6 +29,10 @@ android {
             isIncludeAndroidResources = true
         }
     }
+}
+
+kotlin {
+    jvmToolchain(libs.versions.jdk.get().toInt())
 }
 
 dependencies {
