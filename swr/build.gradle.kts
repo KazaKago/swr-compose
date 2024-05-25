@@ -1,10 +1,10 @@
 plugins {
-    id("org.jetbrains.kotlin.android")
-    id("org.jetbrains.kotlin.plugin.compose")
-    id("org.jetbrains.dokka")
-    id("com.android.library")
-    id("maven-publish")
-    id("signing")
+    alias(libs.plugins.android.library)
+    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.dokka)
+    `maven-publish`
+    signing
 }
 
 android {
@@ -67,10 +67,10 @@ if (project.plugins.hasPlugin("com.android.library")) {
     }
 }
 
-tasks.create("javadocJar", Jar::class) {
-    group = "publishing"
+val javadocJar by tasks.registering(Jar::class) {
+    group = JavaBasePlugin.DOCUMENTATION_GROUP
     archiveClassifier.set("javadoc")
-    from(tasks["dokkaHtml"])
+    from(tasks.dokkaHtml)
 }
 
 publishing {
@@ -109,7 +109,7 @@ publishing {
                     from(components["java"])
                 }
             }
-            artifact(tasks["javadocJar"])
+            artifact(javadocJar.get())
         }
     }
 }
