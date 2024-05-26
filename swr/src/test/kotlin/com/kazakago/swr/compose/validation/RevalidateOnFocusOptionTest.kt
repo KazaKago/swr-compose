@@ -10,11 +10,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class RevalidateOnFocusOptionTest {
@@ -26,7 +27,7 @@ public class RevalidateOnFocusOptionTest {
 
     @Test
     public fun withRevalidateOnFocus() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -43,15 +44,15 @@ public class RevalidateOnFocusOptionTest {
         composeTestRule.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched", "fetched", "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, "fetched", "fetched", "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun noRevalidateOnFocus() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -69,9 +70,9 @@ public class RevalidateOnFocusOptionTest {
         composeTestRule.activityRule.scenario.moveToState(Lifecycle.State.RESUMED)
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 }

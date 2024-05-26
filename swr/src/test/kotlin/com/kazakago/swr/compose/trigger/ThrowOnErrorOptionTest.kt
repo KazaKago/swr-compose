@@ -8,13 +8,14 @@ import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRMutationState
 import com.kazakago.swr.compose.useSWRMutation
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class ThrowOnErrorOptionTest {
@@ -26,7 +27,7 @@ public class ThrowOnErrorOptionTest {
 
     @Test
     public fun trigger_withThrowOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRMutationState<String, String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -41,9 +42,9 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null)
-        stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isMutating } shouldBe listOf(false)
+        assertEquals(listOf(null), stateList.map { it.data })
+        assertEquals(listOf(null), stateList.map { it.error })
+        assertEquals(listOf(false), stateList.map { it.isMutating })
         var triggerResult: String? = null
         var mutationError: Throwable? = null
         scope.launch {
@@ -57,16 +58,16 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1)
-        stateList.map { it.isMutating } shouldBe listOf(false, true, false)
-        triggerResult shouldBe null
-        mutationError shouldBe DummyException1
+        assertEquals(listOf(null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isMutating })
+        assertEquals(null, triggerResult)
+        assertEquals(DummyException1, mutationError)
     }
 
     @Test
     public fun trigger_noThrowOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRMutationState<String, String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -81,9 +82,9 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null)
-        stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isMutating } shouldBe listOf(false)
+        assertEquals(listOf(null), stateList.map { it.data })
+        assertEquals(listOf(null), stateList.map { it.error })
+        assertEquals(listOf(false), stateList.map { it.isMutating })
         var triggerResult: String? = null
         var mutationError: Throwable? = null
         scope.launch {
@@ -97,10 +98,10 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isMutating } shouldBe listOf(false, true, false)
-        triggerResult shouldBe null
-        mutationError shouldBe null
+        assertEquals(listOf(null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isMutating })
+        assertEquals(null, triggerResult)
+        assertEquals(null, mutationError)
     }
 }

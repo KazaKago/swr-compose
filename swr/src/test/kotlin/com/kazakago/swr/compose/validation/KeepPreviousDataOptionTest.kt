@@ -7,13 +7,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class KeepPreviousDataOptionTest {
@@ -25,7 +26,7 @@ public class KeepPreviousDataOptionTest {
 
     @Test
     public fun noKeepPreviousData() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var getKey = { "${key}_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -41,24 +42,30 @@ public class KeepPreviousDataOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched_${key}_1"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
 
         getKey = { "${key}_2" }
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1", null, null, "fetched_${key}_2")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
+        assertEquals(
+            listOf(null, null, "fetched_${key}_1", null, null, "fetched_${key}_2"),
+            stateList.map { it.data })
+        assertEquals(
+            listOf(null, null, null, null, null, null),
+            stateList.map { it.error })
+        assertEquals(
+            listOf(false, true, false, false, true, false),
+            stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun withKeepPreviousData() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var getKey = { "${key}_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -74,18 +81,18 @@ public class KeepPreviousDataOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched_${key}_1"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
 
         getKey = { "${key}_2" }
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_2")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
+        assertEquals(listOf(null, null, "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_1", "fetched_${key}_2"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isValidating })
     }
 }

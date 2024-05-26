@@ -8,11 +8,12 @@ import com.kazakago.swr.compose.config.SWRConfig
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class FetcherOptionTest {
@@ -24,7 +25,7 @@ public class FetcherOptionTest {
 
     @Test
     public fun localFetcher() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -37,15 +38,15 @@ public class FetcherOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun savedFetcher() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         val stateList2 = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
@@ -58,20 +59,20 @@ public class FetcherOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
 
-        stateList2.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList2.map { it.error } shouldBe listOf(null, null, null)
-        stateList2.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList2.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched"), stateList2.map { it.data })
+        assertEquals(listOf(null, null, null), stateList2.map { it.error })
+        assertEquals(listOf(false, true, false), stateList2.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList2.map { it.isValidating })
     }
 
     @Test
     public fun globalFetcher() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -87,9 +88,9 @@ public class FetcherOptionTest {
             }
         }
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 }

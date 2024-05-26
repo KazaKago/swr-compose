@@ -7,13 +7,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRInfiniteState
 import com.kazakago.swr.compose.useSWRInfinite
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class PersistSizeOptionTest {
@@ -25,7 +26,7 @@ public class PersistSizeOptionTest {
 
     @Test
     public fun noPersistSize() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var getKey: (Int, String?) -> String = { pageIndex, _ -> "${key}_${pageIndex}" }
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -46,11 +47,11 @@ public class PersistSizeOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"))
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
-        stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4)
+        assertEquals(listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isValidating })
+        assertEquals(listOf(1, 1, 1, 4, 4, 4), stateList.map { it.size })
 
         getKey = { pageIndex, _ -> "${key}_${pageIndex}_v2" }
         stateList.last().apply {
@@ -58,16 +59,16 @@ public class PersistSizeOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched"))
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
-        stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4, 1, 1, 1)
+        assertEquals(listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false, false, false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false, false, true, false), stateList.map { it.isValidating })
+        assertEquals(listOf(1, 1, 1, 4, 4, 4, 1, 1, 1), stateList.map { it.size })
     }
 
     @Test
     public fun withPersistSize() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var getKey: (Int, String?) -> String = { pageIndex, _ -> "${key}_${pageIndex}" }
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -88,11 +89,11 @@ public class PersistSizeOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"))
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
-        stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4)
+        assertEquals(listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isValidating })
+        assertEquals(listOf(1, 1, 1, 4, 4, 4), stateList.map { it.size })
 
         getKey = { pageIndex, _ -> "${key}_${pageIndex}_v2" }
         stateList.last().apply {
@@ -100,10 +101,10 @@ public class PersistSizeOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched", "fetched", "fetched", "fetched"))
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false, false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false, false, true, false)
-        stateList.map { it.size } shouldBe listOf(1, 1, 1, 4, 4, 4, 4, 4, 4)
+        assertEquals(listOf(null, null, listOf("fetched"), listOf("fetched", null, null, null), listOf("fetched", null, null, null), listOf("fetched", "fetched", "fetched", "fetched"), null, null, listOf("fetched", "fetched", "fetched", "fetched")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false, false, false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false, false, true, false), stateList.map { it.isValidating })
+        assertEquals(listOf(1, 1, 1, 4, 4, 4, 4, 4, 4), stateList.map { it.size })
     }
 }

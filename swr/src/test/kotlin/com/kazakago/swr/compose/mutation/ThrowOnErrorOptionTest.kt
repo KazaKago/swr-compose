@@ -8,13 +8,14 @@ import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class ThrowOnErrorOptionTest {
@@ -26,7 +27,7 @@ public class ThrowOnErrorOptionTest {
 
     @Test
     public fun withThrowOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -54,16 +55,16 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
-        mutationError shouldBe DummyException1
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
+        assertEquals(DummyException1, mutationError)
     }
 
     @Test
     public fun noThrowOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -91,10 +92,10 @@ public class ThrowOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
-        mutationError shouldBe null
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
+        assertEquals(null, mutationError)
     }
 }

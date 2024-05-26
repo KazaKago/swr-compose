@@ -6,12 +6,13 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.useSWR
-import io.kotest.assertions.fail
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.fail
 
 @RunWith(AndroidJUnit4::class)
 public class OnSuccessOptionTest {
@@ -23,7 +24,7 @@ public class OnSuccessOptionTest {
 
     @Test
     public fun withOnSuccess() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val onSuccessList = mutableListOf<Pair<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -41,6 +42,6 @@ public class OnSuccessOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(3000)
-        onSuccessList shouldBe listOf("fetched" to key)
+        assertEquals(listOf("fetched" to key), onSuccessList)
     }
 }

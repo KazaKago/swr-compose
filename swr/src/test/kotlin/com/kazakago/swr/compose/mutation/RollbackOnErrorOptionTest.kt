@@ -8,13 +8,14 @@ import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class RollbackOnErrorOptionTest {
@@ -26,7 +27,7 @@ public class RollbackOnErrorOptionTest {
 
     @Test
     public fun noRollbackOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -57,10 +58,10 @@ public class RollbackOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_1", "optimisticData")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false)
-        mutationError shouldBe DummyException1
+        assertEquals(listOf(null, null, "fetched_1", "optimisticData"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false), stateList.map { it.isValidating })
+        assertEquals(DummyException1, mutationError)
     }
 }

@@ -6,11 +6,12 @@ import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.time.Duration.Companion.seconds
 
 @RunWith(AndroidJUnit4::class)
@@ -23,7 +24,7 @@ public class LoadingTimeoutOptionTest {
 
     @Test
     public fun focusThrottleInterval3Seconds() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val keyList = mutableListOf<String>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -39,14 +40,14 @@ public class LoadingTimeoutOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe emptyList()
+        assertEquals(emptyList(), keyList)
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe listOf(key)
+        assertEquals(listOf(key), keyList)
     }
 
     @Test
     public fun focusThrottleInterval5Seconds() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val keyList = mutableListOf<String>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -62,14 +63,14 @@ public class LoadingTimeoutOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe emptyList()
+        assertEquals(emptyList(), keyList)
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe emptyList()
+        assertEquals(emptyList(), keyList)
     }
 
     @Test
     public fun focusThrottleInterval0Seconds() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val keyList = mutableListOf<String>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -85,8 +86,8 @@ public class LoadingTimeoutOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe listOf(key)
+        assertEquals(listOf(key), keyList)
         composeTestRule.mainClock.advanceTimeBy(2000)
-        keyList shouldBe listOf(key)
+        assertEquals(listOf(key), keyList)
     }
 }

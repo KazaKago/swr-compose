@@ -7,11 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class ErrorRetryCountOptionTest {
@@ -23,7 +24,7 @@ public class ErrorRetryCountOptionTest {
 
     @Test
     public fun errorRetryCountNull() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val errorRetryCountList = mutableListOf<Int?>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -39,12 +40,12 @@ public class ErrorRetryCountOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(1000)
-        errorRetryCountList shouldBe listOf(null)
+        assertEquals(listOf<Int?>(null), errorRetryCountList)
     }
 
     @Test
     public fun errorRetryCount3() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val errorRetryCountList = mutableListOf<Int?>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -60,6 +61,6 @@ public class ErrorRetryCountOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(1000)
-        errorRetryCountList shouldBe listOf(3)
+        assertEquals(listOf<Int?>(3), errorRetryCountList)
     }
 }

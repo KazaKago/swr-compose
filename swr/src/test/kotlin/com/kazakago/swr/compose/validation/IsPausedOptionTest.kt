@@ -8,13 +8,14 @@ import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class IsPausedOptionTest {
@@ -26,7 +27,7 @@ public class IsPausedOptionTest {
 
     @Test
     public fun withIsPaused() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -44,9 +45,9 @@ public class IsPausedOptionTest {
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null)
-        stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isLoading } shouldBe listOf(false)
-        stateList.map { it.isValidating } shouldBe listOf(false)
+        assertEquals(listOf(null), stateList.map { it.data })
+        assertEquals(listOf(null), stateList.map { it.error })
+        assertEquals(listOf(false), stateList.map { it.isLoading })
+        assertEquals(listOf(false), stateList.map { it.isValidating })
     }
 }

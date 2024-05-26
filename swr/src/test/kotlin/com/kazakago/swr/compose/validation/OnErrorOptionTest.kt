@@ -7,12 +7,13 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.useSWR
-import io.kotest.assertions.fail
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
+import kotlin.test.fail
 
 @RunWith(AndroidJUnit4::class)
 public class OnErrorOptionTest {
@@ -24,7 +25,7 @@ public class OnErrorOptionTest {
 
     @Test
     public fun withOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val onErrorList = mutableListOf<Pair<Throwable, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -42,6 +43,6 @@ public class OnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(3000)
-        onErrorList shouldBe listOf(DummyException1 to key)
+        assertEquals(listOf<Pair<Throwable, String?>>(DummyException1 to key), onErrorList)
     }
 }

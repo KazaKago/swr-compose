@@ -7,11 +7,12 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 import kotlin.time.Duration
 import kotlin.time.Duration.Companion.seconds
 
@@ -25,7 +26,7 @@ public class ErrorRetryIntervalOptionTest {
 
     @Test
     public fun errorRetryIntervalOption5seconds() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val errorRetryIntervalList = mutableListOf<Duration>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -41,12 +42,12 @@ public class ErrorRetryIntervalOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(1000)
-        errorRetryIntervalList shouldBe listOf(5.seconds)
+        assertEquals(listOf(5.seconds), errorRetryIntervalList)
     }
 
     @Test
     public fun errorRetryIntervalOption10seconds() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val errorRetryIntervalList = mutableListOf<Duration>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -62,6 +63,6 @@ public class ErrorRetryIntervalOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(1000)
-        errorRetryIntervalList shouldBe listOf(10.seconds)
+        assertEquals(listOf(10.seconds), errorRetryIntervalList)
     }
 }

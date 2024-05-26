@@ -8,11 +8,12 @@ import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class RevalidateIfStaleOptionTest {
@@ -24,11 +25,11 @@ public class RevalidateIfStaleOptionTest {
 
     @Test
     public fun withRevalidateIfStale() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
-            LocalSWRCache.current.state<String, String>(key = key!!).let {
+            LocalSWRCache.current.state<String, String>(key = key).let {
                 if (it.value == null) it.value = "cached"
             }
             stateList += useSWR(key = key, fetcher = {
@@ -40,19 +41,19 @@ public class RevalidateIfStaleOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf("cached", "cached", "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf("cached", "cached", "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun noRevalidateIfStale() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
-            LocalSWRCache.current.state<String, String>(key = key!!).let {
+            LocalSWRCache.current.state<String, String>(key = key).let {
                 if (it.value == null) it.value = "cached"
             }
             stateList += useSWR(key = key, fetcher = {
@@ -64,9 +65,9 @@ public class RevalidateIfStaleOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf("cached")
-        stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isLoading } shouldBe listOf(false)
-        stateList.map { it.isValidating } shouldBe listOf(false)
+        assertEquals(listOf("cached"), stateList.map { it.data })
+        assertEquals(listOf(null), stateList.map { it.error })
+        assertEquals(listOf(false), stateList.map { it.isLoading })
+        assertEquals(listOf(false), stateList.map { it.isValidating })
     }
 }

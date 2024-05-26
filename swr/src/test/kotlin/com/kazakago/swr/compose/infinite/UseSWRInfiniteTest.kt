@@ -7,13 +7,14 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRInfiniteState
 import com.kazakago.swr.compose.useSWRInfinite
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class UseSWRInfiniteTest {
@@ -25,7 +26,7 @@ public class UseSWRInfiniteTest {
 
     @Test
     public fun validate() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -36,15 +37,15 @@ public class UseSWRInfiniteTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched"))
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, listOf("fetched")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun incrementSetSize() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRInfiniteState<String, String>>()
         lateinit var scope: CoroutineScope
         composeTestRule.setContent {
@@ -61,10 +62,10 @@ public class UseSWRInfiniteTest {
         scope.launch { setSize(size + 1) }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, listOf("fetched_${key}_1"), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", "fetched_${key}_2"))
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, false, true, false)
-        stateList.map { it.size } shouldBe listOf(1, 1, 1, 2, 2, 2)
+        assertEquals(listOf(null, null, listOf("fetched_${key}_1"), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", null), listOf("fetched_${key}_1", "fetched_${key}_2")), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, false, true, false), stateList.map { it.isValidating })
+        assertEquals(listOf(1, 1, 1, 2, 2, 2), stateList.map { it.size })
     }
 }

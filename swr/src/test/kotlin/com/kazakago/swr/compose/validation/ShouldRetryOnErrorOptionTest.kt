@@ -8,11 +8,12 @@ import com.kazakago.swr.compose.DummyException1
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class ShouldRetryOnErrorOptionTest {
@@ -24,7 +25,7 @@ public class ShouldRetryOnErrorOptionTest {
 
     @Test
     public fun withShouldRetryOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -37,15 +38,15 @@ public class ShouldRetryOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(15000)
-        stateList.map { it.data } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1, DummyException1, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1, DummyException1, DummyException1), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun noShouldRetryOnError() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
@@ -58,9 +59,9 @@ public class ShouldRetryOnErrorOptionTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(15000)
-        stateList.map { it.data } shouldBe listOf(null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
+        assertEquals(listOf(null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
     }
 }

@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.kotlin.compose.compiler)
+    alias(libs.plugins.compose.compiler)
     alias(libs.plugins.dokka)
     `maven-publish`
     signing
@@ -29,6 +29,11 @@ android {
             isIncludeAndroidResources = true
         }
     }
+    publishing {
+        singleVariant("release") {
+            withSourcesJar()
+        }
+    }
 }
 
 kotlin {
@@ -40,32 +45,15 @@ dependencies {
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.compose.ui)
 
-    // Android Studio Preview support
-    implementation(libs.androidx.compose.ui.tooling.preview)
-    debugImplementation(libs.androidx.compose.ui.tooling)
-
     // Unit Tests
-    testImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(kotlin("test"))
     testImplementation(libs.robolectric)
-    testImplementation(libs.kotest.assertions)
-
-    // UI Tests
-    androidTestImplementation(libs.androidx.test.junit)
-    androidTestImplementation(libs.androidx.test.espresso)
-    androidTestImplementation(platform(libs.androidx.compose.bom))
-    androidTestImplementation(libs.androidx.compose.ui.test.junit4)
+    testImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
 }
 
-if (project.plugins.hasPlugin("com.android.library")) {
-    android.publishing.singleVariant("release") {
-        withSourcesJar()
-    }
-} else {
-    java {
-        withSourcesJar()
-    }
-}
+group = "com.kazakago.swr.compose"
+version = libs.versions.version.get()
 
 val javadocJar by tasks.registering(Jar::class) {
     group = JavaBasePlugin.DOCUMENTATION_GROUP
@@ -74,42 +62,34 @@ val javadocJar by tasks.registering(Jar::class) {
 }
 
 publishing {
-    publications {
-        register<MavenPublication>("release") {
-            groupId = "com.kazakago.swr.compose"
-            artifactId = "swr-android"
-            version = libs.versions.version.get()
-            pom {
-                name.set("swr-compose")
-                description.set("\"React SWR\" ported for Jetpack Compose")
+    publications.register<MavenPublication>("release") {
+        artifact(javadocJar.get())
+        artifactId = "swr-android"
+        pom {
+            name.set("swr-compose")
+            description.set("\"React SWR\" ported for Jetpack Compose")
+            url.set("https://github.com/kazakago/swr-compose")
+            licenses {
+                license {
+                    name.set("Apache License, Version 2.0")
+                    url.set("https://www.apache.org/licenses/LICENSE-2.0")
+                }
+            }
+            scm {
+                connection.set("git:git@github.com:kazakago/swr-compose")
+                developerConnection.set("git:git@github.com:kazakago/swr-compose")
                 url.set("https://github.com/kazakago/swr-compose")
-                licenses {
-                    license {
-                        name.set("Apache License, Version 2.0")
-                        url.set("https://www.apache.org/licenses/LICENSE-2.0")
-                    }
-                }
-                scm {
-                    connection.set("git:git@github.com:kazakago/swr-compose")
-                    developerConnection.set("git:git@github.com:kazakago/swr-compose")
-                    url.set("https://github.com/kazakago/swr-compose")
-                }
-                developers {
-                    developer {
-                        name.set("kazakago")
-                        email.set("kazakago@gmail.com")
-                        url.set("https://blog.kazakago.com/")
-                    }
+            }
+            developers {
+                developer {
+                    name.set("kazakago")
+                    email.set("kazakago@gmail.com")
+                    url.set("https://blog.kazakago.com/")
                 }
             }
-            afterEvaluate {
-                if (project.plugins.hasPlugin("com.android.library")) {
-                    from(components["release"])
-                } else {
-                    from(components["java"])
-                }
-            }
-            artifact(javadocJar.get())
+        }
+        afterEvaluate {
+            from(components["release"])
         }
     }
 }

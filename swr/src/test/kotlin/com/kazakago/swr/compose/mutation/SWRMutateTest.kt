@@ -10,13 +10,14 @@ import com.kazakago.swr.compose.DummyException3
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWR
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class SWRMutateTest {
@@ -28,7 +29,7 @@ public class SWRMutateTest {
 
     @Test
     public fun validate_mutation() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -46,15 +47,15 @@ public class SWRMutateTest {
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_1", "fetched_1", "fetched_2")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, "fetched_1", "fetched_1", "fetched_2"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validate_mutationFailed() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { "fetched" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -72,15 +73,15 @@ public class SWRMutateTest {
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched", "fetched", "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, "fetched", "fetched", "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, DummyException1), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validate_mutationWithData() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { "fetched_1" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -103,15 +104,15 @@ public class SWRMutateTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched_1", "mutated", "fetched_2")
-        stateList.map { it.error } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, "fetched_1", "mutated", "fetched_2"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validate_mutationWithDataFailed() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { "fetched" }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -139,16 +140,16 @@ public class SWRMutateTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
-        mutationError shouldBe DummyException1
+        assertEquals(listOf(null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
+        assertEquals(DummyException1, mutationError)
     }
 
     @Test
     public fun validateFailed_mutation() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -166,15 +167,15 @@ public class SWRMutateTest {
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null, null, "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1, DummyException1, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, null, null, "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1, DummyException1, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validateFailed_mutationFailed() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -192,15 +193,15 @@ public class SWRMutateTest {
         scope.launch { stateList.last().mutate() }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1, DummyException1, DummyException2)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1, DummyException1, DummyException2), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validateFailed_mutationWithData() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -223,15 +224,15 @@ public class SWRMutateTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null, "mutated", "fetched")
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1, null, null)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false, false, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false, true, false)
+        assertEquals(listOf(null, null, null, "mutated", "fetched"), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1, null, null), stateList.map { it.error })
+        assertEquals(listOf(false, true, false, false, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false, true, false), stateList.map { it.isValidating })
     }
 
     @Test
     public fun validateFailed_mutationWithDataFailed() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         var result: () -> String = { throw DummyException1 }
         val stateList = mutableListOf<SWRState<String, String>>()
         lateinit var scope: CoroutineScope
@@ -259,10 +260,10 @@ public class SWRMutateTest {
         }
 
         composeTestRule.mainClock.advanceTimeBy(2500)
-        stateList.map { it.data } shouldBe listOf(null, null, null)
-        stateList.map { it.error } shouldBe listOf(null, null, DummyException1)
-        stateList.map { it.isLoading } shouldBe listOf(false, true, false)
-        stateList.map { it.isValidating } shouldBe listOf(false, true, false)
-        mutationError shouldBe DummyException3
+        assertEquals(listOf(null, null, null), stateList.map { it.data })
+        assertEquals(listOf(null, null, DummyException1), stateList.map { it.error })
+        assertEquals(listOf(false, true, false), stateList.map { it.isLoading })
+        assertEquals(listOf(false, true, false), stateList.map { it.isValidating })
+        assertEquals(DummyException3, mutationError)
     }
 }

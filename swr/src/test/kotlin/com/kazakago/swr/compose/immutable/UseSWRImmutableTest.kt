@@ -13,13 +13,14 @@ import com.kazakago.swr.compose.cache.LocalSWRCache
 import com.kazakago.swr.compose.internal.SWRGlobalScope
 import com.kazakago.swr.compose.state.SWRState
 import com.kazakago.swr.compose.useSWRImmutable
-import io.kotest.matchers.shouldBe
 import kotlinx.coroutines.delay
 import org.junit.Rule
-import org.junit.Test
 import org.junit.runner.RunWith
 import org.robolectric.Shadows
 import org.robolectric.shadows.ShadowNetwork
+import kotlin.random.Random
+import kotlin.test.Test
+import kotlin.test.assertEquals
 
 @RunWith(AndroidJUnit4::class)
 public class UseSWRImmutableTest {
@@ -31,11 +32,11 @@ public class UseSWRImmutableTest {
 
     @Test
     public fun immutable() {
-        val key = object {}.javaClass.enclosingMethod?.name
+        val key = Random.nextInt().toString()
         val stateList = mutableListOf<SWRState<String, String>>()
         composeTestRule.setContent {
             SWRGlobalScope = rememberCoroutineScope()
-            LocalSWRCache.current.state<String, String>(key = key!!).let {
+            LocalSWRCache.current.state<String, String>(key = key).let {
                 if (it.value == null) it.value = "cached"
             }
             stateList += useSWRImmutable(key = key, fetcher = {
@@ -53,9 +54,9 @@ public class UseSWRImmutableTest {
             callback.onAvailable(ShadowNetwork.newInstance(1))
         }
 
-        stateList.map { it.data } shouldBe listOf("cached")
-        stateList.map { it.error } shouldBe listOf(null)
-        stateList.map { it.isLoading } shouldBe listOf(false)
-        stateList.map { it.isValidating } shouldBe listOf(false)
+        assertEquals(listOf("cached"), stateList.map { it.data })
+        assertEquals(listOf(null), stateList.map { it.error })
+        assertEquals(listOf(false), stateList.map { it.isLoading })
+        assertEquals(listOf(false), stateList.map { it.isValidating })
     }
 }
