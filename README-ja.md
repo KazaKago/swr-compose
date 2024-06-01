@@ -16,10 +16,6 @@ React SWRによると、"SWR"とは下記を指します。
 
 > “SWR” という名前は、 [HTTP RFC 5861](https://www.rfc-editor.org/rfc/rfc5861) で提唱された HTTP キャッシュ無効化戦略である stale-while-revalidate に由来しています。 SWR は、まずキャッシュからデータを返し（stale）、次にフェッチリクエストを送り（revalidate）、最後に最新のデータを持ってくるという戦略です。
 
-## 要件
-
-Min SDK 23 以上
-
 ## インストール
 
 下記の `*.*.*` を最新のバージョンに置き換えてbuild.gradleのdependenciesに追加してください。 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
@@ -54,7 +50,7 @@ fun Profile() {
 
 ## 例
 
-詳細な実装例は[**exampleモジュール**](example)を参照して下さい。Androidアプリとして実行できます。
+詳細な実装例は[**exampleモジュール**](composeApp)を参照して下さい。Compose Multiplatformアプリとして実行できます。
 
 ## サポートされている機能
 

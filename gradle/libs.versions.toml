@@ -2,7 +2,7 @@
 version = "0.6.3"
 
 compileSdk = "34"
-minSdk = "23"
+minSdk = "21"
 targetSdk = "34"
 
 kotlin = "2.0.0"
@@ -13,22 +13,19 @@ android-plugin = "8.3.2"
 # Kotlinx Coroutines
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
+# Kotlinx DateTime
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
 # AndroidX Compose BOM
 androidx-compose-bom = "androidx.compose:compose-bom:2024.05.00" # https://developer.android.com/jetpack/compose/bom/bom-mapping
-# AndroidX Compose UI Preview support
-androidx-compose-ui-tooling = { module = "androidx.compose.ui:ui-tooling" }
-androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling-preview" }
 # AndroidX Compose UI Test
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest" }
-# AndroidX Compose Material3
-androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 # AndroidX Activity Compose
 androidx-activity-compose = "androidx.activity:activity-compose:1.9.0"
-# AndroidX Navigation Compose
-androidx-navigation-compose = "androidx.navigation:navigation-compose:2.7.7"
 # AndroidX Lifecycle Runtime
 androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime:2.8.1"
+# AndroidX Navigation Compose
+androidx-navigation-compose = "org.jetbrains.androidx.navigation:navigation-compose:2.8.0-alpha02"
 # Konnection
 konnection = "dev.tmapps:konnection:1.3.1"
 # MockK
