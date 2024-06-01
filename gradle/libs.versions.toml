@@ -4,7 +4,6 @@ version = "0.6.3"
 compileSdk = "34"
 minSdk = "23"
 targetSdk = "34"
-jdk = "17"
 
 kotlin = "2.0.0"
 android-plugin = "8.4.1"

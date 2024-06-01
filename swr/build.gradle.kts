@@ -21,7 +21,12 @@ android {
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }
     }
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
+    }
     kotlinOptions {
+        jvmTarget = "1.8"
         freeCompilerArgs = freeCompilerArgs + "-Xexplicit-api=strict"
     }
     testOptions {
@@ -34,10 +39,6 @@ android {
             withSourcesJar()
         }
     }
-}
-
-kotlin {
-    jvmToolchain(libs.versions.jdk.get().toInt())
 }
 
 dependencies {
