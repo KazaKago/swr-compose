@@ -30,9 +30,6 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.konnection)
         }
-        commonTest.dependencies {
-            implementation(kotlin("test"))
-        }
         jvmMain.dependencies {
             implementation(libs.kotlinx.coroutines.swing)
         }
@@ -41,7 +38,7 @@ kotlin {
         }
         val androidUnitTest by getting {
             dependencies {
-                implementation(project.dependencies.platform(libs.androidx.compose.bom))
+                implementation(kotlin("test"))
                 implementation(libs.androidx.compose.ui.test.junit4)
                 implementation(libs.androidx.compose.ui.test.manifest)
                 implementation(libs.robolectric)
