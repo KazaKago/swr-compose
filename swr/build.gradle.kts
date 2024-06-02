@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -30,15 +31,22 @@ kotlin {
             implementation(libs.androidx.lifecycle.runtime)
             implementation(libs.konnection)
         }
+        commonTest.dependencies {
+            implementation(kotlin("test"))
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+        }
         jvmMain.dependencies {
             implementation(libs.kotlinx.coroutines.swing)
+        }
+        jvmTest.dependencies {
+            implementation(compose.desktop.currentOs)
         }
         androidMain.dependencies {
             implementation(libs.kotlinx.coroutines.android)
         }
         val androidUnitTest by getting {
             dependencies {
-                implementation(kotlin("test"))
                 implementation(libs.androidx.compose.ui.test.junit4)
                 implementation(libs.androidx.compose.ui.test.manifest)
                 implementation(libs.robolectric)
