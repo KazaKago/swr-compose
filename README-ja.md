@@ -1,12 +1,12 @@
-# SWR for Compose Android
+# SWR for Compose
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)
-[![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
+[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)
+[![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr)
 [![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml?query=branch%3Amain)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
-[React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose) 向けに移植したクローンライブラリです。  
-現在はAndroid上でのみ動作します。  
+[React SWR](https://swr.vercel.app)を[Jetpack Compose](https://developer.android.com/jetpack/compose)と[Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/) 向けに移植したクローンライブラリです。  
+サポートされているプラットフォームはAndroid、そして実験的にDesktop(JVM)、iOSをサポートしています。  
 
 オリジナルの`React SWR`のAPI仕様をできる限り踏襲しており、オプションの大部分をサポートしています。  
 
@@ -16,16 +16,12 @@ React SWRによると、"SWR"とは下記を指します。
 
 > “SWR” という名前は、 [HTTP RFC 5861](https://www.rfc-editor.org/rfc/rfc5861) で提唱された HTTP キャッシュ無効化戦略である stale-while-revalidate に由来しています。 SWR は、まずキャッシュからデータを返し（stale）、次にフェッチリクエストを送り（revalidate）、最後に最新のデータを持ってくるという戦略です。
 
-## 要件
-
-Min SDK 23 以上
-
 ## インストール
 
-下記の `*.*.*` を最新のバージョンに置き換えてbuild.gradleのdependenciesに追加してください。 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
+下記の `*.*.*` を最新のバージョンに置き換えてbuild.gradleのdependenciesに追加してください。 [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
 
 ```kotlin
-implementation("com.kazakago.swr.compose:swr-android:*.*.*")
+implementation("com.kazakago.swr.compose:swr:*.*.*")
 ```
 
 ## クイックスタート
@@ -54,7 +50,7 @@ fun Profile() {
 
 ## 例
 
-詳細な実装例は[**exampleモジュール**](example)を参照して下さい。Androidアプリとして実行できます。
+詳細な実装例は[**exampleモジュール**](composeApp)を参照して下さい。Compose Multiplatformアプリとして実行できます。
 
 ## サポートされている機能
 

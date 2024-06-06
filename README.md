@@ -1,12 +1,12 @@
-# SWR for Compose Android
+# SWR for Compose
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)
-[![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr-android/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr-android)
+[![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)
+[![javadoc](https://javadoc.io/badge2/com.kazakago.swr.compose/swr/javadoc.svg)](https://javadoc.io/doc/com.kazakago.swr.compose/swr)
 [![Test](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml/badge.svg?branch=main)](https://github.com/KazaKago/swr-compose/actions/workflows/test.yml?query=branch%3Amain)
 [![License](https://img.shields.io/github/license/kazakago/swr-compose.svg)](LICENSE)
 
-This is a clone library of [React SWR](https://swr.vercel.app) ported for [Jetpack Compose](https://developer.android.com/jetpack/compose).  
-Currently works only on Android.  
+This is a clone library of [React SWR](https://swr.vercel.app) ported for [Jetpack Compose](https://developer.android.com/jetpack/compose) and [Compose Multiplatform](https://www.jetbrains.com/lp/compose-multiplatform/).  
+Supported platforms are Android, and experimentally Desktop (JVM) and iOS.  
 
 The API specification of `React SWR` is followed as much as possible.  
 Options are also supported for the most part.  
@@ -17,16 +17,12 @@ According to `React SWR`, "SWR" refers to
 
 > The name “SWR” is derived from stale-while-revalidate, a HTTP cache invalidation strategy popularized by [HTTP RFC 5861](https://www.rfc-editor.org/rfc/rfc5861). SWR is a strategy to first return the data from cache (stale), then send the fetch request (revalidate), and finally come with the up-to-date data.
 
-## Requirements
-
-Min SDK 23+
-
 ## Install
 
-Add the following gradle dependency exchanging `*.*.*` for the latest release. [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr-android.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
+Add the following gradle dependency exchanging `*.*.*` for the latest release. [![Maven Central](https://img.shields.io/maven-central/v/com.kazakago.swr.compose/swr.svg)](https://central.sonatype.com/namespace/com.kazakago.swr.compose)  
 
 ```kotlin
-implementation("com.kazakago.swr.compose:swr-android:*.*.*")
+implementation("com.kazakago.swr.compose:swr:*.*.*")
 ```
 
 ## Getting Started
@@ -55,7 +51,7 @@ fun Profile() {
 
 ## Example
 
-Refer to the [**example module**](example) for details. This module works as an Android app.  
+Refer to the [**example module**](composeApp) for details. This module works as an Compose Multiplatform app.  
 
 ## Supported Features
 
