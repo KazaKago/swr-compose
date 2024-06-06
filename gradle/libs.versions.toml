@@ -1,5 +1,5 @@
 [versions]
-version = "0.7.0"
+version = "0.7.1"
 
 compileSdk = "34"
 minSdk = "21"
