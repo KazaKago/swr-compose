@@ -1,3 +1,4 @@
+import kotlinx.validation.ExperimentalBCVApi
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -7,6 +8,7 @@ plugins {
     alias(libs.plugins.compose.compiler)
     alias(libs.plugins.dokka)
     alias(libs.plugins.android.library)
+    alias(libs.plugins.binary.compatibility.validator)
     `maven-publish`
     signing
 }
@@ -45,6 +47,14 @@ kotlin {
                 implementation(libs.mockk)
             }
         }
+    }
+}
+
+apiValidation {
+    @OptIn(ExperimentalBCVApi::class)
+    klib {
+        enabled = true
+        strictValidation = true
     }
 }
 
