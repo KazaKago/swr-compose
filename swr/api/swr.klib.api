@@ -17,21 +17,26 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazak
         abstract fun <get-reset>(): com.kazakago.swr.compose.trigger/SWRReset<#A, #B> // com.kazakago.swr.compose.state/SWRMutationState.reset.<get-reset>|<get-reset>(){}[0]
     abstract val trigger // com.kazakago.swr.compose.state/SWRMutationState.trigger|{}trigger[0]
         abstract fun <get-trigger>(): com.kazakago.swr.compose.trigger/SWRTrigger<#A, #B, #C> // com.kazakago.swr.compose.state/SWRMutationState.trigger.<get-trigger>|<get-trigger>(){}[0]
-    final object Companion { // com.kazakago.swr.compose.state/SWRMutationState.Companion|null[0]
-        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?, #C2: kotlin/Any?> empty(#B2? = ..., kotlin/Throwable? = ..., com.kazakago.swr.compose.trigger/SWRTrigger<#A2, #B2, #C2> = ..., com.kazakago.swr.compose.trigger/SWRReset<#A2, #B2> = ..., kotlin/Boolean = ...): com.kazakago.swr.compose.state/SWRMutationState<#A2, #B2, #C2> // com.kazakago.swr.compose.state/SWRMutationState.Companion.empty|empty(0:1?;kotlin.Throwable?;com.kazakago.swr.compose.trigger.SWRTrigger<0:0,0:1,0:2>;com.kazakago.swr.compose.trigger.SWRReset<0:0,0:1>;kotlin.Boolean){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
-    }
+
     open fun component1(): #B? // com.kazakago.swr.compose.state/SWRMutationState.component1|component1(){}[0]
     open fun component2(): kotlin/Throwable? // com.kazakago.swr.compose.state/SWRMutationState.component2|component2(){}[0]
     open fun component3(): com.kazakago.swr.compose.trigger/SWRTrigger<#A, #B, #C> // com.kazakago.swr.compose.state/SWRMutationState.component3|component3(){}[0]
     open fun component4(): com.kazakago.swr.compose.trigger/SWRReset<#A, #B> // com.kazakago.swr.compose.state/SWRMutationState.component4|component4(){}[0]
     open fun component5(): kotlin/Boolean // com.kazakago.swr.compose.state/SWRMutationState.component5|component5(){}[0]
+
+    final object Companion { // com.kazakago.swr.compose.state/SWRMutationState.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?, #C2: kotlin/Any?> empty(#B2? = ..., kotlin/Throwable? = ..., com.kazakago.swr.compose.trigger/SWRTrigger<#A2, #B2, #C2> = ..., com.kazakago.swr.compose.trigger/SWRReset<#A2, #B2> = ..., kotlin/Boolean = ...): com.kazakago.swr.compose.state/SWRMutationState<#A2, #B2, #C2> // com.kazakago.swr.compose.state/SWRMutationState.Companion.empty|empty(0:1?;kotlin.Throwable?;com.kazakago.swr.compose.trigger.SWRTrigger<0:0,0:1,0:2>;com.kazakago.swr.compose.trigger.SWRReset<0:0,0:1>;kotlin.Boolean){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+    }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazakago.swr.compose.trigger/SWRTrigger { // com.kazakago.swr.compose.trigger/SWRTrigger|null[0]
     abstract suspend fun invoke(#C, kotlin/Function1<com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit> = ...): #B? // com.kazakago.swr.compose.trigger/SWRTrigger.invoke|invoke(1:2;kotlin.Function1<com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>){}[0]
+
     final object Companion { // com.kazakago.swr.compose.trigger/SWRTrigger.Companion|null[0]
         final fun <#A2: kotlin/Any?, #B2: kotlin/Any?, #C2: kotlin/Any?> empty(): com.kazakago.swr.compose.trigger/SWRTrigger<#A2, #B2, #C2> // com.kazakago.swr.compose.trigger/SWRTrigger.Companion.empty|empty(){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
     }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.config/SWRConfig { // com.kazakago.swr.compose.config/SWRConfig|null[0]
     abstract var dedupingInterval // com.kazakago.swr.compose.config/SWRConfig.dedupingInterval|{}dedupingInterval[0]
         abstract fun <get-dedupingInterval>(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRConfig.dedupingInterval.<get-dedupingInterval>|<get-dedupingInterval>(){}[0]
@@ -103,12 +108,15 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.c
         abstract fun <get-shouldRetryOnError>(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRConfig.shouldRetryOnError.<get-shouldRetryOnError>|<get-shouldRetryOnError>(){}[0]
         abstract fun <set-shouldRetryOnError>(kotlin/Boolean) // com.kazakago.swr.compose.config/SWRConfig.shouldRetryOnError.<set-shouldRetryOnError>|<set-shouldRetryOnError>(kotlin.Boolean){}[0]
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.mutate/SWRMutate { // com.kazakago.swr.compose.mutate/SWRMutate|null[0]
     abstract suspend fun invoke(#A? = ..., kotlin.coroutines/SuspendFunction0<#B>? = ..., kotlin/Function1<com.kazakago.swr.compose.config/SWRMutateConfig<#B>, kotlin/Unit> = ...) // com.kazakago.swr.compose.mutate/SWRMutate.invoke|invoke(1:0?;kotlin.coroutines.SuspendFunction0<1:1>?;kotlin.Function1<com.kazakago.swr.compose.config.SWRMutateConfig<1:1>,kotlin.Unit>){}[0]
+
     final object Companion { // com.kazakago.swr.compose.mutate/SWRMutate.Companion|null[0]
         final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(): com.kazakago.swr.compose.mutate/SWRMutate<#A2, #B2> // com.kazakago.swr.compose.mutate/SWRMutate.Companion.empty|empty(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
     }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.state/SWRConfigState { // com.kazakago.swr.compose.state/SWRConfigState|null[0]
     abstract val cache // com.kazakago.swr.compose.state/SWRConfigState.cache|{}cache[0]
         abstract fun <get-cache>(): com.kazakago.swr.compose.cache/SWRCache // com.kazakago.swr.compose.state/SWRConfigState.cache.<get-cache>|<get-cache>(){}[0]
@@ -116,13 +124,16 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.s
         abstract fun <get-config>(): com.kazakago.swr.compose.config/SWRConfig<#A, #B> // com.kazakago.swr.compose.state/SWRConfigState.config.<get-config>|<get-config>(){}[0]
     abstract val mutate // com.kazakago.swr.compose.state/SWRConfigState.mutate|{}mutate[0]
         abstract fun <get-mutate>(): com.kazakago.swr.compose.mutate/SWRMutate<#A, #B> // com.kazakago.swr.compose.state/SWRConfigState.mutate.<get-mutate>|<get-mutate>(){}[0]
-    final object Companion { // com.kazakago.swr.compose.state/SWRConfigState.Companion|null[0]
-        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(com.kazakago.swr.compose.mutate/SWRMutate<#A2, #B2> = ..., com.kazakago.swr.compose.config/SWRConfig<#A2, #B2> = ..., com.kazakago.swr.compose.cache/SWRCache = ...): com.kazakago.swr.compose.state/SWRConfigState<#A2, #B2> // com.kazakago.swr.compose.state/SWRConfigState.Companion.empty|empty(com.kazakago.swr.compose.mutate.SWRMutate<0:0,0:1>;com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>;com.kazakago.swr.compose.cache.SWRCache){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-    }
+
     open fun component1(): com.kazakago.swr.compose.mutate/SWRMutate<#A, #B> // com.kazakago.swr.compose.state/SWRConfigState.component1|component1(){}[0]
     open fun component2(): com.kazakago.swr.compose.config/SWRConfig<#A, #B> // com.kazakago.swr.compose.state/SWRConfigState.component2|component2(){}[0]
     open fun component3(): com.kazakago.swr.compose.cache/SWRCache // com.kazakago.swr.compose.state/SWRConfigState.component3|component3(){}[0]
+
+    final object Companion { // com.kazakago.swr.compose.state/SWRConfigState.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(com.kazakago.swr.compose.mutate/SWRMutate<#A2, #B2> = ..., com.kazakago.swr.compose.config/SWRConfig<#A2, #B2> = ..., com.kazakago.swr.compose.cache/SWRCache = ...): com.kazakago.swr.compose.state/SWRConfigState<#A2, #B2> // com.kazakago.swr.compose.state/SWRConfigState.Companion.empty|empty(com.kazakago.swr.compose.mutate.SWRMutate<0:0,0:1>;com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>;com.kazakago.swr.compose.cache.SWRCache){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.state/SWRInfiniteState { // com.kazakago.swr.compose.state/SWRInfiniteState|null[0]
     abstract val data // com.kazakago.swr.compose.state/SWRInfiniteState.data|{}data[0]
         abstract fun <get-data>(): kotlin.collections/List<#B?>? // com.kazakago.swr.compose.state/SWRInfiniteState.data.<get-data>|<get-data>(){}[0]
@@ -138,9 +149,7 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.s
         abstract fun <get-setSize>(): kotlin/Function1<kotlin/Int, kotlin/Unit> // com.kazakago.swr.compose.state/SWRInfiniteState.setSize.<get-setSize>|<get-setSize>(){}[0]
     abstract val size // com.kazakago.swr.compose.state/SWRInfiniteState.size|{}size[0]
         abstract fun <get-size>(): kotlin/Int // com.kazakago.swr.compose.state/SWRInfiniteState.size.<get-size>|<get-size>(){}[0]
-    final object Companion { // com.kazakago.swr.compose.state/SWRInfiniteState.Companion|null[0]
-        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(kotlin.collections/List<#B2?> = ..., kotlin/Throwable? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., com.kazakago.swr.compose.mutate/SWRMutate<#A2, kotlin.collections/List<#B2>> = ..., kotlin/Int = ..., kotlin/Function1<kotlin/Int, kotlin/Unit> = ...): com.kazakago.swr.compose.state/SWRInfiniteState<#A2, #B2> // com.kazakago.swr.compose.state/SWRInfiniteState.Companion.empty|empty(kotlin.collections.List<0:1?>;kotlin.Throwable?;kotlin.Boolean;kotlin.Boolean;com.kazakago.swr.compose.mutate.SWRMutate<0:0,kotlin.collections.List<0:1>>;kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-    }
+
     open fun component1(): kotlin.collections/List<#B?>? // com.kazakago.swr.compose.state/SWRInfiniteState.component1|component1(){}[0]
     open fun component2(): kotlin/Throwable? // com.kazakago.swr.compose.state/SWRInfiniteState.component2|component2(){}[0]
     open fun component3(): kotlin/Boolean // com.kazakago.swr.compose.state/SWRInfiniteState.component3|component3(){}[0]
@@ -148,7 +157,12 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.s
     open fun component5(): com.kazakago.swr.compose.mutate/SWRMutate<#A, kotlin.collections/List<#B>> // com.kazakago.swr.compose.state/SWRInfiniteState.component5|component5(){}[0]
     open fun component6(): kotlin/Int // com.kazakago.swr.compose.state/SWRInfiniteState.component6|component6(){}[0]
     open fun component7(): kotlin/Function1<kotlin/Int, kotlin/Unit> // com.kazakago.swr.compose.state/SWRInfiniteState.component7|component7(){}[0]
+
+    final object Companion { // com.kazakago.swr.compose.state/SWRInfiniteState.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(kotlin.collections/List<#B2?> = ..., kotlin/Throwable? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., com.kazakago.swr.compose.mutate/SWRMutate<#A2, kotlin.collections/List<#B2>> = ..., kotlin/Int = ..., kotlin/Function1<kotlin/Int, kotlin/Unit> = ...): com.kazakago.swr.compose.state/SWRInfiniteState<#A2, #B2> // com.kazakago.swr.compose.state/SWRInfiniteState.Companion.empty|empty(kotlin.collections.List<0:1?>;kotlin.Throwable?;kotlin.Boolean;kotlin.Boolean;com.kazakago.swr.compose.mutate.SWRMutate<0:0,kotlin.collections.List<0:1>>;kotlin.Int;kotlin.Function1<kotlin.Int,kotlin.Unit>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.state/SWRState { // com.kazakago.swr.compose.state/SWRState|null[0]
     abstract val data // com.kazakago.swr.compose.state/SWRState.data|{}data[0]
         abstract fun <get-data>(): #B? // com.kazakago.swr.compose.state/SWRState.data.<get-data>|<get-data>(){}[0]
@@ -160,28 +174,35 @@ abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.s
         abstract fun <get-isValidating>(): kotlin/Boolean // com.kazakago.swr.compose.state/SWRState.isValidating.<get-isValidating>|<get-isValidating>(){}[0]
     abstract val mutate // com.kazakago.swr.compose.state/SWRState.mutate|{}mutate[0]
         abstract fun <get-mutate>(): com.kazakago.swr.compose.mutate/SWRMutate<#A, #B> // com.kazakago.swr.compose.state/SWRState.mutate.<get-mutate>|<get-mutate>(){}[0]
-    final object Companion { // com.kazakago.swr.compose.state/SWRState.Companion|null[0]
-        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(#B2? = ..., kotlin/Throwable? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., com.kazakago.swr.compose.mutate/SWRMutate<#A2, #B2> = ...): com.kazakago.swr.compose.state/SWRState<#A2, #B2> // com.kazakago.swr.compose.state/SWRState.Companion.empty|empty(0:1?;kotlin.Throwable?;kotlin.Boolean;kotlin.Boolean;com.kazakago.swr.compose.mutate.SWRMutate<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-    }
+
     open fun component1(): #B? // com.kazakago.swr.compose.state/SWRState.component1|component1(){}[0]
     open fun component2(): kotlin/Throwable? // com.kazakago.swr.compose.state/SWRState.component2|component2(){}[0]
     open fun component3(): kotlin/Boolean // com.kazakago.swr.compose.state/SWRState.component3|component3(){}[0]
     open fun component4(): kotlin/Boolean // com.kazakago.swr.compose.state/SWRState.component4|component4(){}[0]
     open fun component5(): com.kazakago.swr.compose.mutate/SWRMutate<#A, #B> // com.kazakago.swr.compose.state/SWRState.component5|component5(){}[0]
+
+    final object Companion { // com.kazakago.swr.compose.state/SWRState.Companion|null[0]
+        final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(#B2? = ..., kotlin/Throwable? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., com.kazakago.swr.compose.mutate/SWRMutate<#A2, #B2> = ...): com.kazakago.swr.compose.state/SWRState<#A2, #B2> // com.kazakago.swr.compose.state/SWRState.Companion.empty|empty(0:1?;kotlin.Throwable?;kotlin.Boolean;kotlin.Boolean;com.kazakago.swr.compose.mutate.SWRMutate<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+    }
 }
+
 abstract interface <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.trigger/SWRReset { // com.kazakago.swr.compose.trigger/SWRReset|null[0]
     abstract fun invoke() // com.kazakago.swr.compose.trigger/SWRReset.invoke|invoke(){}[0]
+
     final object Companion { // com.kazakago.swr.compose.trigger/SWRReset.Companion|null[0]
         final fun <#A2: kotlin/Any?, #B2: kotlin/Any?> empty(): com.kazakago.swr.compose.trigger/SWRReset<#A2, #B2> // com.kazakago.swr.compose.trigger/SWRReset.Companion.empty|empty(){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
     }
 }
+
 abstract interface <#A: kotlin/Any?> com.kazakago.swr.compose.validate/SWRValidate { // com.kazakago.swr.compose.validate/SWRValidate|null[0]
     abstract suspend fun invoke(#A?, com.kazakago.swr.compose.validate/SWRValidateOptions? = ...) // com.kazakago.swr.compose.validate/SWRValidate.invoke|invoke(1:0?;com.kazakago.swr.compose.validate.SWRValidateOptions?){}[0]
 }
+
 abstract interface com.kazakago.swr.compose.cache/SWRCache { // com.kazakago.swr.compose.cache/SWRCache|null[0]
     abstract fun <#A1: kotlin/Any?, #B1: kotlin/Any?> state(#A1): androidx.compose.runtime/MutableState<#B1?> // com.kazakago.swr.compose.cache/SWRCache.state|state(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
     abstract fun clear() // com.kazakago.swr.compose.cache/SWRCache.clear|clear(){}[0]
 }
+
 abstract interface com.kazakago.swr.compose.cache/SWRSystemCache { // com.kazakago.swr.compose.cache/SWRSystemCache|null[0]
     abstract fun <#A1: kotlin/Any?, #B1: kotlin/Any?> getFetcher(#A1): kotlin.coroutines/SuspendFunction1<#A1, #B1>? // com.kazakago.swr.compose.cache/SWRSystemCache.getFetcher|getFetcher(0:0){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
     abstract fun <#A1: kotlin/Any?, #B1: kotlin/Any?> setFetcher(#A1, kotlin.coroutines/SuspendFunction1<#A1, #B1>) // com.kazakago.swr.compose.cache/SWRSystemCache.setFetcher|setFetcher(0:0;kotlin.coroutines.SuspendFunction1<0:0,0:1>){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
@@ -195,42 +216,14 @@ abstract interface com.kazakago.swr.compose.cache/SWRSystemCache { // com.kazaka
     abstract fun <#A1: kotlin/Any?> setValidatedTimerJob(#A1, kotlinx.coroutines/Job) // com.kazakago.swr.compose.cache/SWRSystemCache.setValidatedTimerJob|setValidatedTimerJob(0:0;kotlinx.coroutines.Job){0§<kotlin.Any?>}[0]
     abstract fun clear() // com.kazakago.swr.compose.cache/SWRSystemCache.clear|clear(){}[0]
 }
+
 abstract interface com.kazakago.swr.compose.preload/SWRPreload { // com.kazakago.swr.compose.preload/SWRPreload|null[0]
     abstract suspend fun invoke() // com.kazakago.swr.compose.preload/SWRPreload.invoke|invoke(){}[0]
 }
+
 final class <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.config/SWRInfiniteConfig : com.kazakago.swr.compose.config/SWRConfig<#A, #B> { // com.kazakago.swr.compose.config/SWRInfiniteConfig|null[0]
     constructor <init>(kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlin/Boolean, kotlin/Boolean?, kotlin/Boolean, kotlin/Boolean, kotlin.time/Duration, kotlin/Boolean, kotlin/Boolean, kotlin/Boolean, kotlin.time/Duration, kotlin.time/Duration, kotlin.time/Duration, kotlin.time/Duration, kotlin/Int?, kotlin.collections/Map<#A, #B>, #B? = ..., kotlin/Boolean, kotlin/Function2<#A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, kotlin.coroutines/SuspendFunction5<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, com.kazakago.swr.compose.validate/SWRValidate<#A>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit>, kotlin/Function0<kotlin/Boolean>, kotlin/Int = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlinx.coroutines/CoroutineScope?) // com.kazakago.swr.compose.config/SWRInfiniteConfig.<init>|<init>(kotlin.coroutines.SuspendFunction1<1:0,1:1>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<1:0,1:1>;1:1?;kotlin.Boolean;kotlin.Function2<1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,com.kazakago.swr.compose.validate.SWRValidate<1:0>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlinx.coroutines.CoroutineScope?){}[0]
-    final fun component1(): kotlin.coroutines/SuspendFunction1<#A, #B>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component1|component1(){}[0]
-    final fun component10(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component10|component10(){}[0]
-    final fun component11(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component11|component11(){}[0]
-    final fun component12(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component12|component12(){}[0]
-    final fun component13(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component13|component13(){}[0]
-    final fun component14(): kotlin/Int? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component14|component14(){}[0]
-    final fun component15(): kotlin.collections/Map<#A, #B> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component15|component15(){}[0]
-    final fun component16(): #B? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component16|component16(){}[0]
-    final fun component17(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component17|component17(){}[0]
-    final fun component18(): kotlin/Function2<#A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component18|component18(){}[0]
-    final fun component19(): kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component19|component19(){}[0]
-    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component2|component2(){}[0]
-    final fun component20(): kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component20|component20(){}[0]
-    final fun component21(): kotlin.coroutines/SuspendFunction5<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, com.kazakago.swr.compose.validate/SWRValidate<#A>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component21|component21(){}[0]
-    final fun component22(): kotlin/Function0<kotlin/Boolean> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component22|component22(){}[0]
-    final fun component23(): kotlin/Int // com.kazakago.swr.compose.config/SWRInfiniteConfig.component23|component23(){}[0]
-    final fun component24(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component24|component24(){}[0]
-    final fun component25(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component25|component25(){}[0]
-    final fun component26(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component26|component26(){}[0]
-    final fun component27(): kotlinx.coroutines/CoroutineScope? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component27|component27(){}[0]
-    final fun component3(): kotlin/Boolean? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component3|component3(){}[0]
-    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component4|component4(){}[0]
-    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component5|component5(){}[0]
-    final fun component6(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component6|component6(){}[0]
-    final fun component7(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component7|component7(){}[0]
-    final fun component8(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component8|component8(){}[0]
-    final fun component9(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component9|component9(){}[0]
-    final fun copy(kotlin.coroutines/SuspendFunction1<#A, #B>? = ..., kotlin/Boolean = ..., kotlin/Boolean? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin/Int? = ..., kotlin.collections/Map<#A, #B> = ..., #B? = ..., kotlin/Boolean = ..., kotlin/Function2<#A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction5<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, com.kazakago.swr.compose.validate/SWRValidate<#A>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> = ..., kotlin/Function0<kotlin/Boolean> = ..., kotlin/Int = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlinx.coroutines/CoroutineScope? = ...): com.kazakago.swr.compose.config/SWRInfiniteConfig<#A, #B> // com.kazakago.swr.compose.config/SWRInfiniteConfig.copy|copy(kotlin.coroutines.SuspendFunction1<1:0,1:1>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<1:0,1:1>;1:1?;kotlin.Boolean;kotlin.Function2<1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,com.kazakago.swr.compose.validate.SWRValidate<1:0>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlinx.coroutines.CoroutineScope?){}[0]
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRInfiniteConfig.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRInfiniteConfig.toString|toString(){}[0]
+
     final var dedupingInterval // com.kazakago.swr.compose.config/SWRInfiniteConfig.dedupingInterval|{}dedupingInterval[0]
         final fun <get-dedupingInterval>(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.dedupingInterval.<get-dedupingInterval>|<get-dedupingInterval>(){}[0]
         final fun <set-dedupingInterval>(kotlin.time/Duration) // com.kazakago.swr.compose.config/SWRInfiniteConfig.dedupingInterval.<set-dedupingInterval>|<set-dedupingInterval>(kotlin.time.Duration){}[0]
@@ -312,20 +305,43 @@ final class <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.config/S
     final var shouldRetryOnError // com.kazakago.swr.compose.config/SWRInfiniteConfig.shouldRetryOnError|{}shouldRetryOnError[0]
         final fun <get-shouldRetryOnError>(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.shouldRetryOnError.<get-shouldRetryOnError>|<get-shouldRetryOnError>(){}[0]
         final fun <set-shouldRetryOnError>(kotlin/Boolean) // com.kazakago.swr.compose.config/SWRInfiniteConfig.shouldRetryOnError.<set-shouldRetryOnError>|<set-shouldRetryOnError>(kotlin.Boolean){}[0]
+
+    final fun component1(): kotlin.coroutines/SuspendFunction1<#A, #B>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component1|component1(){}[0]
+    final fun component10(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component10|component10(){}[0]
+    final fun component11(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component11|component11(){}[0]
+    final fun component12(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component12|component12(){}[0]
+    final fun component13(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component13|component13(){}[0]
+    final fun component14(): kotlin/Int? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component14|component14(){}[0]
+    final fun component15(): kotlin.collections/Map<#A, #B> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component15|component15(){}[0]
+    final fun component16(): #B? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component16|component16(){}[0]
+    final fun component17(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component17|component17(){}[0]
+    final fun component18(): kotlin/Function2<#A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component18|component18(){}[0]
+    final fun component19(): kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component19|component19(){}[0]
+    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component2|component2(){}[0]
+    final fun component20(): kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component20|component20(){}[0]
+    final fun component21(): kotlin.coroutines/SuspendFunction5<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, com.kazakago.swr.compose.validate/SWRValidate<#A>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component21|component21(){}[0]
+    final fun component22(): kotlin/Function0<kotlin/Boolean> // com.kazakago.swr.compose.config/SWRInfiniteConfig.component22|component22(){}[0]
+    final fun component23(): kotlin/Int // com.kazakago.swr.compose.config/SWRInfiniteConfig.component23|component23(){}[0]
+    final fun component24(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component24|component24(){}[0]
+    final fun component25(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component25|component25(){}[0]
+    final fun component26(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component26|component26(){}[0]
+    final fun component27(): kotlinx.coroutines/CoroutineScope? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component27|component27(){}[0]
+    final fun component3(): kotlin/Boolean? // com.kazakago.swr.compose.config/SWRInfiniteConfig.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component4|component4(){}[0]
+    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component5|component5(){}[0]
+    final fun component6(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRInfiniteConfig.component6|component6(){}[0]
+    final fun component7(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component7|component7(){}[0]
+    final fun component8(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component8|component8(){}[0]
+    final fun component9(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.component9|component9(){}[0]
+    final fun copy(kotlin.coroutines/SuspendFunction1<#A, #B>? = ..., kotlin/Boolean = ..., kotlin/Boolean? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin/Int? = ..., kotlin.collections/Map<#A, #B> = ..., #B? = ..., kotlin/Boolean = ..., kotlin/Function2<#A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction5<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRConfig<#A, #B>, com.kazakago.swr.compose.validate/SWRValidate<#A>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> = ..., kotlin/Function0<kotlin/Boolean> = ..., kotlin/Int = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlinx.coroutines/CoroutineScope? = ...): com.kazakago.swr.compose.config/SWRInfiniteConfig<#A, #B> // com.kazakago.swr.compose.config/SWRInfiniteConfig.copy|copy(kotlin.coroutines.SuspendFunction1<1:0,1:1>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<1:0,1:1>;1:1?;kotlin.Boolean;kotlin.Function2<1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRConfig<1:0,1:1>,com.kazakago.swr.compose.validate.SWRValidate<1:0>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlin.Int;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlinx.coroutines.CoroutineScope?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRInfiniteConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRInfiniteConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRInfiniteConfig.toString|toString(){}[0]
 }
+
 final class <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.config/SWRTriggerConfig { // com.kazakago.swr.compose.config/SWRTriggerConfig|null[0]
     constructor <init>(#B? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ...) // com.kazakago.swr.compose.config/SWRTriggerConfig.<init>|<init>(1:1?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?){}[0]
-    final fun component1(): #B? // com.kazakago.swr.compose.config/SWRTriggerConfig.component1|component1(){}[0]
-    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component2|component2(){}[0]
-    final fun component3(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component3|component3(){}[0]
-    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component4|component4(){}[0]
-    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component5|component5(){}[0]
-    final fun component6(): kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRTriggerConfig.component6|component6(){}[0]
-    final fun component7(): kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRTriggerConfig.component7|component7(){}[0]
-    final fun copy(#B? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ...): com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B> // com.kazakago.swr.compose.config/SWRTriggerConfig.copy|copy(1:1?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?){}[0]
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRTriggerConfig.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRTriggerConfig.toString|toString(){}[0]
+
     final var onError // com.kazakago.swr.compose.config/SWRTriggerConfig.onError|{}onError[0]
         final fun <get-onError>(): kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRTriggerConfig.onError.<get-onError>|<get-onError>(){}[0]
         final fun <set-onError>(kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>?) // com.kazakago.swr.compose.config/SWRTriggerConfig.onError.<set-onError>|<set-onError>(kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?){}[0]
@@ -347,18 +363,23 @@ final class <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose.config/S
     final var throwOnError // com.kazakago.swr.compose.config/SWRTriggerConfig.throwOnError|{}throwOnError[0]
         final fun <get-throwOnError>(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.throwOnError.<get-throwOnError>|<get-throwOnError>(){}[0]
         final fun <set-throwOnError>(kotlin/Boolean) // com.kazakago.swr.compose.config/SWRTriggerConfig.throwOnError.<set-throwOnError>|<set-throwOnError>(kotlin.Boolean){}[0]
+
+    final fun component1(): #B? // com.kazakago.swr.compose.config/SWRTriggerConfig.component1|component1(){}[0]
+    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component2|component2(){}[0]
+    final fun component3(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component4|component4(){}[0]
+    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.component5|component5(){}[0]
+    final fun component6(): kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRTriggerConfig.component6|component6(){}[0]
+    final fun component7(): kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRTriggerConfig.component7|component7(){}[0]
+    final fun copy(#B? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Function3<#B, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, #A, com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>? = ...): com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B> // com.kazakago.swr.compose.config/SWRTriggerConfig.copy|copy(1:1?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Function3<1:1,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,1:0,com.kazakago.swr.compose.config.SWRTriggerConfig<1:0,1:1>,kotlin.Unit>?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRTriggerConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRTriggerConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRTriggerConfig.toString|toString(){}[0]
 }
+
 final class <#A: kotlin/Any?> com.kazakago.swr.compose.config/SWRMutateConfig { // com.kazakago.swr.compose.config/SWRMutateConfig|null[0]
     constructor <init>(#A? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ...) // com.kazakago.swr.compose.config/SWRMutateConfig.<init>|<init>(1:0?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
-    final fun component1(): #A? // com.kazakago.swr.compose.config/SWRMutateConfig.component1|component1(){}[0]
-    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component2|component2(){}[0]
-    final fun component3(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component3|component3(){}[0]
-    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component4|component4(){}[0]
-    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component5|component5(){}[0]
-    final fun copy(#A? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ...): com.kazakago.swr.compose.config/SWRMutateConfig<#A> // com.kazakago.swr.compose.config/SWRMutateConfig.copy|copy(1:0?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRMutateConfig.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRMutateConfig.toString|toString(){}[0]
+
     final var optimisticData // com.kazakago.swr.compose.config/SWRMutateConfig.optimisticData|{}optimisticData[0]
         final fun <get-optimisticData>(): #A? // com.kazakago.swr.compose.config/SWRMutateConfig.optimisticData.<get-optimisticData>|<get-optimisticData>(){}[0]
         final fun <set-optimisticData>(#A?) // com.kazakago.swr.compose.config/SWRMutateConfig.optimisticData.<set-optimisticData>|<set-optimisticData>(1:0?){}[0]
@@ -374,35 +395,21 @@ final class <#A: kotlin/Any?> com.kazakago.swr.compose.config/SWRMutateConfig { 
     final var throwOnError // com.kazakago.swr.compose.config/SWRMutateConfig.throwOnError|{}throwOnError[0]
         final fun <get-throwOnError>(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.throwOnError.<get-throwOnError>|<get-throwOnError>(){}[0]
         final fun <set-throwOnError>(kotlin/Boolean) // com.kazakago.swr.compose.config/SWRMutateConfig.throwOnError.<set-throwOnError>|<set-throwOnError>(kotlin.Boolean){}[0]
+
+    final fun component1(): #A? // com.kazakago.swr.compose.config/SWRMutateConfig.component1|component1(){}[0]
+    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component2|component2(){}[0]
+    final fun component3(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component4|component4(){}[0]
+    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.component5|component5(){}[0]
+    final fun copy(#A? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ...): com.kazakago.swr.compose.config/SWRMutateConfig<#A> // com.kazakago.swr.compose.config/SWRMutateConfig.copy|copy(1:0?;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRMutateConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRMutateConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRMutateConfig.toString|toString(){}[0]
 }
+
 final class com.kazakago.swr.compose.config/SWRGlobalConfig { // com.kazakago.swr.compose.config/SWRGlobalConfig|null[0]
     constructor <init>(kotlin.coroutines/SuspendFunction1<kotlin/Any, kotlin/Any>? = ..., kotlin/Boolean = ..., kotlin/Boolean? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin/Int? = ..., kotlin.collections/Map<kotlin/Any, kotlin/Any> = ..., kotlin/Boolean = ..., kotlin/Function2<kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Any, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction5<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, com.kazakago.swr.compose.validate/SWRValidate<kotlin/Any>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> = ..., kotlin/Function0<kotlin/Boolean> = ..., kotlinx.coroutines/CoroutineScope? = ...) // com.kazakago.swr.compose.config/SWRGlobalConfig.<init>|<init>(kotlin.coroutines.SuspendFunction1<kotlin.Any,kotlin.Any>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<kotlin.Any,kotlin.Any>;kotlin.Boolean;kotlin.Function2<kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Any,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,com.kazakago.swr.compose.validate.SWRValidate<kotlin.Any>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlinx.coroutines.CoroutineScope?){}[0]
-    final fun component1(): kotlin.coroutines/SuspendFunction1<kotlin/Any, kotlin/Any>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component1|component1(){}[0]
-    final fun component10(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component10|component10(){}[0]
-    final fun component11(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component11|component11(){}[0]
-    final fun component12(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component12|component12(){}[0]
-    final fun component13(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component13|component13(){}[0]
-    final fun component14(): kotlin/Int? // com.kazakago.swr.compose.config/SWRGlobalConfig.component14|component14(){}[0]
-    final fun component15(): kotlin.collections/Map<kotlin/Any, kotlin/Any> // com.kazakago.swr.compose.config/SWRGlobalConfig.component15|component15(){}[0]
-    final fun component16(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component16|component16(){}[0]
-    final fun component17(): kotlin/Function2<kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component17|component17(){}[0]
-    final fun component18(): kotlin/Function3<kotlin/Any, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component18|component18(){}[0]
-    final fun component19(): kotlin/Function3<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component19|component19(){}[0]
-    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component2|component2(){}[0]
-    final fun component20(): kotlin.coroutines/SuspendFunction5<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, com.kazakago.swr.compose.validate/SWRValidate<kotlin/Any>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> // com.kazakago.swr.compose.config/SWRGlobalConfig.component20|component20(){}[0]
-    final fun component21(): kotlin/Function0<kotlin/Boolean> // com.kazakago.swr.compose.config/SWRGlobalConfig.component21|component21(){}[0]
-    final fun component22(): kotlinx.coroutines/CoroutineScope? // com.kazakago.swr.compose.config/SWRGlobalConfig.component22|component22(){}[0]
-    final fun component3(): kotlin/Boolean? // com.kazakago.swr.compose.config/SWRGlobalConfig.component3|component3(){}[0]
-    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component4|component4(){}[0]
-    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component5|component5(){}[0]
-    final fun component6(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component6|component6(){}[0]
-    final fun component7(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component7|component7(){}[0]
-    final fun component8(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component8|component8(){}[0]
-    final fun component9(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component9|component9(){}[0]
-    final fun copy(kotlin.coroutines/SuspendFunction1<kotlin/Any, kotlin/Any>? = ..., kotlin/Boolean = ..., kotlin/Boolean? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin/Int? = ..., kotlin.collections/Map<kotlin/Any, kotlin/Any> = ..., kotlin/Boolean = ..., kotlin/Function2<kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Any, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction5<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, com.kazakago.swr.compose.validate/SWRValidate<kotlin/Any>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> = ..., kotlin/Function0<kotlin/Boolean> = ..., kotlinx.coroutines/CoroutineScope? = ...): com.kazakago.swr.compose.config/SWRGlobalConfig // com.kazakago.swr.compose.config/SWRGlobalConfig.copy|copy(kotlin.coroutines.SuspendFunction1<kotlin.Any,kotlin.Any>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<kotlin.Any,kotlin.Any>;kotlin.Boolean;kotlin.Function2<kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Any,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,com.kazakago.swr.compose.validate.SWRValidate<kotlin.Any>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlinx.coroutines.CoroutineScope?){}[0]
-    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.equals|equals(kotlin.Any?){}[0]
-    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRGlobalConfig.hashCode|hashCode(){}[0]
-    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRGlobalConfig.toString|toString(){}[0]
+
     final var dedupingInterval // com.kazakago.swr.compose.config/SWRGlobalConfig.dedupingInterval|{}dedupingInterval[0]
         final fun <get-dedupingInterval>(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.dedupingInterval.<get-dedupingInterval>|<get-dedupingInterval>(){}[0]
         final fun <set-dedupingInterval>(kotlin.time/Duration) // com.kazakago.swr.compose.config/SWRGlobalConfig.dedupingInterval.<set-dedupingInterval>|<set-dedupingInterval>(kotlin.time.Duration){}[0]
@@ -469,31 +476,51 @@ final class com.kazakago.swr.compose.config/SWRGlobalConfig { // com.kazakago.sw
     final var shouldRetryOnError // com.kazakago.swr.compose.config/SWRGlobalConfig.shouldRetryOnError|{}shouldRetryOnError[0]
         final fun <get-shouldRetryOnError>(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.shouldRetryOnError.<get-shouldRetryOnError>|<get-shouldRetryOnError>(){}[0]
         final fun <set-shouldRetryOnError>(kotlin/Boolean) // com.kazakago.swr.compose.config/SWRGlobalConfig.shouldRetryOnError.<set-shouldRetryOnError>|<set-shouldRetryOnError>(kotlin.Boolean){}[0]
+
+    final fun component1(): kotlin.coroutines/SuspendFunction1<kotlin/Any, kotlin/Any>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component1|component1(){}[0]
+    final fun component10(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component10|component10(){}[0]
+    final fun component11(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component11|component11(){}[0]
+    final fun component12(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component12|component12(){}[0]
+    final fun component13(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component13|component13(){}[0]
+    final fun component14(): kotlin/Int? // com.kazakago.swr.compose.config/SWRGlobalConfig.component14|component14(){}[0]
+    final fun component15(): kotlin.collections/Map<kotlin/Any, kotlin/Any> // com.kazakago.swr.compose.config/SWRGlobalConfig.component15|component15(){}[0]
+    final fun component16(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component16|component16(){}[0]
+    final fun component17(): kotlin/Function2<kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component17|component17(){}[0]
+    final fun component18(): kotlin/Function3<kotlin/Any, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component18|component18(){}[0]
+    final fun component19(): kotlin/Function3<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? // com.kazakago.swr.compose.config/SWRGlobalConfig.component19|component19(){}[0]
+    final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component2|component2(){}[0]
+    final fun component20(): kotlin.coroutines/SuspendFunction5<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, com.kazakago.swr.compose.validate/SWRValidate<kotlin/Any>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> // com.kazakago.swr.compose.config/SWRGlobalConfig.component20|component20(){}[0]
+    final fun component21(): kotlin/Function0<kotlin/Boolean> // com.kazakago.swr.compose.config/SWRGlobalConfig.component21|component21(){}[0]
+    final fun component22(): kotlinx.coroutines/CoroutineScope? // com.kazakago.swr.compose.config/SWRGlobalConfig.component22|component22(){}[0]
+    final fun component3(): kotlin/Boolean? // com.kazakago.swr.compose.config/SWRGlobalConfig.component3|component3(){}[0]
+    final fun component4(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component4|component4(){}[0]
+    final fun component5(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component5|component5(){}[0]
+    final fun component6(): kotlin.time/Duration // com.kazakago.swr.compose.config/SWRGlobalConfig.component6|component6(){}[0]
+    final fun component7(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component7|component7(){}[0]
+    final fun component8(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component8|component8(){}[0]
+    final fun component9(): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.component9|component9(){}[0]
+    final fun copy(kotlin.coroutines/SuspendFunction1<kotlin/Any, kotlin/Any>? = ..., kotlin/Boolean = ..., kotlin/Boolean? = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin/Boolean = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin.time/Duration = ..., kotlin/Int? = ..., kotlin.collections/Map<kotlin/Any, kotlin/Any> = ..., kotlin/Boolean = ..., kotlin/Function2<kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Any, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin/Function3<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, kotlin/Unit>? = ..., kotlin.coroutines/SuspendFunction5<kotlin/Throwable, kotlin/Any, com.kazakago.swr.compose.config/SWRConfig<*, *>, com.kazakago.swr.compose.validate/SWRValidate<kotlin/Any>, com.kazakago.swr.compose.validate/SWRValidateOptions, kotlin/Unit> = ..., kotlin/Function0<kotlin/Boolean> = ..., kotlinx.coroutines/CoroutineScope? = ...): com.kazakago.swr.compose.config/SWRGlobalConfig // com.kazakago.swr.compose.config/SWRGlobalConfig.copy|copy(kotlin.coroutines.SuspendFunction1<kotlin.Any,kotlin.Any>?;kotlin.Boolean;kotlin.Boolean?;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.Boolean;kotlin.Boolean;kotlin.Boolean;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.time.Duration;kotlin.Int?;kotlin.collections.Map<kotlin.Any,kotlin.Any>;kotlin.Boolean;kotlin.Function2<kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Any,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.Function3<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,kotlin.Unit>?;kotlin.coroutines.SuspendFunction5<kotlin.Throwable,kotlin.Any,com.kazakago.swr.compose.config.SWRConfig<*,*>,com.kazakago.swr.compose.validate.SWRValidate<kotlin.Any>,com.kazakago.swr.compose.validate.SWRValidateOptions,kotlin.Unit>;kotlin.Function0<kotlin.Boolean>;kotlinx.coroutines.CoroutineScope?){}[0]
+    final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.config/SWRGlobalConfig.equals|equals(kotlin.Any?){}[0]
+    final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.config/SWRGlobalConfig.hashCode|hashCode(){}[0]
+    final fun toString(): kotlin/String // com.kazakago.swr.compose.config/SWRGlobalConfig.toString|toString(){}[0]
 }
+
 final class com.kazakago.swr.compose.validate/SWRValidateOptions { // com.kazakago.swr.compose.validate/SWRValidateOptions|null[0]
     constructor <init>(kotlin/Int, kotlin/Boolean) // com.kazakago.swr.compose.validate/SWRValidateOptions.<init>|<init>(kotlin.Int;kotlin.Boolean){}[0]
+
+    final val dedupe // com.kazakago.swr.compose.validate/SWRValidateOptions.dedupe|{}dedupe[0]
+        final fun <get-dedupe>(): kotlin/Boolean // com.kazakago.swr.compose.validate/SWRValidateOptions.dedupe.<get-dedupe>|<get-dedupe>(){}[0]
+    final val retryCount // com.kazakago.swr.compose.validate/SWRValidateOptions.retryCount|{}retryCount[0]
+        final fun <get-retryCount>(): kotlin/Int // com.kazakago.swr.compose.validate/SWRValidateOptions.retryCount.<get-retryCount>|<get-retryCount>(){}[0]
+
     final fun component1(): kotlin/Int // com.kazakago.swr.compose.validate/SWRValidateOptions.component1|component1(){}[0]
     final fun component2(): kotlin/Boolean // com.kazakago.swr.compose.validate/SWRValidateOptions.component2|component2(){}[0]
     final fun copy(kotlin/Int = ..., kotlin/Boolean = ...): com.kazakago.swr.compose.validate/SWRValidateOptions // com.kazakago.swr.compose.validate/SWRValidateOptions.copy|copy(kotlin.Int;kotlin.Boolean){}[0]
     final fun equals(kotlin/Any?): kotlin/Boolean // com.kazakago.swr.compose.validate/SWRValidateOptions.equals|equals(kotlin.Any?){}[0]
     final fun hashCode(): kotlin/Int // com.kazakago.swr.compose.validate/SWRValidateOptions.hashCode|hashCode(){}[0]
     final fun toString(): kotlin/String // com.kazakago.swr.compose.validate/SWRValidateOptions.toString|toString(){}[0]
-    final val dedupe // com.kazakago.swr.compose.validate/SWRValidateOptions.dedupe|{}dedupe[0]
-        final fun <get-dedupe>(): kotlin/Boolean // com.kazakago.swr.compose.validate/SWRValidateOptions.dedupe.<get-dedupe>|<get-dedupe>(){}[0]
-    final val retryCount // com.kazakago.swr.compose.validate/SWRValidateOptions.retryCount|{}retryCount[0]
-        final fun <get-retryCount>(): kotlin/Int // com.kazakago.swr.compose.validate/SWRValidateOptions.retryCount.<get-retryCount>|<get-retryCount>(){}[0]
 }
-final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazakago.swr.compose/useSWRMutation(#A?, kotlin.coroutines/SuspendFunction2<#A, #C, #B>, kotlin/Function1<com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRMutationState<#A, #B, #C> // com.kazakago.swr.compose/useSWRMutation|useSWRMutation(0:0?;kotlin.coroutines.SuspendFunction2<0:0,0:2,0:1>;kotlin.Function1<com.kazakago.swr.compose.config.SWRTriggerConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazakago.swr.compose/useSWRMutation(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction2<#A, #C, #B>, kotlin/Function1<com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRMutationState<#A, #B, #C> // com.kazakago.swr.compose/useSWRMutation|useSWRMutation(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction2<0:0,0:2,0:1>;kotlin.Function1<com.kazakago.swr.compose.config.SWRTriggerConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWR(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWR|useSWR(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWR(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWR|useSWR(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRConfig(androidx.compose.runtime/Composer?, kotlin/Int): com.kazakago.swr.compose.state/SWRConfigState<#A, #B> // com.kazakago.swr.compose/useSWRConfig|useSWRConfig(androidx.compose.runtime.Composer?;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRImmutable(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWRImmutable|useSWRImmutable(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRImmutable(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWRImmutable|useSWRImmutable(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRInfinite(kotlin/Function2<kotlin/Int, #B?, #A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRInfiniteConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRInfiniteState<#A, #B> // com.kazakago.swr.compose/useSWRInfinite|useSWRInfinite(kotlin.Function2<kotlin.Int,0:1?,0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRInfiniteConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRPreload(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.preload/SWRPreload // com.kazakago.swr.compose/useSWRPreload|useSWRPreload(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRPreload(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.preload/SWRPreload // com.kazakago.swr.compose/useSWRPreload|useSWRPreload(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
-final fun com.kazakago.swr.compose.config/SWRConfig(kotlin/Function1<com.kazakago.swr.compose.config/SWRGlobalConfig, kotlin/Unit>?, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.kazakago.swr.compose.config/SWRConfig|SWRConfig(kotlin.Function1<com.kazakago.swr.compose.config.SWRGlobalConfig,kotlin.Unit>?;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
+
 final val com.kazakago.swr.compose.cache/LocalSWRCache // com.kazakago.swr.compose.cache/LocalSWRCache|{}LocalSWRCache[0]
     final fun <get-LocalSWRCache>(): androidx.compose.runtime/ProvidableCompositionLocal<com.kazakago.swr.compose.cache/SWRCache> // com.kazakago.swr.compose.cache/LocalSWRCache.<get-LocalSWRCache>|<get-LocalSWRCache>(){}[0]
 final val com.kazakago.swr.compose.cache/LocalSWRSystemCache // com.kazakago.swr.compose.cache/LocalSWRSystemCache|{}LocalSWRSystemCache[0]
@@ -520,3 +547,15 @@ final val com.kazakago.swr.compose.trigger/com_kazakago_swr_compose_trigger_SWRR
 final val com.kazakago.swr.compose.trigger/com_kazakago_swr_compose_trigger_SWRTriggerImpl$stableprop // com.kazakago.swr.compose.trigger/com_kazakago_swr_compose_trigger_SWRTriggerImpl$stableprop|#static{}com_kazakago_swr_compose_trigger_SWRTriggerImpl$stableprop[0]
 final val com.kazakago.swr.compose.validate/com_kazakago_swr_compose_validate_SWRValidateImpl$stableprop // com.kazakago.swr.compose.validate/com_kazakago_swr_compose_validate_SWRValidateImpl$stableprop|#static{}com_kazakago_swr_compose_validate_SWRValidateImpl$stableprop[0]
 final val com.kazakago.swr.compose.validate/com_kazakago_swr_compose_validate_SWRValidateOptions$stableprop // com.kazakago.swr.compose.validate/com_kazakago_swr_compose_validate_SWRValidateOptions$stableprop|#static{}com_kazakago_swr_compose_validate_SWRValidateOptions$stableprop[0]
+
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazakago.swr.compose/useSWRMutation(#A?, kotlin.coroutines/SuspendFunction2<#A, #C, #B>, kotlin/Function1<com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRMutationState<#A, #B, #C> // com.kazakago.swr.compose/useSWRMutation|useSWRMutation(0:0?;kotlin.coroutines.SuspendFunction2<0:0,0:2,0:1>;kotlin.Function1<com.kazakago.swr.compose.config.SWRTriggerConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?, #C: kotlin/Any?> com.kazakago.swr.compose/useSWRMutation(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction2<#A, #C, #B>, kotlin/Function1<com.kazakago.swr.compose.config/SWRTriggerConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRMutationState<#A, #B, #C> // com.kazakago.swr.compose/useSWRMutation|useSWRMutation(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction2<0:0,0:2,0:1>;kotlin.Function1<com.kazakago.swr.compose.config.SWRTriggerConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>;2§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWR(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWR|useSWR(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWR(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWR|useSWR(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRConfig(androidx.compose.runtime/Composer?, kotlin/Int): com.kazakago.swr.compose.state/SWRConfigState<#A, #B> // com.kazakago.swr.compose/useSWRConfig|useSWRConfig(androidx.compose.runtime.Composer?;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRImmutable(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWRImmutable|useSWRImmutable(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRImmutable(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRState<#A, #B> // com.kazakago.swr.compose/useSWRImmutable|useSWRImmutable(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRInfinite(kotlin/Function2<kotlin/Int, #B?, #A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, kotlinx.coroutines/CoroutineScope?, kotlin/Function1<com.kazakago.swr.compose.config/SWRInfiniteConfig<#A, #B>, kotlin/Unit>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.state/SWRInfiniteState<#A, #B> // com.kazakago.swr.compose/useSWRInfinite|useSWRInfinite(kotlin.Function2<kotlin.Int,0:1?,0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;kotlinx.coroutines.CoroutineScope?;kotlin.Function1<com.kazakago.swr.compose.config.SWRInfiniteConfig<0:0,0:1>,kotlin.Unit>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRPreload(#A?, kotlin.coroutines/SuspendFunction1<#A, #B>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.preload/SWRPreload // com.kazakago.swr.compose/useSWRPreload|useSWRPreload(0:0?;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun <#A: kotlin/Any?, #B: kotlin/Any?> com.kazakago.swr.compose/useSWRPreload(kotlin/Function0<#A?>, kotlin.coroutines/SuspendFunction1<#A, #B>?, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int): com.kazakago.swr.compose.preload/SWRPreload // com.kazakago.swr.compose/useSWRPreload|useSWRPreload(kotlin.Function0<0:0?>;kotlin.coroutines.SuspendFunction1<0:0,0:1>?;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){0§<kotlin.Any?>;1§<kotlin.Any?>}[0]
+final fun com.kazakago.swr.compose.config/SWRConfig(kotlin/Function1<com.kazakago.swr.compose.config/SWRGlobalConfig, kotlin/Unit>?, kotlin/Function2<androidx.compose.runtime/Composer, kotlin/Int, kotlin/Unit>, androidx.compose.runtime/Composer?, kotlin/Int, kotlin/Int) // com.kazakago.swr.compose.config/SWRConfig|SWRConfig(kotlin.Function1<com.kazakago.swr.compose.config.SWRGlobalConfig,kotlin.Unit>?;kotlin.Function2<androidx.compose.runtime.Composer,kotlin.Int,kotlin.Unit>;androidx.compose.runtime.Composer?;kotlin.Int;kotlin.Int){}[0]
