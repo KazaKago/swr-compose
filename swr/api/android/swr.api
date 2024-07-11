@@ -185,6 +185,7 @@ public final class com/kazakago/swr/compose/config/SWRGlobalConfig {
 }
 
 public final class com/kazakago/swr/compose/config/SWRInfiniteConfig : com/kazakago/swr/compose/config/SWRConfig {
+	public static final field $stable I
 	public synthetic fun <init> (Lkotlin/jvm/functions/Function2;ZLjava/lang/Boolean;ZZJZZZJJJJLjava/lang/Integer;Ljava/util/Map;Ljava/lang/Object;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function0;IZZZLkotlinx/coroutines/CoroutineScope;ILkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public synthetic fun <init> (Lkotlin/jvm/functions/Function2;ZLjava/lang/Boolean;ZZJZZZJJJJLjava/lang/Integer;Ljava/util/Map;Ljava/lang/Object;ZLkotlin/jvm/functions/Function2;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function3;Lkotlin/jvm/functions/Function6;Lkotlin/jvm/functions/Function0;IZZZLkotlinx/coroutines/CoroutineScope;Lkotlin/jvm/internal/DefaultConstructorMarker;)V
 	public final fun component1 ()Lkotlin/jvm/functions/Function2;
