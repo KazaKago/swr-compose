@@ -28,7 +28,7 @@ androidx-lifecycle-runtime = "androidx.lifecycle:lifecycle-runtime:2.8.3"
 # Konnection
 konnection = "dev.tmapps:konnection:1.4.1"
 # MockK
-mockk = "io.mockk:mockk:1.13.11"
+mockk = "io.mockk:mockk:1.13.12"
 # Robolectric
 robolectric = "org.robolectric:robolectric:4.13"
 
