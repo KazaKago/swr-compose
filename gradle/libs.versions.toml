@@ -5,7 +5,7 @@ compileSdk = "34"
 minSdk = "21"
 targetSdk = "34"
 
-kotlin = "2.0.0"
+kotlin = "2.0.10"
 coroutines = "1.8.1"
 compose-ui = "1.6.8"
 android-plugin = "8.3.2"
