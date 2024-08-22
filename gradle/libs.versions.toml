@@ -15,7 +15,7 @@ android-plugin = "8.5.2"
 kotlinx-coroutines-swing = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-swing", version.ref = "coroutines" }
 kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-android", version.ref = "coroutines" }
 # Kotlinx DateTime
-kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.0"
+kotlinx-datetime = "org.jetbrains.kotlinx:kotlinx-datetime:0.6.1"
 # AndroidX Compose UI Test
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4", version.ref = "compose-ui" }
 androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "compose-ui" }
