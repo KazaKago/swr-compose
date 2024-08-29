@@ -8,7 +8,7 @@ targetSdk = "34"
 kotlin = "2.0.20"
 coroutines = "1.8.1"
 compose-ui = "1.6.8"
-android-plugin = "8.5.2"
+android-plugin = "8.6.0"
 
 [libraries]
 # Kotlinx Coroutines
