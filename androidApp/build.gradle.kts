@@ -1,6 +1,5 @@
 plugins {
     alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
 }
 
@@ -22,8 +21,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility(libs.versions.jvmToolchain.get())
-        targetCompatibility(libs.versions.jvmToolchain.get())
+        sourceCompatibility(libs.versions.jvm.get())
+        targetCompatibility(libs.versions.jvm.get())
+    }
+    buildFeatures {
+        compose = true
     }
 }
 
