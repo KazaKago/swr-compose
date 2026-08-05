@@ -22,8 +22,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility(libs.versions.jvmToolchain.get())
-        targetCompatibility(libs.versions.jvmToolchain.get())
+        sourceCompatibility(libs.versions.jvm.get())
+        targetCompatibility(libs.versions.jvm.get())
     }
 }
 

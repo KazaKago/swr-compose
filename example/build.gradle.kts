@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -10,14 +9,13 @@ plugins {
 }
 
 kotlin {
+    jvmToolchain(libs.versions.jvm.get().toInt())
+
     android {
         namespace = "com.kazakago.swr.example"
         compileSdk = libs.versions.androidCompileSdk.get().toInt()
         minSdk = libs.versions.androidMinSdk.get().toInt()
         androidResources.enable = true
-        compilerOptions {
-            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvmToolchain.get()))
-        }
     }
 
     listOf(
