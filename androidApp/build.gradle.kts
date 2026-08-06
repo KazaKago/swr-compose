@@ -21,8 +21,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility(libs.versions.jvm.get())
-        targetCompatibility(libs.versions.jvm.get())
+        sourceCompatibility(libs.versions.jvmTarget.get())
+        targetCompatibility(libs.versions.jvmTarget.get())
     }
     buildFeatures {
         compose = true

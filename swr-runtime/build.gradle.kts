@@ -15,7 +15,7 @@ kotlin {
         compileSdk = libs.versions.androidCompileSdk.get().toInt()
         minSdk = libs.versions.androidMinSdk.get().toInt()
         compilerOptions {
-            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvm.get()))
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
         }
         withHostTest {
             isIncludeAndroidResources = true
@@ -27,8 +27,8 @@ kotlin {
 
     jvm {
         compilerOptions {
-            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvm.get()))
-            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvm.get()}")
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
+            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvmTarget.get()}")
         }
     }
 

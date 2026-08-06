@@ -7,3 +7,8 @@ plugins {
     alias(libs.plugins.androidApplication) apply false
     alias(libs.plugins.androidMultiplatformLibrary) apply false
 }
+
+tasks.named<UpdateDaemonJvm>("updateDaemonJvm") {
+    languageVersion = JavaLanguageVersion.of(libs.versions.jvmToolchain.get())
+    vendor = JvmVendorSpec.JETBRAINS
+}

@@ -1,4 +1,6 @@
 [versions]
+jvmToolchain = "21"
+jvmTarget = "17"
 kotlin = "2.4.10" # https://kotlinlang.org/docs/multiplatform-compatibility-guide.html#version-compatibility
 kotlinxCoroutines = "1.11.0"
 kotlinxSerialization = "1.11.0"
@@ -13,7 +15,6 @@ androidxStartup = "1.2.0"
 androidxActivity = "1.13.0"
 turbine = "1.2.1"
 dokka = "2.2.0"
-jvm = "17"
 androidPlugin = "9.3.1"
 androidCompileSdk = "37"
 androidMinSdk = "23"
