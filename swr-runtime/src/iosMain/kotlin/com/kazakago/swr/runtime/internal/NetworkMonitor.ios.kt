@@ -22,7 +22,7 @@ public actual fun buildNetworkMonitor(): NetworkMonitor = NetworkMonitorImpl()
 
 private class NetworkMonitorImpl : NetworkMonitor {
 
-    private var path: nw_path_t? = null
+    private var path: nw_path_t = null
     override val onlineStatusFlow: Flow<Boolean> = callbackFlow {
         @OptIn(ExperimentalForeignApi::class)
         val queue = dispatch_get_global_queue(QOS_CLASS_BACKGROUND.convert(), 0.convert())
