@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -8,19 +9,26 @@ plugins {
 
 kotlin {
     explicitApi()
-    jvmToolchain(libs.versions.jvm.get().toInt())
 
     android {
         namespace = "com.kazakago.swr.store"
         compileSdk = libs.versions.androidCompileSdk.get().toInt()
         minSdk = libs.versions.androidMinSdk.get().toInt()
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvm.get()))
+        }
         withHostTest {}
     }
 
     iosArm64()
     iosSimulatorArm64()
 
-    jvm()
+    jvm {
+        compilerOptions {
+            jvmTarget.set(JvmTarget.fromTarget(libs.versions.jvm.get()))
+            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvm.get()}")
+        }
+    }
 
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {

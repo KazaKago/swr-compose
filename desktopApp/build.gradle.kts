@@ -1,13 +1,10 @@
 import org.jetbrains.compose.desktop.application.dsl.TargetFormat
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlinJvm)
     alias(libs.plugins.composeMultiplatform)
     alias(libs.plugins.composeCompiler)
-}
-
-kotlin {
-    jvmToolchain(libs.versions.jvm.get().toInt())
 }
 
 dependencies {
