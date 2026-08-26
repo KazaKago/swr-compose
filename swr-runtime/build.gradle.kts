@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.buildLogicPublish)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.multiplatformLibrary)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 kotlin {
@@ -12,10 +12,10 @@ kotlin {
 
     android {
         namespace = "com.kazakago.swr.runtime"
-        compileSdk = libs.versions.androidCompileSdk.get().toInt()
-        minSdk = libs.versions.androidMinSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvm.target.get())
         }
         withHostTest {
             isIncludeAndroidResources = true
@@ -27,8 +27,8 @@ kotlin {
 
     jvm {
         compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
-            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvmTarget.get()}")
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvm.target.get())
+            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvm.target.get()}")
         }
     }
 
@@ -43,23 +43,23 @@ kotlin {
     sourceSets {
         commonMain.dependencies {
             api(projects.swrStore)
-            implementation(libs.kotlinxCoroutinesCore)
-            implementation(libs.androidxLifecycleRuntime)
+            implementation(libs.kotlinx.coroutinesCore)
+            implementation(libs.androidx.lifecycleRuntime)
         }
         commonTest.dependencies {
-            implementation(libs.kotlinTest)
-            implementation(libs.kotlinxCoroutinesTest)
-            implementation(libs.androidxLifecycleRuntimeTesting)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutinesTest)
+            implementation(libs.androidx.lifecycleRuntimeTesting)
             implementation(libs.turbine)
         }
         androidMain.dependencies {
-            implementation(libs.androidxStartup)
+            implementation(libs.androidx.startup)
         }
         jvmMain.dependencies {
-            implementation(libs.kotlinxCoroutinesSwing)
+            implementation(libs.kotlinx.coroutinesSwing)
         }
         webMain.dependencies {
-            implementation(libs.kotlinxBrowser)
+            implementation(libs.kotlinx.browser)
         }
     }
 }

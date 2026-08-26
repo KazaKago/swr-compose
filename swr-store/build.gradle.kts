@@ -2,9 +2,9 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.buildLogicPublish)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.android.multiplatformLibrary)
+    alias(libs.plugins.buildlogic.publish)
 }
 
 kotlin {
@@ -12,10 +12,10 @@ kotlin {
 
     android {
         namespace = "com.kazakago.swr.store"
-        compileSdk = libs.versions.androidCompileSdk.get().toInt()
-        minSdk = libs.versions.androidMinSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvm.target.get())
         }
         withHostTest {
             isIncludeAndroidResources = true
@@ -27,8 +27,8 @@ kotlin {
 
     jvm {
         compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
-            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvmTarget.get()}")
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvm.target.get())
+            freeCompilerArgs.add("-Xjdk-release=${libs.versions.jvm.target.get()}")
         }
     }
 
@@ -42,11 +42,11 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(libs.kotlinxCoroutinesCore)
+            implementation(libs.kotlinx.coroutinesCore)
         }
         commonTest.dependencies {
-            implementation(libs.kotlinTest)
-            implementation(libs.kotlinxCoroutinesTest)
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlinx.coroutinesTest)
             implementation(libs.turbine)
         }
     }
