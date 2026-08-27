@@ -14,7 +14,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
 
-      - run: ./gradlew swr-store:jvmTest swr-runtime:jvmTest swr-compose:jvmTest
+      - run: ./gradlew swr-store:jvmTest swr-runtime:jvmTest swr-compose:jvmTest example:jvmTest
 
   test-android:
     runs-on: ubuntu-latest
@@ -23,7 +23,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
 
-      - run: ./gradlew swr-store:testAndroidHostTest swr-runtime:testAndroidHostTest swr-compose:testAndroidHostTest
+      - run: ./gradlew swr-store:testAndroidHostTest swr-runtime:testAndroidHostTest swr-compose:testAndroidHostTest example:testAndroidHostTest
 
   test-ios:
     runs-on: macos-latest
@@ -32,7 +32,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
 
-      - run: ./gradlew swr-store:iosSimulatorArm64Test swr-runtime:iosSimulatorArm64Test swr-compose:iosSimulatorArm64Test
+      - run: ./gradlew swr-store:iosSimulatorArm64Test swr-runtime:iosSimulatorArm64Test swr-compose:iosSimulatorArm64Test example:iosSimulatorArm64Test
 
   test-wasmJs:
     runs-on: ubuntu-latest
@@ -41,7 +41,7 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
 
-      - run: ./gradlew swr-store:wasmJsBrowserTest swr-runtime:wasmJsBrowserTest swr-compose:wasmJsBrowserTest
+      - run: ./gradlew swr-store:wasmJsTest swr-runtime:wasmJsTest swr-compose:wasmJsTest example:wasmJsTest
 
   test-js:
     runs-on: ubuntu-latest
@@ -50,13 +50,4 @@ jobs:
 
       - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
 
-      - run: ./gradlew swr-store:jsBrowserTest swr-runtime:jsBrowserTest swr-compose:jsBrowserTest
-
-  build-example:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
-
-      - uses: gradle/actions/setup-gradle@9c971963bec38e04b3d30dcc455b5382be2fdbfb # v6.3.0
-
-      - run: ./gradlew example:compileKotlinJvm
+      - run: ./gradlew swr-store:jsTest swr-runtime:jsTest swr-compose:jsTest example:jsTest
