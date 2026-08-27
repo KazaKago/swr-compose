@@ -2,23 +2,26 @@ import org.jetbrains.kotlin.gradle.ExperimentalWasmDsl
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
-    alias(libs.plugins.kotlinMultiplatform)
-    alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.androidMultiplatformLibrary)
-    alias(libs.plugins.composeMultiplatform)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.kotlin.multiplatform)
+    alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.android.multiplatformLibrary)
+    alias(libs.plugins.compose.multiplatform)
+    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
     android {
         namespace = "com.kazakago.swr.example"
-        compileSdk = libs.versions.androidCompileSdk.get().toInt()
-        minSdk = libs.versions.androidMinSdk.get().toInt()
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
         compilerOptions {
-            jvmTarget = JvmTarget.fromTarget(libs.versions.jvmTarget.get())
+            jvmTarget = JvmTarget.fromTarget(libs.versions.jvm.target.get())
         }
         androidResources{
             enable = true
+        }
+        withHostTest {
+            isIncludeAndroidResources = true
         }
     }
 
@@ -37,24 +40,29 @@ kotlin {
     @OptIn(ExperimentalWasmDsl::class)
     wasmJs {
         browser()
+        binaries.executable()
     }
     js {
         browser()
+        binaries.executable()
     }
 
     sourceSets {
         commonMain.dependencies {
             implementation(projects.swrCompose)
-            implementation(libs.composeMaterial3)
-            implementation(libs.composeUiToolingPreview)
-            implementation(libs.composeResources)
-            implementation(libs.kotlinxDatetime)
-            implementation(libs.kotlinxSerializationCore)
-            implementation(libs.androidxNavigation3Ui)
+            implementation(libs.compose.runtime)
+            implementation(libs.compose.ui)
+            implementation(libs.compose.uiToolingPreview)
+            implementation(libs.compose.foundation)
+            implementation(libs.compose.material3)
+            implementation(libs.compose.componentsResources)
+            implementation(libs.kotlinx.datetime)
+            implementation(libs.kotlinx.serializationCore)
+            implementation(libs.compose.navigation3Ui)
         }
     }
 }
 
 dependencies {
-    androidRuntimeClasspath(libs.composeUiTooling)
+    androidRuntimeClasspath(libs.compose.uiTooling)
 }

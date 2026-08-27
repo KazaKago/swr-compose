@@ -1,15 +1,15 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.composeCompiler)
+    alias(libs.plugins.android.application)
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
     namespace = "com.kazakago.swr.example.app"
-    compileSdk = libs.versions.androidCompileSdk.get().toInt()
+    compileSdk = libs.versions.android.compileSdk.get().toInt()
     defaultConfig {
         applicationId = "com.kazakago.swr.example"
-        minSdk = libs.versions.androidMinSdk.get().toInt()
-        targetSdk = libs.versions.androidTargetSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+        targetSdk = libs.versions.android.targetSdk.get().toInt()
         versionCode = 1
         versionName = "1.0"
     }
@@ -21,8 +21,8 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility(libs.versions.jvmTarget.get())
-        targetCompatibility(libs.versions.jvmTarget.get())
+        sourceCompatibility(libs.versions.jvm.target.get())
+        targetCompatibility(libs.versions.jvm.target.get())
     }
     buildFeatures {
         compose = true
@@ -31,5 +31,5 @@ android {
 
 dependencies {
     implementation(projects.example)
-    implementation(libs.androidxActivityCompose)
+    implementation(libs.androidx.activityCompose)
 }
